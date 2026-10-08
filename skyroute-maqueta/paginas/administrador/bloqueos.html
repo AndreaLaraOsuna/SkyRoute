@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Bloqueos de fechas y horarios.">
+    <title>Bloqueos | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin">
+                <a href="reservaciones.html" class="boton-regresar">
+                    <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-blanco">
+                </a>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="solo-escritorio">
+                    <div class="cabecera-pagina">
+                        <h1 class="titulo-pagina">Bloqueos</h1>
+                    </div>
+                </div>
+
+                <form class="panel-bloqueo">
+                    <div class="cabecera-pagina">
+                        <h2 class="panel-bloqueo-titulo">Nuevo Bloqueo</h2>
+                        <a href="bloqueos.html" class="boton boton-icono solo-movil">
+                            <img src="../../imgs/iconos/mas.svg" alt="" class="icono icono-blanco">
+                        </a>
+                    </div>
+
+                    <div class="pestanas">
+                        <label class="pestana"><input type="radio" name="tipo-bloqueo" id="tipo-dias" class="selector-oculto" checked>Días completos</label>
+                        <label class="pestana"><input type="radio" name="tipo-bloqueo" id="tipo-horas" class="selector-oculto">Rango de horas</label>
+                    </div>
+
+                    <div class="fila-campos campos-dias">
+                        <div class="grupo-campo">
+                            <label class="etiqueta etiqueta-ligera" for="bloqueo-desde">Desde</label>
+                            <input type="date" class="campo" id="bloqueo-desde" value="2026-10-10">
+                        </div>
+                        <div class="grupo-campo">
+                            <label class="etiqueta etiqueta-ligera" for="bloqueo-hasta">Hasta</label>
+                            <input type="date" class="campo" id="bloqueo-hasta" value="2026-10-12">
+                        </div>
+                    </div>
+
+                    <div class="campos-horas">
+                        <div class="grupo-campo">
+                            <label class="etiqueta" for="bloqueo-fecha">Selecciona la fecha</label>
+                            <input type="date" class="campo" id="bloqueo-fecha" value="2026-10-10">
+                        </div>
+                        <div class="fila-campos">
+                            <div class="grupo-campo">
+                                <label class="etiqueta" for="bloqueo-hora-inicio">Hora inicio</label>
+                                <input type="time" class="campo" id="bloqueo-hora-inicio" value="07:00">
+                            </div>
+                            <div class="grupo-campo">
+                                <label class="etiqueta" for="bloqueo-hora-fin">Hora fin</label>
+                                <input type="time" class="campo" id="bloqueo-hora-fin" value="14:00">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="bloqueo-motivo">Motivo</label>
+                        <input type="text" class="campo" id="bloqueo-motivo" value="Por alerta de huracán">
+                    </div>
+
+                    <fieldset class="grupo-campo">
+                        <legend class="etiqueta">Aplica a</legend>
+                        <div class="opciones-radio">
+                            <label><input type="radio" name="aplica-a" id="aplica-ruta" checked>UNA RUTA</label>
+                            <label><input type="radio" name="aplica-a" id="aplica-avion">UN AVIÓN</label>
+                            <label><input type="radio" name="aplica-a" id="aplica-todas">TODAS LAS RUTAS</label>
+                        </div>
+                    </fieldset>
+
+                    <div class="grupo-campo grupo-ruta">
+                        <label class="etiqueta" for="bloqueo-ruta">Selecciona la ruta</label>
+                        <select class="campo" id="bloqueo-ruta">
+                            <option selected>AB 123</option>
+                            <option>AB 126</option>
+                            <option>AB 118</option>
+                            <option>AB 131</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-campo grupo-avion">
+                        <label class="etiqueta" for="bloqueo-avion">Selecciona el avión</label>
+                        <select class="campo" id="bloqueo-avion">
+                            <option>2AV 010</option>
+                            <option selected>2AV 012</option>
+                            <option>2AV 015</option>
+                            <option>3AV 101</option>
+                        </select>
+                    </div>
+
+                    <p class="alerta aviso-dias">
+                        <img src="../../imgs/iconos/alerta.svg" alt="" class="icono">
+                        <span>28 reservaciones quedan dentro de este periodo. Se cancelarán y se avisará a los pasajeros.</span>
+                    </p>
+
+                    <p class="alerta aviso-horas">
+                        <img src="../../imgs/iconos/alerta.svg" alt="" class="icono">
+                        <span>12 reservaciones quedan dentro de este periodo. Se cancelarán y se avisará a los pasajeros.</span>
+                    </p>
+
+                    <div class="barra-acciones">
+                        <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-bloqueo">Guardar</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-guardar-bloqueo" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <h2 class="modal-titulo">¿Desea guardar el bloqueo?</h2>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-bloqueo-guardado">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-bloqueo-guardado" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/exito.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Bloqueo guardado correctamente</h2>
+            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        </div>
+    </div>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

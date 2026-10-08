@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Clientes e historial.">
+    <title>Clientes | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <input type="radio" name="cliente" id="cliente-ninguno" class="selector-oculto" checked>
+
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin encabezado-principal">
+                <a href="reservaciones.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+                <label for="menu-abierto" class="boton-menu">
+                    <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+                </label>
+            </header>
+
+            <header class="encabezado-admin encabezado-secundario">
+                <label for="cliente-ninguno" class="boton-regresar">
+                    <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-blanco">
+                </label>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="pagina-clientes">
+                    <section class="solo-vista-principal">
+                        <div class="cabecera-pagina">
+                            <h1 class="titulo-pagina">Clientes</h1>
+                        </div>
+                        <label class="campo-buscar">
+                            <input type="search" placeholder="Nombre o teléfono del cliente" value="Alma">
+                            <img src="../../imgs/iconos/buscar.svg" alt="" class="icono icono-pequeno">
+                        </label>
+                        <div class="lista-clientes">
+                            <label class="tarjeta-cliente tarjeta-cliente-inicial">
+                                <input type="radio" name="cliente" value="c1" id="cliente-c1" class="selector-oculto selector-vista">
+                                <span class="tarjeta-cliente-nombre">Alma Leticia Chávez Quintero</span>
+                                <span class="tarjeta-cliente-telefono">6441112233</span>
+                            </label>
+                            <label class="tarjeta-cliente">
+                                <input type="radio" name="cliente" value="c2" id="cliente-c2" class="selector-oculto selector-vista">
+                                <span class="tarjeta-cliente-nombre">Alma Pérez Acosta</span>
+                                <span class="tarjeta-cliente-telefono">6445678998</span>
+                            </label>
+                            <label class="tarjeta-cliente">
+                                <input type="radio" name="cliente" value="c3" id="cliente-c3" class="selector-oculto selector-vista">
+                                <span class="tarjeta-cliente-nombre">Alma Ruiz Leyva</span>
+                                <span class="tarjeta-cliente-telefono">6678900909</span>
+                            </label>
+                        </div>
+                    </section>
+
+                    <section class="solo-vista-secundaria">
+                        <div class="panel-historial" id="historial-c1">
+                            <div class="cabecera-pagina solo-movil">
+                                <h1 class="titulo-pagina">Historial Cliente</h1>
+                            </div>
+
+                            <article class="tarjeta datos-cliente">
+                                <p class="dato-principal">Alma Leticia Chávez Quintero</p>
+                                <p class="texto-secundario">Cliente desde marzo 2022</p>
+                                <p class="texto-secundario">Correo: almachavez@gmail.com</p>
+                                <p class="texto-secundario">Teléfono: 6441112233</p>
+                            </article>
+
+                            <div class="grupo-estadisticas">
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">5</span>reservaciones</div>
+                                <div class="tarjeta-estadistica estadistica-total">$20,990 MXN<br>Total Gastado</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">4</span>completadas</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">1</span>canceladas</div>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones próximas</h2>
+                            <div class="lista-reservaciones">
+                                <article class="tarjeta tarjeta-historial">
+                                    <div>
+                                        <p>FOLIO: AB - 12346</p>
+                                        <p>HMO → GDL, 28/09/2026, 8:30</p>
+                                        <p>2 pasajero(s)</p>
+                                    </div>
+                                    <span class="estado estado-pendiente">Pendiente</span>
+                                </article>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones anteriores</h2>
+                            <div class="lista-reservaciones">
+                                <article class="tarjeta tarjeta-historial">
+                                    <div>
+                                        <p>FOLIO: AB - 12345</p>
+                                        <p>HMO → MTY, 28/09/2026, 8:30</p>
+                                        <p>2 pasajero(s)</p>
+                                    </div>
+                                    <span class="estado estado-completada">Completada</span>
+                                </article>
+                            </div>
+                            <div class="paginacion">
+                                <span>&#9664;</span>
+                                <span>Página 1 de 2</span>
+                                <span>&#9654;</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-historial" id="historial-c2">
+                            <div class="cabecera-pagina solo-movil">
+                                <h1 class="titulo-pagina">Historial Cliente</h1>
+                            </div>
+
+                            <article class="tarjeta datos-cliente">
+                                <p class="dato-principal">Alma Pérez Acosta</p>
+                                <p class="texto-secundario">Cliente desde enero 2024</p>
+                                <p class="texto-secundario">Correo: almaperez@gmail.com</p>
+                                <p class="texto-secundario">Teléfono: 6445678998</p>
+                            </article>
+
+                            <div class="grupo-estadisticas">
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">2</span>reservaciones</div>
+                                <div class="tarjeta-estadistica estadistica-total">$4,940 MXN<br>Total Gastado</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">1</span>completadas</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">0</span>canceladas</div>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones próximas</h2>
+                            <div class="lista-reservaciones">
+                                <article class="tarjeta tarjeta-historial">
+                                    <div>
+                                        <p>FOLIO: AB - 12351</p>
+                                        <p>HMO → MTY, 01/10/2026, 8:30</p>
+                                        <p>1 pasajero(s)</p>
+                                    </div>
+                                    <span class="estado estado-pendiente">Pendiente</span>
+                                </article>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones anteriores</h2>
+                            <div class="lista-reservaciones">
+                                <article class="tarjeta tarjeta-historial">
+                                    <div>
+                                        <p>FOLIO: AB - 12102</p>
+                                        <p>HMO → TIJ, 10/05/2026, 7:30</p>
+                                        <p>1 pasajero(s)</p>
+                                    </div>
+                                    <span class="estado estado-completada">Completada</span>
+                                </article>
+                            </div>
+                            <div class="paginacion">
+                                <span>&#9664;</span>
+                                <span>Página 1 de 2</span>
+                                <span>&#9654;</span>
+                            </div>
+                        </div>
+
+                        <div class="panel-historial" id="historial-c3">
+                            <div class="cabecera-pagina solo-movil">
+                                <h1 class="titulo-pagina">Historial Cliente</h1>
+                            </div>
+
+                            <article class="tarjeta datos-cliente">
+                                <p class="dato-principal">Alma Ruiz Leyva</p>
+                                <p class="texto-secundario">Cliente desde julio 2023</p>
+                                <p class="texto-secundario">Correo: almaruiz@gmail.com</p>
+                                <p class="texto-secundario">Teléfono: 6678900909</p>
+                            </article>
+
+                            <div class="grupo-estadisticas">
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">1</span>reservaciones</div>
+                                <div class="tarjeta-estadistica estadistica-total">$2,840 MXN<br>Total Gastado</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">1</span>completadas</div>
+                                <div class="tarjeta-estadistica"><span class="estadistica-valor">0</span>canceladas</div>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones próximas</h2>
+                            <div class="lista-reservaciones">
+                                <p class="mensaje-vacio">Sin reservaciones.</p>
+                            </div>
+
+                            <h2 class="subtitulo-lista">Reservaciones anteriores</h2>
+                            <div class="lista-reservaciones">
+                                <article class="tarjeta tarjeta-historial">
+                                    <div>
+                                        <p>FOLIO: AB - 11980</p>
+                                        <p>OBR → GDL, 22/12/2025, 20:00</p>
+                                        <p>1 pasajero(s)</p>
+                                    </div>
+                                    <span class="estado estado-completada">Completada</span>
+                                </article>
+                            </div>
+                            <div class="paginacion">
+                                <span>&#9664;</span>
+                                <span>Página 1 de 2</span>
+                                <span>&#9654;</span>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </main>
+        </div>
+
+        <nav class="navegacion-inferior">
+            <a href="reservaciones.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono">Reservas</a>
+            <a href="agenda.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono">Agenda</a>
+            <a href="clientes.html" class="navegacion-inferior-enlace activo"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono">Clientes</a>
+            <a href="resumen.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono">Resumen</a>
+        </nav>
+    </div>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Configuración</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Administrador
+                </li>
+                <li><a href="nueva-ruta.html" class="menu-lateral-enlace menu-lateral-sangria">Nueva Ruta</a></li>
+                <li><a href="horarios.html" class="menu-lateral-enlace menu-lateral-sangria">Horarios de salida</a></li>
+                <li><a href="bloqueos.html" class="menu-lateral-enlace menu-lateral-sangria">Bloqueos</a></li>
+            </ul>
+        </aside>
+    </div>
+
+</body>
+</html>

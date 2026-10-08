@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Selecciona tu método de pago.">
+    <title>Pago | SkyRoute</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <section class="hero hero-con-resumen">
+        <header class="encabezado-usuario">
+            <div class="encabezado-izquierda">
+                <a href="asientos.html" class="boton-regresar solo-movil">
+                    <img src="../../imgs/iconos/regresar.svg" alt="" class="icono icono-blanco">
+                </a>
+                <a href="inicio.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+            </div>
+
+            <nav class="navegacion-principal">
+                <ul>
+                    <li><a href="inicio.html" class="navegacion-enlace activo">Inicio</a></li>
+                    <li><a href="mis-reservas.html" class="navegacion-enlace">Mis Reservas</a></li>
+                    <li><a href="contacto.html" class="navegacion-enlace">Contacto</a></li>
+                    <li class="navegacion-usuario">
+                        <span>Alma Leticia Chávez Quintero</span>
+                        <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    </li>
+                </ul>
+            </nav>
+
+            <label for="menu-abierto" class="boton-menu">
+                <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+            </label>
+        </header>
+
+        <div class="hero-contenido">
+            <h1 class="hero-titulo">Pago</h1>
+            <p class="hero-subtitulo">Selecciona tu método de pago y completa los datos</p>
+        </div>
+    </section>
+
+    <main>
+        <form class="contenedor contenedor-estrecho formulario-reserva">
+            <div class="metodos-pago">
+                <label class="metodo-pago">
+                    <input type="radio" name="metodo-pago" class="selector-oculto" checked>
+                    <img src="../../imgs/iconos/tarjeta.svg" alt="">
+                    Tarjeta
+                </label>
+                <label class="metodo-pago">
+                    <input type="radio" name="metodo-pago" class="selector-oculto">
+                    <img src="../../imgs/iconos/paypal.svg" alt="">
+                    PayPal
+                </label>
+                <label class="metodo-pago">
+                    <input type="radio" name="metodo-pago" class="selector-oculto">
+                    <img src="../../imgs/iconos/apple-pay.svg" alt="">
+                    Apple Pay
+                </label>
+            </div>
+
+            <section class="tarjeta bloque-formulario">
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="pago-numero">Número de tarjeta</label>
+                    <input type="text" class="campo campo-azul" id="pago-numero" placeholder="1234 5678 9012 3456" inputmode="numeric" maxlength="19">
+                </div>
+                <div class="fila-campos">
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="pago-vencimiento">Fecha de vencimiento</label>
+                        <input type="text" class="campo campo-azul" id="pago-vencimiento" placeholder="MM / AAAA">
+                    </div>
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="pago-cvv">CVV</label>
+                        <div class="campo-con-icono">
+                            <input type="password" id="pago-cvv" placeholder="123" maxlength="4">
+                            <img src="../../imgs/iconos/ojo.svg" alt="" class="icono">
+                        </div>
+                    </div>
+                </div>
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="pago-titular">Nombre del titular</label>
+                    <input type="text" class="campo campo-azul" id="pago-titular" value="Alma Leticia Chávez Quintero">
+                </div>
+            </section>
+
+            <div class="acciones-reserva">
+                <label class="casilla-terminos">
+                    <input type="checkbox" checked>
+                    <span>He leído y acepto los <em><strong>términos y condiciones</strong></em></span>
+                </label>
+                <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-abrir-modal="modal-reserva-confirmada">Confirmar reservación</button>
+            </div>
+        </form>
+    </main>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-reserva-confirmada" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/exito.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Reserva confirmada</h2>
+            <p class="modal-texto">Puedes consultar tus reservas en "Mis Reservas" desde el menú</p>
+            <a href="mis-reservas.html" class="boton boton-secundario boton-grande boton-bloque">Volver</a>
+        </div>
+    </div>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Menu</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Alma Leticia Chávez Quintero
+                </li>
+                <li>
+                    <a href="inicio.html" class="menu-lateral-enlace activo">
+                        <img src="../../imgs/iconos/avion.svg" alt="" class="icono">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="mis-reservas.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/boleto.svg" alt="" class="icono icono-blanco">
+                        Mis Reservas
+                    </a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/audifonos.svg" alt="" class="icono icono-blanco">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

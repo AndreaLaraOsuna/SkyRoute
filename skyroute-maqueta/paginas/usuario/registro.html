@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Crea tu cuenta para reservar vuelos.">
+    <title>Crear cuenta | SkyRoute</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <main class="pagina-autenticacion">
+        <section class="tarjeta-autenticacion">
+            <img src="../../imgs/iconos/avion.svg" alt="" class="logo-autenticacion">
+            <p class="nombre-marca">SKYROUTE</p>
+
+            <h1 class="titulo-autenticacion">Crear cuenta</h1>
+            <p class="subtitulo-autenticacion">Regístrate para comenzar a viajar con nosotros</p>
+
+            <form class="formulario-autenticacion" action="inicio.html">
+                <label class="campo-con-icono">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono">
+                    <input type="text" placeholder="Nombre Completo" autocomplete="name" required>
+                </label>
+
+                <label class="campo-con-icono">
+                    <img src="../../imgs/iconos/correo.svg" alt="" class="icono">
+                    <input type="email" placeholder="Correo electrónico" autocomplete="email" required>
+                </label>
+
+                <label class="campo-con-icono">
+                    <img src="../../imgs/iconos/telefono.svg" alt="" class="icono">
+                    <input type="tel" placeholder="Teléfono" autocomplete="tel" maxlength="10" required>
+                </label>
+
+                <label class="campo-con-icono">
+                    <img src="../../imgs/iconos/candado.svg" alt="" class="icono">
+                    <input type="password" placeholder="Contraseña" autocomplete="new-password" required>
+                    <img src="../../imgs/iconos/ojo.svg" alt="" class="icono">
+                </label>
+
+                <label class="campo-con-icono">
+                    <img src="../../imgs/iconos/candado.svg" alt="" class="icono">
+                    <input type="password" placeholder="Confirmar contraseña" autocomplete="new-password" required>
+                    <img src="../../imgs/iconos/ojo.svg" alt="" class="icono">
+                </label>
+
+                <button type="submit" class="boton boton-primario boton-grande boton-bloque">Registrarse</button>
+            </form>
+
+            <p class="enlace-autenticacion">
+                ¿Ya tienes una cuenta? <a href="../../index.html" class="boton-enlace">Inicia sesión</a>
+            </p>
+        </section>
+
+        <img src="../../imgs/nubes.svg" alt="" class="nube nube-izquierda">
+        <img src="../../imgs/nubes.svg" alt="" class="nube nube-derecha">
+    </main>
+
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Encuentra y reserva vuelos de manera fácil y segura.">
+    <title>Inicio | SkyRoute</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <section class="hero">
+        <header class="encabezado-usuario">
+            <div class="encabezado-izquierda">
+                <a href="inicio.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+            </div>
+
+            <nav class="navegacion-principal">
+                <ul>
+                    <li><a href="inicio.html" class="navegacion-enlace activo">Inicio</a></li>
+                    <li><a href="mis-reservas.html" class="navegacion-enlace">Mis Reservas</a></li>
+                    <li><a href="contacto.html" class="navegacion-enlace">Contacto</a></li>
+                    <li class="navegacion-usuario">
+                        <span>Alma Leticia Chávez Quintero</span>
+                        <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    </li>
+                </ul>
+            </nav>
+
+            <label for="menu-abierto" class="boton-menu">
+                <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+            </label>
+        </header>
+
+        <div class="hero-contenido">
+            <h1 class="hero-titulo">Tu próximo destino te espera</h1>
+            <p class="hero-subtitulo">Encuentra y reserva vuelos de manera fácil, segura y en tiempo real</p>
+        </div>
+    </section>
+
+    <main>
+        <div class="contenedor seccion-superpuesta">
+            <form class="tarjeta tarjeta-busqueda" action="vuelos.html">
+                <div class="campo-vuelo campo-origen">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="icono">
+                    <div class="campo-vuelo-texto">
+                        <label for="busqueda-origen">Origen</label>
+                        <select id="busqueda-origen">
+                            <option value="OBR" selected>Ciudad Obregón (OBR)</option>
+                            <option value="GVE">Guasave (GVE)</option>
+                            <option value="HMO">Hermosillo (HMO)</option>
+                            <option value="TIJ">Tijuana (TIJ)</option>
+                            <option value="MTY">Monterrey (MTY)</option>
+                            <option value="GDL">Guadalajara (GDL)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo-vuelo campo-destino">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="icono">
+                    <div class="campo-vuelo-texto">
+                        <label for="busqueda-destino">Destino</label>
+                        <select id="busqueda-destino">
+                            <option value="OBR">Ciudad Obregón (OBR)</option>
+                            <option value="GVE" selected>Guasave (GVE)</option>
+                            <option value="HMO">Hermosillo (HMO)</option>
+                            <option value="TIJ">Tijuana (TIJ)</option>
+                            <option value="MTY">Monterrey (MTY)</option>
+                            <option value="GDL">Guadalajara (GDL)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="campo-vuelo campo-fecha">
+                    <img src="../../imgs/iconos/calendario.svg" alt="" class="icono">
+                    <div class="campo-vuelo-texto">
+                        <label for="busqueda-ida">Fecha de ida</label>
+                        <input type="date" id="busqueda-ida" value="2026-10-07">
+                    </div>
+                </div>
+
+                <div class="campo-vuelo campo-fecha">
+                    <img src="../../imgs/iconos/calendario.svg" alt="" class="icono">
+                    <div class="campo-vuelo-texto">
+                        <label for="busqueda-regreso">Fecha de regreso</label>
+                        <input type="date" id="busqueda-regreso" value="2026-11-07">
+                    </div>
+                </div>
+
+                <div class="campo-vuelo campo-pasajeros">
+                    <img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono">
+                    <div class="campo-vuelo-texto">
+                        <label for="busqueda-pasajeros">Pasajeros</label>
+                        <select id="busqueda-pasajeros">
+                            <option>1 Adulto</option>
+                            <option>2 Adultos</option>
+                            <option>3 Adultos</option>
+                            <option>4 Adultos</option>
+                        </select>
+                    </div>
+                </div>
+
+                <button type="submit" class="boton boton-secundario boton-grande">
+                    <img src="../../imgs/iconos/buscar.svg" alt="" class="icono icono-pequeno icono-blanco">
+                    Buscar vuelos
+                </button>
+            </form>
+        </div>
+
+        <section class="contenedor lista-destinos">
+            <article class="tarjeta-destino destino-guadalajara">
+                <h2 class="tarjeta-destino-nombre">Guadalajara</h2>
+                <a href="vuelos.html" class="boton boton-secundario">Buscar vuelos</a>
+            </article>
+
+            <article class="tarjeta-destino destino-madrid">
+                <h2 class="tarjeta-destino-nombre">Madrid</h2>
+                <a href="vuelos.html" class="boton boton-secundario">Buscar vuelos</a>
+            </article>
+
+            <article class="tarjeta-destino destino-buenos-aires">
+                <h2 class="tarjeta-destino-nombre">Buenos Aires</h2>
+                <a href="vuelos.html" class="boton boton-secundario">Buscar vuelos</a>
+            </article>
+        </section>
+    </main>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Menu</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Alma Leticia Chávez Quintero
+                </li>
+                <li>
+                    <a href="inicio.html" class="menu-lateral-enlace activo">
+                        <img src="../../imgs/iconos/avion.svg" alt="" class="icono">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="mis-reservas.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/boleto.svg" alt="" class="icono icono-blanco">
+                        Mis Reservas
+                    </a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/audifonos.svg" alt="" class="icono icono-blanco">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+</body>
+</html>

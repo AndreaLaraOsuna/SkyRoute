@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Registrar una nueva ruta.">
+    <title>Nueva Ruta | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin">
+                <a href="reservaciones.html" class="boton-regresar">
+                    <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-blanco">
+                </a>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="cabecera-pagina">
+                    <h1 class="titulo-pagina">Nueva Ruta</h1>
+                </div>
+
+                <form class="formulario-admin">
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-codigo">Código de vuelo</label>
+                        <input type="text" class="campo" id="ruta-codigo" value="AB 126">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-origen">Origen</label>
+                        <select class="campo" id="ruta-origen">
+                            <option selected>HMO</option>
+                            <option>OBR</option>
+                            <option>GVE</option>
+                            <option>GDL</option>
+                            <option>MTY</option>
+                            <option>TIJ</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-destino">Destino</label>
+                        <select class="campo" id="ruta-destino">
+                            <option>HMO</option>
+                            <option>OBR</option>
+                            <option>GVE</option>
+                            <option selected>GDL</option>
+                            <option>MTY</option>
+                            <option>TIJ</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-horas">Horas</label>
+                        <input type="number" class="campo" id="ruta-horas" value="2" min="0" max="20">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-minutos">Minutos</label>
+                        <input type="number" class="campo" id="ruta-minutos" value="20" min="0" max="59">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-asientos">Asientos</label>
+                        <input type="number" class="campo" id="ruta-asientos" value="100" min="1">
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="ruta-tarifa">Tarifa (MXN)</label>
+                        <input type="text" class="campo" id="ruta-tarifa" value="2,990">
+                    </div>
+
+                    <div class="barra-acciones">
+                        <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-ruta">Guardar</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-guardar-ruta" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <h2 class="modal-titulo">¿Desea guardar la ruta?</h2>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-ruta-guardada">Guardar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-ruta-guardada" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/exito.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Ruta guardada correctamente</h2>
+            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        </div>
+    </div>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

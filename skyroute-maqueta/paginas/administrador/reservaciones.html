@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Reservaciones.">
+    <title>Reservaciones | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin encabezado-principal">
+                <a href="reservaciones.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+                <label for="menu-abierto" class="boton-menu">
+                    <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+                </label>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="cabecera-pagina">
+                    <h1 class="titulo-pagina">Reservaciones</h1>
+                    <a href="nueva-reservacion.html" class="boton boton-icono">
+                        <img src="../../imgs/iconos/mas.svg" alt="" class="icono icono-blanco">
+                    </a>
+                </div>
+
+                <div class="filtros-reservaciones">
+                    <label class="campo-buscar">
+                        <input type="search" placeholder="Folio, pasajero o correo">
+                        <img src="../../imgs/iconos/buscar.svg" alt="" class="icono icono-pequeno">
+                    </label>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta etiqueta-ligera" for="filtro-estado">Buscar por estado</label>
+                        <select class="campo" id="filtro-estado">
+                            <option selected>PENDIENTE</option>
+                            <option>CONFIRMADA</option>
+                            <option>COMPLETADA</option>
+                            <option>CANCELADA</option>
+                            <option>TODAS</option>
+                        </select>
+                    </div>
+
+                    <div class="fila-campos">
+                        <div class="grupo-campo">
+                            <label class="etiqueta etiqueta-ligera" for="filtro-inicio">Fecha inicio</label>
+                            <input type="date" class="campo" id="filtro-inicio" value="2026-09-27">
+                        </div>
+                        <div class="grupo-campo">
+                            <label class="etiqueta etiqueta-ligera" for="filtro-fin">Fecha fin</label>
+                            <input type="date" class="campo" id="filtro-fin" value="2026-09-28">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solo-movil">
+                    <div class="lista-reservaciones">
+                        <a href="detalle-reservacion.html" class="tarjeta-reservacion">
+                            <div>
+                                <p>FOLIO: AB - 12345</p>
+                                <p>Paulina Michel Guevara Cervantes</p>
+                                <p>HMO → MTY, 28/09/2026, 8:30</p>
+                                <p class="tarjeta-reservacion-pasajeros">2 pasajero(s)</p>
+                            </div>
+                            <span class="estado estado-pendiente">Pendiente</span>
+                        </a>
+
+                        <a href="detalle-reservacion.html" class="tarjeta-reservacion">
+                            <div>
+                                <p>FOLIO: AB - 12346</p>
+                                <p>Alma Leticia Chávez Quintero</p>
+                                <p>HMO → GDL, 28/09/2026, 8:30</p>
+                                <p class="tarjeta-reservacion-pasajeros">2 pasajero(s)</p>
+                            </div>
+                            <span class="estado estado-pendiente">Pendiente</span>
+                        </a>
+
+                        <a href="detalle-reservacion.html" class="tarjeta-reservacion">
+                            <div>
+                                <p>FOLIO: AB - 12351</p>
+                                <p>Alma Pérez Acosta</p>
+                                <p>HMO → MTY, 01/10/2026, 8:30</p>
+                                <p class="tarjeta-reservacion-pasajeros">1 pasajero(s)</p>
+                            </div>
+                            <span class="estado estado-pendiente">Pendiente</span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="solo-escritorio">
+                    <div class="contenedor-tabla">
+                        <table class="tabla">
+                            <thead>
+                                <tr>
+                                    <th>Folio</th>
+                                    <th>Pasajero</th>
+                                    <th>Vuelo</th>
+                                    <th>Fecha y hora</th>
+                                    <th>Pasajeros</th>
+                                    <th>Total</th>
+                                    <th>Estado</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>AB - 12345</td>
+                                    <td>Paulina Michel Guevara Cervantes</td>
+                                    <td>AV 123<br>HMO → MTY</td>
+                                    <td>28/09/2026<br>8:30</td>
+                                    <td>2</td>
+                                    <td>$4,780</td>
+                                    <td>
+                                        <div class="tabla-acciones">
+                                            <span class="estado estado-pendiente">Pendiente</span>
+                                            <a href="detalle-reservacion.html" class="boton boton-acento boton-pastilla">Ver detalle</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AB - 12346</td>
+                                    <td>Alma Leticia Chávez Quintero</td>
+                                    <td>AV 126<br>HMO → GDL</td>
+                                    <td>28/09/2026<br>8:30</td>
+                                    <td>2</td>
+                                    <td>$6,800</td>
+                                    <td>
+                                        <div class="tabla-acciones">
+                                            <span class="estado estado-pendiente">Pendiente</span>
+                                            <a href="detalle-reservacion.html" class="boton boton-acento boton-pastilla">Ver detalle</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>AB - 12351</td>
+                                    <td>Alma Pérez Acosta</td>
+                                    <td>AV 140<br>HMO → MTY</td>
+                                    <td>01/10/2026<br>8:30</td>
+                                    <td>1</td>
+                                    <td>$2,470</td>
+                                    <td>
+                                        <div class="tabla-acciones">
+                                            <span class="estado estado-pendiente">Pendiente</span>
+                                            <a href="detalle-reservacion.html" class="boton boton-acento boton-pastilla">Ver detalle</a>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <nav class="navegacion-inferior">
+            <a href="reservaciones.html" class="navegacion-inferior-enlace activo"><img src="../../imgs/iconos/lista.svg" alt="" class="icono">Reservas</a>
+            <a href="agenda.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono">Agenda</a>
+            <a href="clientes.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono">Clientes</a>
+            <a href="resumen.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono">Resumen</a>
+        </nav>
+    </div>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Configuración</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Administrador
+                </li>
+                <li><a href="nueva-ruta.html" class="menu-lateral-enlace menu-lateral-sangria">Nueva Ruta</a></li>
+                <li><a href="horarios.html" class="menu-lateral-enlace menu-lateral-sangria">Horarios de salida</a></li>
+                <li><a href="bloqueos.html" class="menu-lateral-enlace menu-lateral-sangria">Bloqueos</a></li>
+            </ul>
+        </aside>
+    </div>
+
+</body>
+</html>

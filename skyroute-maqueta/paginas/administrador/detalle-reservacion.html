@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Detalle de la reservación.">
+    <title>Detalle de reservación | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin">
+                <a href="reservaciones.html" class="boton-regresar">
+                    <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-blanco">
+                </a>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="solo-escritorio">
+                    <a href="reservaciones.html" class="boton-regresar">
+                        <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-pequeno">
+                    </a>
+                </div>
+
+                <div class="detalle-cabecera">
+                    <h1 class="detalle-titulo">Reservación - Paulina Michel Guevara Cervantes</h1>
+                    <span class="estado estado-pendiente">Pendiente</span>
+                    <button type="button" class="boton boton-oscuro boton-mini" data-abrir-modal="modal-checkin">CHECK IN</button>
+                    <p class="detalle-fecha">Hecha el 26 sep - 18:34</p>
+                </div>
+
+                <div class="detalle-reservacion">
+                    <article class="tarjeta detalle-vuelo">
+                        <div class="detalle-vuelo-cabecera">
+                            <span class="detalle-vuelo-numero">VUELO AV 123</span>
+                            <span>Lun 28/09/2026</span>
+                        </div>
+                        <p class="detalle-vuelo-ruta">
+                            <span class="detalle-vuelo-hora">8:30</span>
+                            <span class="detalle-vuelo-trayecto">HMO → MTY</span>
+                        </p>
+                        <p class="texto-secundario texto-pequeno texto-negrita">Directo - Sencillo</p>
+                    </article>
+
+                    <article class="tarjeta detalle-pasajeros">
+                        <h2 class="tarjeta-titulo">Pasajeros (2)</h2>
+                        <ul class="lista-pasajeros">
+                            <li>
+                                <p class="dato-principal">Paulina Michel Guevara Cervantes</p>
+                                <p class="dato-secundario">Adulto - 10C</p>
+                            </li>
+                            <li>
+                                <p class="dato-principal">Carmen Lara Osuna</p>
+                                <p class="dato-secundario">Adulto - 10D</p>
+                            </li>
+                        </ul>
+                    </article>
+
+                    <article class="tarjeta detalle-cliente">
+                        <h2 class="tarjeta-titulo">Cliente</h2>
+                        <p class="dato-principal">Paulina Michel Guevara Cervantes</p>
+                        <p class="dato-secundario">3 reservaciones</p>
+                        <p class="dato-secundario dato-separado">Correo: paulinamichelgc@gmail.com</p>
+                        <p class="dato-secundario dato-separado">Teléfono: 6871234567</p>
+                    </article>
+
+                    <article class="tarjeta detalle-pago">
+                        <h2 class="tarjeta-titulo">Pago</h2>
+                        <div class="pago-fila"><span>Tarifa 2 x $1,990</span><span>$3,980</span></div>
+                        <div class="pago-fila"><span>Impuestos y cargos</span><span>$640</span></div>
+                        <div class="pago-fila"><span>Equipaje documentado</span><span>$160</span></div>
+                        <div class="pago-fila pago-total"><span>Total</span><span>$4,780 MXN</span></div>
+                    </article>
+                </div>
+
+                <div class="barra-acciones detalle-acciones">
+                    <button type="button" class="boton boton-suave" data-abrir-modal="modal-cancelar">Cancelar</button>
+                    <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-confirmar">Confirmar</button>
+                </div>
+            </main>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-checkin" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <h2 class="modal-titulo">¿Desea confirmar el check in de la reserva?</h2>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-confirmada">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-confirmar" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <h2 class="modal-titulo">¿Desea confirmar la reservación?</h2>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-confirmada">Confirmar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-cancelar" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <h2 class="modal-titulo">¿Desea cancelar la reservación?</h2>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-cancelada">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-confirmada" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/exito.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Reserva confirmada</h2>
+            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-cancelada" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/avion-cancelado.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Reserva cancelada</h2>
+            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        </div>
+    </div>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

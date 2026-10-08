@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Nueva reservación.">
+    <title>Nueva Reservación | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin">
+                <a href="reservaciones.html" class="boton-regresar">
+                    <img src="../../imgs/iconos/flecha-izquierda.svg" alt="" class="icono icono-blanco">
+                </a>
+            </header>
+
+            <main class="contenido-admin">
+                <form action="../usuario/reservar.html">
+                    <div class="cabecera-pagina">
+                        <h1 class="titulo-pagina">
+                            <span class="solo-movil">Buscar cliente</span>
+                            <span class="solo-escritorio">Nueva Reservación</span>
+                        </h1>
+                    </div>
+
+                    <label class="campo-buscar">
+                        <input type="search" placeholder="Nombre o teléfono del cliente" value="Alma">
+                        <img src="../../imgs/iconos/buscar.svg" alt="" class="icono icono-pequeno">
+                    </label>
+
+                    <div class="lista-clientes">
+                        <label class="tarjeta-cliente">
+                            <input type="radio" name="cliente" value="c1" class="selector-oculto">
+                            <span class="tarjeta-cliente-nombre">Alma Leticia Chávez Quintero</span>
+                            <span class="tarjeta-cliente-telefono">6441112233</span>
+                        </label>
+                        <label class="tarjeta-cliente">
+                            <input type="radio" name="cliente" value="c2" class="selector-oculto">
+                            <span class="tarjeta-cliente-nombre">Alma Pérez Acosta</span>
+                            <span class="tarjeta-cliente-telefono">6445678998</span>
+                        </label>
+                        <label class="tarjeta-cliente">
+                            <input type="radio" name="cliente" value="c3" class="selector-oculto">
+                            <span class="tarjeta-cliente-nombre">Alma Ruiz Leyva</span>
+                            <span class="tarjeta-cliente-telefono">6678900909</span>
+                        </label>
+                    </div>
+
+                    <div class="barra-acciones">
+                        <button type="submit" class="boton boton-oscuro">Realizar reserva</button>
+                    </div>
+                </form>
+            </main>
+        </div>
+    </div>
+
+</body>
+</html>

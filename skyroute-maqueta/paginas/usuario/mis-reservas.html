@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Historial y estado de tus viajes.">
+    <title>Mis Reservas | SkyRoute</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <section class="hero hero-mis-reservas">
+        <header class="encabezado-usuario">
+            <div class="encabezado-izquierda">
+                <a href="inicio.html" class="boton-regresar solo-movil">
+                    <img src="../../imgs/iconos/regresar.svg" alt="" class="icono icono-blanco">
+                </a>
+                <a href="inicio.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+            </div>
+
+            <nav class="navegacion-principal">
+                <ul>
+                    <li><a href="inicio.html" class="navegacion-enlace">Inicio</a></li>
+                    <li><a href="mis-reservas.html" class="navegacion-enlace activo">Mis Reservas</a></li>
+                    <li><a href="contacto.html" class="navegacion-enlace">Contacto</a></li>
+                    <li class="navegacion-usuario">
+                        <span>Alma Leticia Chávez Quintero</span>
+                        <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    </li>
+                </ul>
+            </nav>
+
+            <label for="menu-abierto" class="boton-menu">
+                <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+            </label>
+        </header>
+
+        <div class="hero-contenido">
+            <h1 class="hero-titulo">Mis Reservas</h1>
+            <p class="hero-subtitulo">Historial y estado de tus viajes</p>
+        </div>
+    </section>
+
+    <main class="contenedor seccion-superpuesta seccion-superpuesta-movil pagina-mis-reservas">
+        <div class="notas-reservas">
+            <p>*La opción de Check-In se habilitará 3 días antes del vuelo</p>
+            <p>*Los vuelos se pueden cancelar máximo 2 días antes</p>
+            <p>*No se pueden cancelar vuelos pasados</p>
+        </div>
+        <div class="lista-reservas-usuario">
+            <article class="tarjeta-reserva">
+                <span class="reserva-id">ID: 001</span>
+                <span class="logo-skyroute"><img src="../../imgs/iconos/avion.svg" alt="" class="icono">SKYROUTE</span>
+                <span class="estado estado-cuadrado estado-confirmada">Confirmado<button type="button" class="estado-enlace">Hacer Check-In</button></span>
+                <div class="reserva-vuelo">
+                    <div class="vuelo-itinerario">
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">8:15</span>
+                            <span class="vuelo-codigo">OBR</span>
+                            <span class="vuelo-ciudad">Ciudad Obregón</span>
+                        </div>
+                        <div class="vuelo-duracion">
+                            <span>1 h</span>
+                            <span class="vuelo-linea"></span>
+                        </div>
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">9:15</span>
+                            <span class="vuelo-codigo">GVE</span>
+                            <span class="vuelo-ciudad">Guasave</span>
+                        </div>
+                    </div>
+                    <p class="reserva-detalle">7 oct 2026 - 7 nov 2026</p>
+                    <p class="reserva-detalle">Asiento F3</p>
+                    <details class="reserva-desplegable">
+                        <summary>Ver detalles</summary>
+                        <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
+                        <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento F3</p>
+                    </details>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,560 MXN</span>
+                    <span class="vuelo-numero">Vuelo AM167</span>
+                    <button type="button" class="enlace-cancelar" data-abrir-modal="modal-cancelar-reserva">Cancelar</button>
+                </div>
+            </article>
+
+            <article class="tarjeta-reserva">
+                <span class="reserva-id">ID: 002</span>
+                <span class="logo-skyroute"><img src="../../imgs/iconos/avion.svg" alt="" class="icono">SKYROUTE</span>
+                <span class="estado estado-cuadrado estado-pendiente">Pendiente</span>
+                <div class="reserva-vuelo">
+                    <div class="vuelo-itinerario">
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">13:00</span>
+                            <span class="vuelo-codigo">HMO</span>
+                            <span class="vuelo-ciudad">Hermosillo</span>
+                        </div>
+                        <div class="vuelo-duracion">
+                            <span>1 h 25 min</span>
+                            <span class="vuelo-linea"></span>
+                        </div>
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">14:25</span>
+                            <span class="vuelo-codigo">TIJ</span>
+                            <span class="vuelo-ciudad">Tijuana</span>
+                        </div>
+                    </div>
+                    <p class="reserva-detalle">1 dic 2026 - 30 dic 2026</p>
+                    <p class="reserva-detalle">Asiento A7</p>
+                    <details class="reserva-desplegable">
+                        <summary>Ver detalles</summary>
+                        <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
+                        <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento A7</p>
+                    </details>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$3,260 MXN</span>
+                    <span class="vuelo-numero">Vuelo VOI3353</span>
+                    <button type="button" class="enlace-cancelar" data-abrir-modal="modal-cancelar-reserva">Cancelar</button>
+                </div>
+            </article>
+
+            <article class="tarjeta-reserva">
+                <span class="reserva-id">ID: 003</span>
+                <span class="logo-skyroute"><img src="../../imgs/iconos/avion.svg" alt="" class="icono">SKYROUTE</span>
+                <span class="estado estado-cuadrado estado-cancelada">Cancelado</span>
+                <div class="reserva-vuelo">
+                    <div class="vuelo-itinerario">
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">7:00</span>
+                            <span class="vuelo-codigo">HMO</span>
+                            <span class="vuelo-ciudad">Hermosillo</span>
+                        </div>
+                        <div class="vuelo-duracion">
+                            <span>1 h 25 min</span>
+                            <span class="vuelo-linea"></span>
+                        </div>
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">8:25</span>
+                            <span class="vuelo-codigo">TIJ</span>
+                            <span class="vuelo-ciudad">Tijuana</span>
+                        </div>
+                    </div>
+                    <p class="reserva-detalle">1 dic 2026 - 30 dic 2026</p>
+                    <p class="reserva-detalle">Asiento E1</p>
+                    <details class="reserva-desplegable">
+                        <summary>Ver detalles</summary>
+                        <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
+                        <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento E1</p>
+                    </details>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$3,260 MXN</span>
+                    <span class="vuelo-numero">Vuelo VOI4221</span>
+                </div>
+            </article>
+        </div>
+    </main>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-cancelar-reserva" role="dialog" aria-modal="true">
+        <div class="modal">
+            <h2 class="modal-titulo">¿Deseas cancelar tu reservación con ID: 001?</h2>
+            <p class="modal-texto">Si cancelas perderás tu reserva y tendrás que hacer una nueva sujeta a disponibilidad</p>
+            <article class="tarjeta-vuelo tarjeta-vuelo-plana">
+                <span class="logo-skyroute"><img src="../../imgs/iconos/avion.svg" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">8:15</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">9:15</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,560 MXN</span>
+                    <span class="vuelo-numero">Vuelo AM167</span>
+                </div>
+            </article>
+            <div class="modal-datos">
+                <span>Pasajeros</span>
+                <span>1 Adulto</span>
+                <span>Asientos</span>
+                <span>F3</span>
+            </div>
+            <div class="modal-acciones">
+                <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+                <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-reserva-cancelada">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal-fondo modal-fondo-difuminado" id="modal-reserva-cancelada" role="dialog" aria-modal="true">
+        <div class="modal modal-centrado">
+            <img src="../../imgs/iconos/avion-cancelado.svg" alt="" class="modal-icono">
+            <h2 class="modal-titulo">Reserva cancelada</h2>
+            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        </div>
+    </div>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Menu</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Alma Leticia Chávez Quintero
+                </li>
+                <li>
+                    <a href="inicio.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="mis-reservas.html" class="menu-lateral-enlace activo">
+                        <img src="../../imgs/iconos/boleto.svg" alt="" class="icono">
+                        Mis Reservas
+                    </a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/audifonos.svg" alt="" class="icono icono-blanco">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+    <script src="../../js/script.js"></script>
+</body>
+</html>

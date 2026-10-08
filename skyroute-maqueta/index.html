@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Inicia sesión para reservar vuelos.">
+    <title>Iniciar sesión | SkyRoute</title>
+    <link rel="stylesheet" href="css/estilos.css">
+</head>
+<body>
+
+    <main class="pagina-autenticacion">
+        <section class="tarjeta-autenticacion">
+            <img src="imgs/iconos/avion.svg" alt="" class="logo-autenticacion">
+            <p class="nombre-marca">SKYROUTE</p>
+
+            <h1 class="titulo-autenticacion">Bienvenido</h1>
+            <p class="subtitulo-autenticacion">Inicia sesión para continuar</p>
+
+            <form class="formulario-autenticacion" action="paginas/usuario/inicio.html">
+                <label class="campo-con-icono">
+                    <img src="imgs/iconos/usuario.svg" alt="" class="icono">
+                    <input type="email" placeholder="Correo electrónico" autocomplete="email" required>
+                </label>
+
+                <label class="campo-con-icono">
+                    <img src="imgs/iconos/candado.svg" alt="" class="icono">
+                    <input type="password" placeholder="Contraseña" autocomplete="current-password" required>
+                    <img src="imgs/iconos/ojo.svg" alt="" class="icono">
+                </label>
+
+                <button type="submit" class="boton boton-primario boton-grande boton-bloque">Iniciar Sesión</button>
+            </form>
+
+            <p class="enlace-autenticacion">
+                ¿No tienes una cuenta? <a href="paginas/usuario/registro.html" class="boton-enlace">Regístrate</a>
+            </p>
+        </section>
+
+        <img src="imgs/nubes.svg" alt="" class="nube nube-izquierda">
+        <img src="imgs/nubes.svg" alt="" class="nube nube-derecha">
+    </main>
+
+</body>
+</html>

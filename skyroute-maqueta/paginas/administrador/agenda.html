@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador - Agenda semanal de vuelos.">
+    <title>Agenda | SkyRoute Administrador</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <div class="layout-admin">
+        <aside class="barra-lateral">
+            <a href="reservaciones.html" class="marca">
+                <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                SKYROUTE
+            </a>
+            <p class="barra-lateral-seccion">Operación</p>
+            <nav>
+                <a href="reservaciones.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono icono-blanco">Reservaciones</a>
+                <a href="agenda.html" class="barra-lateral-enlace activo"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono icono-blanco">Agenda</a>
+                <a href="clientes.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono icono-blanco">Clientes</a>
+                <a href="resumen.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono icono-blanco">Resumen</a>
+            </nav>
+            <p class="barra-lateral-seccion">Configuración</p>
+            <nav>
+                <a href="nueva-ruta.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/avion.svg" alt="" class="icono icono-blanco">Nueva ruta</a>
+                <a href="horarios.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/reloj.svg" alt="" class="icono icono-blanco">Horarios</a>
+                <a href="bloqueos.html" class="barra-lateral-enlace"><img src="../../imgs/iconos/bloqueo.svg" alt="" class="icono icono-blanco">Bloqueos</a>
+            </nav>
+        </aside>
+
+        <div class="area-admin">
+            <header class="encabezado-admin encabezado-principal">
+                <a href="reservaciones.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+                <label for="menu-abierto" class="boton-menu">
+                    <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+                </label>
+            </header>
+
+            <main class="contenido-admin">
+                <div class="solo-movil">
+                    <div class="cabecera-pagina">
+                        <h1 class="titulo-pagina">Agenda</h1>
+                    </div>
+
+                    <div class="agenda-movil">
+                        <input type="radio" name="dia-agenda" id="dia-todos" class="selector-oculto" checked>
+                        <div class="navegacion-semana">
+                            <span>&#9664;</span>
+                            <label for="dia-todos" class="texto-semana">27 sep - 3 oct 2026</label>
+                            <span>&#9654;</span>
+                        </div>
+                        <div class="selector-dias">
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-27" class="selector-oculto">Dom<br>27</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-28" class="selector-oculto">Lun<br>28</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-29" class="selector-oculto">Mar<br>29</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-30" class="selector-oculto">Mié<br>30</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-01" class="selector-oculto">Jue<br>1</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-02" class="selector-oculto">Vie<br>2</label>
+                            <label class="dia-semana"><input type="radio" name="dia-agenda" id="dia-03" class="selector-oculto">Sáb<br>3</label>
+                        </div>
+
+                        <p class="titulo-dia-agenda" id="titulo-dia-27">Domingo 27 de septiembre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-28">Lunes 28 de septiembre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-29">Martes 29 de septiembre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-30">Miércoles 30 de septiembre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-01">Jueves 1 de octubre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-02">Viernes 2 de octubre</p>
+                        <p class="titulo-dia-agenda" id="titulo-dia-03">Sábado 3 de octubre</p>
+
+                        <div class="lista-agenda">
+                            <article class="tarjeta-agenda vuelo-dia-27">
+                                <span>7:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → TIJ<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Domingo</span>
+                                <span class="tarjeta-agenda-asientos">100 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-27">
+                                <span>8:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Domingo</span>
+                                <span class="tarjeta-agenda-asientos">100 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-27">
+                                <span>20:00</span>
+                                <span class="tarjeta-agenda-ruta">OBR → GDL<span>$2,890 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Domingo</span>
+                                <span class="tarjeta-agenda-asientos">100 / 160 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-28">
+                                <span>7:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → TIJ<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Lunes</span>
+                                <span class="tarjeta-agenda-asientos">100 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-28">
+                                <span>8:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Lunes</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-28">
+                                <span>19:00</span>
+                                <span class="tarjeta-agenda-ruta">OBR → GDL<span>$2,890 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Lunes</span>
+                                <span class="tarjeta-agenda-asientos">100 / 160 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-28">
+                                <span>20:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → TIJ<span>$1,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Lunes</span>
+                                <span class="tarjeta-agenda-asientos">122 / 140 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-29">
+                                <span>10:00</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Martes</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-30">
+                                <span>12:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Miércoles</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-01">
+                                <span>8:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Jueves</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-02">
+                                <span>16:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Viernes</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                            <article class="tarjeta-agenda vuelo-dia-02">
+                                <span>18:30</span>
+                                <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                <span class="tarjeta-agenda-dia">Viernes</span>
+                                <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="solo-escritorio">
+                    <div class="agenda-escritorio">
+                        <div class="cabecera-pagina">
+                            <h1 class="titulo-pagina">Agenda</h1>
+                            <div class="pestanas selector-vista-agenda">
+                                <label class="pestana"><input type="radio" name="vista-agenda" id="vista-semana" class="selector-oculto" checked>Semana</label>
+                                <label class="pestana"><input type="radio" name="vista-agenda" id="vista-dia" class="selector-oculto">Día</label>
+                            </div>
+                        </div>
+
+                        <div class="vista-semana">
+                            <div class="navegacion-semana">
+                                <span>&#9664; 27 sep - 3 oct 2026 &#9654;</span>
+                            </div>
+                            <div class="cuadricula-agenda">
+                                <span></span>
+                                <span class="celda-agenda">Dom<br>27</span>
+                                <span class="celda-agenda">Lun<br>28</span>
+                                <span class="celda-agenda">Mar<br>29</span>
+                                <span class="celda-agenda">Mié<br>30</span>
+                                <span class="celda-agenda">Jue<br>1</span>
+                                <span class="celda-agenda">Vie<br>2</span>
+                                <span class="celda-agenda">Sáb<br>3</span>
+                                <span class="celda-agenda celda-agenda-hora">7:00</span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">7:30<br>HMO→TIJ<br>$2,990 MXN<br>100/180</span></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">7:30<br>HMO→TIJ<br>$2,990 MXN<br>100/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">8:00</span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">8:30<br>HMO→MTY<br>$2,990 MXN<br>100/180</span></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">8:30<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">8:30<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">9:00</span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">10:00</span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">10:00<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">12:00</span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">12:30<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">16:00</span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">16:30<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">18:00</span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">19:00<br>OBR→GDL<br>$2,890 MXN<br>100/160</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">18:30<br>HMO→MTY<br>$2,990 MXN<br>110/180</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda celda-agenda-hora">20:00</span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">20:00<br>OBR→GDL<br>$2,890 MXN<br>100/160</span></span>
+                                <span class="celda-agenda celda-agenda-ocupada"><span class="celda-agenda-vuelo">20:30<br>HMO→TIJ<br>$1,990 MXN<br>122/140</span></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                                <span class="celda-agenda"></span>
+                            </div>
+                        </div>
+
+                        <div class="vista-dia">
+                            <div class="dia-agenda-cabecera">
+                                <div class="grupo-campo">
+                                    <label class="etiqueta" for="agenda-fecha">Seleccione la fecha</label>
+                                    <input type="date" class="campo" id="agenda-fecha" value="2026-09-28">
+                                </div>
+                                <span class="navegacion-semana">&#9664; Lunes 28 de sep &#9654;</span>
+                            </div>
+                            <div class="lista-agenda">
+                                <article class="tarjeta-agenda">
+                                    <span>7:30</span>
+                                    <span class="tarjeta-agenda-ruta">HMO → TIJ<span>$2,990 MXN</span></span>
+                                    <span></span>
+                                    <span class="tarjeta-agenda-asientos">100 / 180 asientos</span>
+                                </article>
+                                <article class="tarjeta-agenda">
+                                    <span>8:30</span>
+                                    <span class="tarjeta-agenda-ruta">HMO → MTY<span>$2,990 MXN</span></span>
+                                    <span></span>
+                                    <span class="tarjeta-agenda-asientos">110 / 180 asientos</span>
+                                </article>
+                                <article class="tarjeta-agenda">
+                                    <span>19:00</span>
+                                    <span class="tarjeta-agenda-ruta">OBR → GDL<span>$2,890 MXN</span></span>
+                                    <span></span>
+                                    <span class="tarjeta-agenda-asientos">100 / 160 asientos</span>
+                                </article>
+                                <article class="tarjeta-agenda">
+                                    <span>20:30</span>
+                                    <span class="tarjeta-agenda-ruta">HMO → TIJ<span>$1,990 MXN</span></span>
+                                    <span></span>
+                                    <span class="tarjeta-agenda-asientos">122 / 140 asientos</span>
+                                </article>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </main>
+        </div>
+
+        <nav class="navegacion-inferior">
+            <a href="reservaciones.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/lista.svg" alt="" class="icono">Reservas</a>
+            <a href="agenda.html" class="navegacion-inferior-enlace activo"><img src="../../imgs/iconos/calendario.svg" alt="" class="icono">Agenda</a>
+            <a href="clientes.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/pasajeros.svg" alt="" class="icono">Clientes</a>
+            <a href="resumen.html" class="navegacion-inferior-enlace"><img src="../../imgs/iconos/info.svg" alt="" class="icono">Resumen</a>
+        </nav>
+    </div>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Configuración</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Administrador
+                </li>
+                <li><a href="nueva-ruta.html" class="menu-lateral-enlace menu-lateral-sangria">Nueva Ruta</a></li>
+                <li><a href="horarios.html" class="menu-lateral-enlace menu-lateral-sangria">Horarios de salida</a></li>
+                <li><a href="bloqueos.html" class="menu-lateral-enlace menu-lateral-sangria">Bloqueos</a></li>
+            </ul>
+        </aside>
+    </div>
+
+</body>
+</html>

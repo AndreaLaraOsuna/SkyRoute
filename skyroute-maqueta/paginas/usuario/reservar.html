@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute - Completa los datos de tu reserva.">
+    <title>Datos de reserva | SkyRoute</title>
+    <link rel="stylesheet" href="../../css/estilos.css">
+</head>
+<body>
+
+    <section class="hero hero-con-resumen">
+        <header class="encabezado-usuario">
+            <div class="encabezado-izquierda">
+                <a href="vuelos.html" class="boton-regresar solo-movil">
+                    <img src="../../imgs/iconos/regresar.svg" alt="" class="icono icono-blanco">
+                </a>
+                <a href="inicio.html" class="marca">
+                    <img src="../../imgs/iconos/avion.svg" alt="" class="marca-icono icono-blanco">
+                    SKYROUTE
+                </a>
+            </div>
+
+            <nav class="navegacion-principal">
+                <ul>
+                    <li><a href="inicio.html" class="navegacion-enlace activo">Inicio</a></li>
+                    <li><a href="mis-reservas.html" class="navegacion-enlace">Mis Reservas</a></li>
+                    <li><a href="contacto.html" class="navegacion-enlace">Contacto</a></li>
+                    <li class="navegacion-usuario">
+                        <span>Alma Leticia Chávez Quintero</span>
+                        <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    </li>
+                </ul>
+            </nav>
+
+            <label for="menu-abierto" class="boton-menu">
+                <img src="../../imgs/iconos/menu.svg" alt="" class="icono icono-grande icono-blanco">
+            </label>
+        </header>
+
+        <div class="hero-contenido">
+            <h1 class="hero-titulo">Datos de reserva</h1>
+            <div class="hero-resumen">
+                <article class="tarjeta-vuelo">
+                    <span class="logo-skyroute"><img src="../../imgs/iconos/avion.svg" alt="" class="icono">SKYROUTE</span>
+                    <div class="vuelo-itinerario">
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">8:15</span>
+                            <span class="vuelo-codigo">OBR</span>
+                            <span class="vuelo-ciudad">Ciudad Obregón</span>
+                        </div>
+                        <div class="vuelo-duracion">
+                            <span>1 h</span>
+                            <span class="vuelo-linea"></span>
+                        </div>
+                        <div class="vuelo-punto">
+                            <span class="vuelo-hora">9:15</span>
+                            <span class="vuelo-codigo">GVE</span>
+                            <span class="vuelo-ciudad">Guasave</span>
+                        </div>
+                    </div>
+                    <div class="vuelo-precio">
+                        <span class="vuelo-monto">$1,560 MXN</span>
+                        <span class="vuelo-numero">Vuelo AM167</span>
+                    </div>
+                </article>
+            </div>
+        </div>
+    </section>
+
+    <main>
+        <form class="contenedor contenedor-estrecho formulario-reserva" action="asientos.html">
+            <h2 class="titulo-seccion-formulario">Datos del pasajero (1 Adulto)</h2>
+            <section class="tarjeta bloque-formulario">
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="reserva-nombre">Nombre completo</label>
+                    <input type="text" class="campo campo-azul" id="reserva-nombre" value="Alma Leticia Chávez Quintero" required>
+                </div>
+                <div class="fila-campos">
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="reserva-nacimiento">Fecha de nacimiento</label>
+                        <input type="date" class="campo campo-azul" id="reserva-nacimiento" value="2000-09-08" required>
+                    </div>
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="reserva-nacionalidad">Nacionalidad</label>
+                        <select class="campo campo-azul" id="reserva-nacionalidad">
+                            <option>México</option>
+                            <option>Estados Unidos</option>
+                            <option>Canadá</option>
+                            <option>Guatemala</option>
+                            <option>Colombia</option>
+                            <option>España</option>
+                        </select>
+                    </div>
+                </div>
+            </section>
+
+            <h2 class="titulo-seccion-formulario">Información de contacto</h2>
+            <section class="tarjeta bloque-formulario">
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="reserva-correo">Correo electrónico</label>
+                    <div class="campo-con-icono">
+                        <img src="../../imgs/iconos/correo.svg" alt="" class="icono">
+                        <input type="email" id="reserva-correo" value="almachavez@gmail.com" required>
+                    </div>
+                </div>
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="reserva-confirmar-correo">Confirmar correo electrónico</label>
+                    <div class="campo-con-icono">
+                        <img src="../../imgs/iconos/correo.svg" alt="" class="icono">
+                        <input type="email" id="reserva-confirmar-correo" value="almachavez@gmail.com" required>
+                    </div>
+                </div>
+                <div class="grupo-campo campo-corto">
+                    <label class="etiqueta" for="reserva-telefono">Teléfono</label>
+                    <div class="campo-con-icono">
+                        <img src="../../imgs/iconos/telefono.svg" alt="" class="icono">
+                        <input type="tel" id="reserva-telefono" value="6441112233" maxlength="10" required>
+                    </div>
+                </div>
+            </section>
+
+            <button type="submit" class="boton boton-secundario boton-grande boton-bloque">Siguiente</button>
+        </form>
+    </main>
+
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Menu</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img src="../../imgs/iconos/cerrar.svg" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img src="../../imgs/iconos/usuario.svg" alt="" class="icono icono-blanco">
+                    Alma Leticia Chávez Quintero
+                </li>
+                <li>
+                    <a href="inicio.html" class="menu-lateral-enlace activo">
+                        <img src="../../imgs/iconos/avion.svg" alt="" class="icono">
+                        Inicio
+                    </a>
+                </li>
+                <li>
+                    <a href="mis-reservas.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/boleto.svg" alt="" class="icono icono-blanco">
+                        Mis Reservas
+                    </a>
+                </li>
+                <li>
+                    <a href="contacto.html" class="menu-lateral-enlace">
+                        <img src="../../imgs/iconos/audifonos.svg" alt="" class="icono icono-blanco">
+                        Contacto
+                    </a>
+                </li>
+            </ul>
+        </aside>
+    </div>
+
+</body>
+</html>
