@@ -43,15 +43,52 @@
                 </div>
 
                 <form class="formulario-admin">
-                    <div class="grupo-campo">
-                        <label class="etiqueta" for="horario-vuelo">Vuelo</label>
-                        <select class="campo" id="horario-vuelo">
-                            <option>AB 123 - HMO→MTY</option>
-                            <option selected>AB 126 - HMO→GDL</option>
-                            <option>AB 118 - HMO→TIJ</option>
-                            <option>AB 131 - OBR→GDL</option>
-                        </select>
-                    </div>
+                    <fieldset class="grupo-campo">
+                        <legend class="etiqueta">Vuelos</legend>
+                        <div class="contenedor-tabla tabla-rutas">
+                            <table class="tabla">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="seleccionar-todas" aria-label="Seleccionar todos los vuelos"></th>
+                                    <th>Vuelo</th>
+                                    <th>Ruta</th>
+                                    <th>Salida actual</th>
+                                    <th>Avión</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr>
+                                    <td><input type="checkbox" class="check-ruta" name="vuelos" value="AB 118" aria-label="Seleccionar AB 118"></td>
+                                    <td>AB 118</td>
+                                    <td>HMO → TIJ</td>
+                                    <td>7:30</td>
+                                    <td>2AV 015</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="check-ruta" name="vuelos" value="AB 123" aria-label="Seleccionar AB 123"></td>
+                                    <td>AB 123</td>
+                                    <td>HMO → MTY</td>
+                                    <td>8:30</td>
+                                    <td>2AV 010</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="check-ruta" name="vuelos" value="AB 126" aria-label="Seleccionar AB 126" checked></td>
+                                    <td>AB 126</td>
+                                    <td>HMO → GDL</td>
+                                    <td>8:30</td>
+                                    <td>2AV 012</td>
+                                </tr>
+                                <tr>
+                                    <td><input type="checkbox" class="check-ruta" name="vuelos" value="AB 131" aria-label="Seleccionar AB 131"></td>
+                                    <td>AB 131</td>
+                                    <td>OBR → GDL</td>
+                                    <td>20:00</td>
+                                    <td>3AV 101</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
 
                     <div class="grupo-campo">
                         <label class="etiqueta" for="horario-fecha">Selecciona la fecha</label>

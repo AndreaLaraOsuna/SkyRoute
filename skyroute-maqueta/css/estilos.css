@@ -123,9 +123,8 @@
     position: relative;
     padding-bottom: 90px;
     background-color: var(--color-primario);
-    background-image:
-        linear-gradient(rgba(8, 26, 54, 0.35), rgba(8, 26, 54, 0.1)),
-        url("../imgs/hero-cielo.jpg");
+    background-image: linear-gradient(rgba(8, 26, 54, 0.35), rgba(8, 26, 54, 0.1)),
+    url("../imgs/hero-cielo.jpg");
     background-position: center;
     background-size: cover;
     color: var(--color-blanco);
@@ -622,15 +621,12 @@
 }
 
 .campos-horas,
-.aviso-horas,
-.grupo-avion {
+.aviso-horas {
     display: none;
 }
 
 .panel-bloqueo:has(#tipo-horas:checked) .campos-dias,
-.panel-bloqueo:has(#tipo-horas:checked) .aviso-dias,
-.panel-bloqueo:has(#aplica-avion:checked) .grupo-ruta,
-.panel-bloqueo:has(#aplica-todas:checked) .grupo-ruta {
+.panel-bloqueo:has(#tipo-horas:checked) .aviso-dias {
     display: none;
 }
 
@@ -639,10 +635,6 @@
 }
 
 .panel-bloqueo:has(#tipo-horas:checked) .aviso-horas {
-    display: flex;
-}
-
-.panel-bloqueo:has(#aplica-avion:checked) .grupo-avion {
     display: flex;
 }
 
@@ -711,6 +703,22 @@
 
     .panel-bloqueo {
         max-width: 520px;
+        margin: 0 auto;
+        padding: 24px 28px 28px;
+        background-color: #E9E9E9;
+        border-radius: var(--radio-mediano);
+    }
+
+    .panel-bloqueo .barra-acciones {
+        position: static;
+        margin-top: 16px;
+        padding: 0;
+        background: transparent;
+    }
+
+    .panel-bloqueo .barra-acciones .boton {
+        flex: 1;
+        max-width: none;
     }
 
     .mapa-contacto {
@@ -1046,4 +1054,202 @@
         flex: 1;
         max-width: none;
     }
+}
+
+.boton-con-icono {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.cuadricula-agenda .celda-agenda-encabezado,
+.cuadricula-agenda .celda-agenda-hora {
+    min-height: auto;
+    background-color: transparent;
+    box-shadow: none;
+}
+
+.cuadricula-agenda .celda-agenda-encabezado {
+    gap: 2px;
+    padding-bottom: 6px;
+}
+
+.dia-nombre {
+    font-size: 0.6875rem;
+    text-transform: uppercase;
+    color: var(--color-texto-secundario);
+}
+
+.dia-numero {
+    font-size: 1.75rem;
+    font-weight: var(--peso-negrita);
+    line-height: 1;
+    color: var(--color-primario);
+}
+
+.cuadricula-agenda .celda-agenda-hora {
+    align-items: flex-end;
+    justify-content: flex-start;
+    padding: 4px 8px 0 0;
+    color: var(--color-texto-secundario);
+}
+
+.cuadricula-agenda .celda-agenda-ocupada {
+    padding: 4px 6px;
+    line-height: 1.1;
+}
+
+.tabla-rutas {
+    max-height: 280px;
+    margin: 8px 0 12px;
+    padding: 0 12px 8px;
+    overflow-y: auto;
+}
+
+.tabla-rutas thead th {
+    position: sticky;
+    top: 0;
+    z-index: 1;
+    padding-top: 14px;
+    background-color: var(--color-blanco);
+}
+
+.tabla-rutas td {
+    vertical-align: middle;
+}
+
+.tabla-rutas th:first-child,
+.tabla-rutas td:first-child {
+    width: 40px;
+}
+
+.tabla-rutas input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primario);
+    cursor: pointer;
+}
+
+.tabla-rutas tbody tr {
+    cursor: pointer;
+}
+
+.tabla-rutas tbody tr:has(.check-ruta:checked) {
+    background-color: var(--color-campo);
+}
+
+.filtro-estados {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px 18px;
+    padding: 6px 0;
+}
+
+.filtro-estados label {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.8125rem;
+    font-weight: var(--peso-medio);
+    cursor: pointer;
+}
+
+.filtro-estados input {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--color-primario);
+    cursor: pointer;
+}
+
+.enlace-detalle {
+    font-size: 0.75rem;
+    font-weight: var(--peso-seminegrita);
+    color: var(--color-secundario);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+    white-space: nowrap;
+}
+
+.enlace-detalle:hover {
+    color: var(--color-primario);
+}
+
+.detalle-cabecera {
+    display: grid;
+    grid-template-areas:
+        "titulo"
+        "nombre"
+        "fecha"
+        "botones";
+    gap: 6px;
+    margin-bottom: 24px;
+}
+
+.detalle-titulo-fila {
+    grid-area: titulo;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.detalle-titulo {
+    font-size: 1.25rem;
+}
+
+.detalle-nombre {
+    grid-area: nombre;
+    font-size: 1rem;
+    font-weight: var(--peso-seminegrita);
+    color: var(--color-primario);
+}
+
+.detalle-fecha {
+    grid-area: fecha;
+    font-size: 0.75rem;
+    font-weight: var(--peso-seminegrita);
+    color: var(--color-texto-secundario);
+}
+
+.detalle-botones {
+    grid-area: botones;
+    display: flex;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.detalle-botones .boton {
+    flex: 1;
+}
+
+/* Tablet y escritorio: botones al lado de la fecha */
+@media (min-width: 768px) {
+    .detalle-cabecera {
+        grid-template-columns: 1fr auto;
+        grid-template-areas:
+            "titulo titulo"
+            "nombre ."
+            "fecha botones";
+        align-items: end;
+        max-width: 880px;
+    }
+
+    .detalle-botones {
+        margin-top: 0;
+    }
+
+    .detalle-botones .boton {
+        flex: 0 0 auto;
+        min-width: 110px;
+    }
+}
+
+@media (min-width: 1024px) {
+    .detalle-titulo {
+        font-size: 1.5rem;
+    }
+}
+
+.layout-admin .boton-oscuro {
+    background-color: var(--color-secundario);
 }
