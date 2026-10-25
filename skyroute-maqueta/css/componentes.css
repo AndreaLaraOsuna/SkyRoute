@@ -572,12 +572,18 @@ select.campo {
 }
 
 .estado-pendiente {
-    background-color: var(--color-pendiente);
+    background-color: #DED555;
+    color: #4D4910;
 }
 
-.estado-confirmada,
+.estado-confirmada {
+    background-color: #FFAF38;
+    color: #402703;
+}
+
 .estado-completada {
-    background-color: var(--color-exito);
+    background-color: #65C04C;
+    color: #183710;
 }
 
 .estado-cancelada {
