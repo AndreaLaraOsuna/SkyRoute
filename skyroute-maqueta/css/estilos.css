@@ -63,7 +63,7 @@
 }
 
 .logo-autenticacion {
-    width: 170px;
+    width: 130px;
     margin: 0 auto 4px;
 }
 
@@ -128,6 +128,12 @@
     background-position: center;
     background-size: cover;
     color: var(--color-blanco);
+}
+
+.hero-corto{
+    height: 220px;
+    padding-bottom: 0;
+    background-position: center top;
 }
 
 .hero-contenido {
@@ -501,6 +507,18 @@
     display: none;
 }
 
+.pie-pagina {
+    background-color: var(--color-primario);
+    color: var(--color-blanco);
+    text-align: center;
+    padding: 24px 0;
+}
+
+.pie-pagina p {
+    font-size: 0.8125rem;
+    margin: 0;
+}
+
 .layout-admin:has(#cliente-c1:checked) #historial-c1,
 .layout-admin:has(#cliente-c2:checked) #historial-c2,
 .layout-admin:has(#cliente-c3:checked) #historial-c3 {
@@ -780,6 +798,11 @@
 
     .hero {
         padding-bottom: 110px;
+    }
+
+    .hero-corto {
+        height: 230px;
+        padding-bottom: 0;
     }
 
     .hero-contenido {

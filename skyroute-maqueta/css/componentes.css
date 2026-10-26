@@ -48,7 +48,7 @@
 }
 
 .boton:hover {
-    opacity: 0.88;
+    filter: brightness(0.8);
 }
 
 .boton:active {
