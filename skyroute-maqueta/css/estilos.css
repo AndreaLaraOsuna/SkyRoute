@@ -192,6 +192,27 @@
     grid-column: 1 / -1;
 }
 
+.tarjeta-info {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    background-color: var(--color-blanco);
+    border: 1px solid rgba(8, 26, 54, 0.12);
+    border-radius: var(--radio-mediano);
+    padding: 16px 20px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+    width: 100%;
+    max-width: 32rem;
+    margin: 0 auto;
+}
+
+.icono-info {
+    width: 22px;
+    height: 22px;
+    flex-shrink: 0;
+    margin-top: 2px;
+}
+
 .seccion-vuelos {
     padding-top: 28px;
     padding-bottom: 48px;
@@ -704,6 +725,11 @@
         max-width: 600px;
         margin: 0 auto;
     }
+    
+    .lista-reservas-usuario {
+        width: 100%;
+        max-width: 32rem;
+    }
 
     .contenido-admin {
         padding-left: 40px;
@@ -888,7 +914,7 @@
         width: 100%;
         padding-top: 12px;
         line-height: 2;
-        text-align: center;
+        text-align: left;
     }
 
     .hero-mis-reservas .hero-subtitulo {

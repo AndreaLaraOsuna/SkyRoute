@@ -1144,7 +1144,7 @@ select.campo {
     display: flex;
     align-items: center;
     justify-content: center;
-    height: 26px;
+    height: 45px;
     border: 1.5px solid var(--color-secundario);
     border-radius: 5px;
     background-color: var(--color-blanco);
