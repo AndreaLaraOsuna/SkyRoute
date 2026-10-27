@@ -264,6 +264,14 @@
     gap: 28px;
 }
 
+.vuelo-precio {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;           
+}
+
 .formulario-reserva {
     display: flex;
     flex-direction: column;
@@ -729,6 +737,7 @@
     .lista-reservas-usuario {
         width: 100%;
         max-width: 32rem;
+        margin-top: 2rem;
     }
 
     .contenido-admin {
