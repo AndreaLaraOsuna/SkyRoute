@@ -171,6 +171,10 @@
     color: var(--color-blanco);
 }
 
+.hero-mis-reservas{
+    padding-bottom: 15rem;
+}
+
 .seccion-superpuesta {
     position: relative;
     z-index: 2;
@@ -873,16 +877,18 @@
     }
 
     .pagina-mis-reservas {
-        display: grid;
-        grid-template-columns: 260px minmax(0, 620px);
+        display: flex;
+        flex-direction: column;
         align-items: start;
         gap: 32px;
     }
 
     .notas-reservas {
-        order: 0;
+        order: 2;
+        width: 100%;
         padding-top: 12px;
         line-height: 2;
+        text-align: center;
     }
 
     .hero-mis-reservas .hero-subtitulo {
@@ -896,6 +902,11 @@
     .campo-vuelo select,
     .campo-vuelo input {
         font-size: 0.8125rem;
+    }
+
+    .lista-reservas-usuario {
+        width: 100%;
+        max-width: 32rem;
     }
 
     .formulario-reserva {

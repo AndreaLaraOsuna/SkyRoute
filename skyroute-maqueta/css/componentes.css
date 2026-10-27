@@ -440,13 +440,15 @@ select.campo {
 .vuelo-linea::after {
     content: "";
     position: absolute;
-    top: -3px;
+    top: 50%;
     left: 50%;
-    width: 7px;
-    height: 7px;
-    border-radius: 50%;
-    background-color: var(--color-secundario);
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%) rotate(45deg);
+    width: 14px;
+    height: 14px;
+    background-image: url("../imgs/iconos/avion.svg");
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 .vuelo-precio {
@@ -569,15 +571,16 @@ select.campo {
     font-size: 0.8125rem;
     text-align: center;
     text-transform: none;
+    margin-left: 1.5rem;
 }
 
 .estado-pendiente {
-    background-color: #DED555;
+    background-color: var(--color-pendiente);
     color: #4D4910;
 }
 
 .estado-confirmada {
-    background-color: #FFAF38;
+    background-color: var(--color-exito);
     color: #402703;
 }
 
@@ -723,7 +726,7 @@ select.campo {
 }
 
 .menu-lateral-enlace.activo {
-    color: var(--color-primario);
+    color: var(--color-amarillo);
     text-decoration: underline;
     text-underline-offset: 3px;
 }

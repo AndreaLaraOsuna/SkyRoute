@@ -3,7 +3,7 @@
 :root {
     --color-primario: #102A56;    --color-secundario: #1557A6;    --color-fondo: #F8FAFC;    --color-texto-secundario: #6C6969;    --color-oscuro: #081A36;    --color-exito: #A1EB9F;    --color-pendiente: #DED555;    --color-peligro: #FF8A84;
     --color-naranja: #FFBF77;    --color-blanco: #FFFFFF;
-    --color-borde: #D6E4F7;    --color-campo: #F1F6FC;    --color-gris-claro: #E4E6EA;    --color-gris: #C8C8C8;    --color-gris-texto: #B5B5B5;    --color-error: #C0392B;
+    --color-borde: #D6E4F7;    --color-campo: #F1F6FC;    --color-gris-claro: #E4E6EA;    --color-gris: #C8C8C8;    --color-gris-texto: #B5B5B5;    --color-error: #C0392B; --color-amarillo: yellow;
     --fuente-principal: "Montserrat", Arial, Helvetica, sans-serif;
     --peso-normal: 400;
     --peso-medio: 500;
