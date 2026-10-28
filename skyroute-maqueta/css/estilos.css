@@ -50,7 +50,6 @@
     align-items: center;
     justify-content: center;
     min-height: 100vh;
-    padding: 48px 24px 150px;
     overflow: hidden;
 }
 
@@ -365,6 +364,7 @@
 
 .dato-contacto-valor {
     font-size: 0.9375rem;
+    text-decoration: underline;
 }
 
 .mapa-contacto {
