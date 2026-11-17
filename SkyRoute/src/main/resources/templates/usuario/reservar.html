@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Datos de reserva')}"></head>
+
+<body>
+
+<section class="hero hero-con-resumen">
+    <!-- Menú superior con botón de regreso en móvil hacia /vuelos -->
+    <th:block th:with="urlRegresar=@{/vuelos}">
+        <header th:replace="~{fragments/base :: header('inicio')}"></header>
+    </th:block>
+
+    <div class="hero-contenido">
+        <h1 class="hero-titulo">Datos de reserva</h1>
+        <div class="hero-resumen">
+            <article class="tarjeta-vuelo">
+                <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">8:15</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">9:15</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,560 MXN</span>
+                    <span class="vuelo-numero">Vuelo AM167</span>
+                </div>
+            </article>
+        </div>
+    </div>
+</section>
+
+<main>
+    <form class="contenedor contenedor-estrecho formulario-reserva" th:action="@{/asientos}" method="POST">
+        <h2 class="titulo-seccion-formulario">Datos del pasajero (1 Adulto)</h2>
+        <section class="tarjeta bloque-formulario">
+            <div class="grupo-campo">
+                <label class="etiqueta" for="reserva-nombre">Nombre completo</label>
+                <input type="text" class="campo campo-azul" id="reserva-nombre" name="nombreCompleto" placeholder="Nombre completo del pasajero" required>
+            </div>
+            <div class="fila-campos">
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="reserva-nacimiento">Fecha de nacimiento</label>
+                    <input type="date" class="campo campo-azul" id="reserva-nacimiento" name="fechaNacimiento" value="2000-09-08" required>
+                </div>
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="reserva-nacionalidad">Nacionalidad</label>
+                    <select class="campo campo-azul" id="reserva-nacionalidad" name="nacionalidad">
+                        <option value="México" selected>México</option>
+                        <option value="Estados Unidos">Estados Unidos</option>
+                        <option value="Canadá">Canadá</option>
+                        <option value="Guatemala">Guatemala</option>
+                        <option value="Colombia">Colombia</option>
+                        <option value="España">España</option>
+                    </select>
+                </div>
+            </div>
+        </section>
+
+        <h2 class="titulo-seccion-formulario">Información de contacto</h2>
+        <section class="tarjeta bloque-formulario">
+            <div class="grupo-campo">
+                <label class="etiqueta" for="reserva-correo">Correo electrónico</label>
+                <div class="campo-con-icono">
+                    <img th:src="@{/imgs/iconos/correo.svg}" alt="" class="icono">
+                    <input type="email" id="reserva-correo" name="correo"
+                           th:value="${#authentication != null and #authentication.name != 'anonymousUser' ? #authentication.name : ''}"
+                           placeholder="Correo electrónico" required>
+                </div>
+            </div>
+            <div class="grupo-campo">
+                <label class="etiqueta" for="reserva-confirmar-correo">Confirmar correo electrónico</label>
+                <div class="campo-con-icono">
+                    <img th:src="@{/imgs/iconos/correo.svg}" alt="" class="icono">
+                    <input type="email" id="reserva-confirmar-correo" name="confirmarCorreo"
+                           th:value="${#authentication != null and #authentication.name != 'anonymousUser' ? #authentication.name : ''}"
+                           placeholder="Confirmar correo electrónico" required>
+                </div>
+            </div>
+            <div class="grupo-campo campo-corto">
+                <label class="etiqueta" for="reserva-telefono">Teléfono</label>
+                <div class="campo-con-icono">
+                    <img th:src="@{/imgs/iconos/telefono.svg}" alt="" class="icono">
+                    <input type="tel" id="reserva-telefono" name="telefono" placeholder="Teléfono (10 dígitos)" maxlength="10" required>
+                </div>
+            </div>
+        </section>
+
+        <button type="submit" class="boton boton-secundario boton-grande boton-bloque">Siguiente</button>
+    </form>
+</main>
+
+<th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

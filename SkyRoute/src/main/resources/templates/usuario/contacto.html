@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Contacto')}"></head>
+
+<body>
+
+<section class="hero">
+    <th:block th:with="urlRegresar=@{/inicio}">
+        <header th:replace="~{fragments/base :: header('contacto')}"></header>
+    </th:block>
+
+    <div class="hero-contenido">
+        <h1 class="hero-titulo">Contacto</h1>
+        <p class="hero-subtitulo">Estamos aquí para ayudarte. Consulta nuestros horarios y canales de contacto</p>
+    </div>
+</section>
+
+<main class="contenedor contenedor-estrecho">
+    <section class="tarjeta seccion-superpuesta">
+        <h2>Nuestros horarios</h2>
+        <div class="lista-horarios">
+            <span class="horario-dia"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Lunes</span>
+            <span>9:00 - 18:00</span>
+            <span class="horario-dia"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Martes</span>
+            <span>9:00 - 18:00</span>
+            <span class="horario-dia"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Miércoles</span>
+            <span>9:00 - 18:00</span>
+            <span class="horario-dia"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Jueves</span>
+            <span>9:00 - 18:00</span>
+            <span class="horario-dia"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Viernes</span>
+            <span>9:00 - 18:00</span>
+            <span class="horario-dia horario-cerrado"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Sábado</span>
+            <span class="horario-cerrado">Cerrado</span>
+            <span class="horario-dia horario-cerrado"><img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-pequeno">Domingo</span>
+            <span class="horario-cerrado">Cerrado</span>
+        </div>
+    </section>
+
+    <section class="seccion-contacto">
+        <h2>Información de contacto general</h2>
+
+        <div class="dato-contacto">
+            <img th:src="@{/imgs/iconos/telefono.svg}" alt="" class="icono">
+            <div class="dato-contacto-texto">
+                <span class="dato-contacto-etiqueta">Teléfono</span>
+                <span class="dato-contacto-valor">+52 1234567890</span>
+            </div>
+        </div>
+
+        <div class="dato-contacto">
+            <img th:src="@{/imgs/iconos/correo.svg}" alt="" class="icono">
+            <div class="dato-contacto-texto">
+                <span class="dato-contacto-etiqueta">Correo electrónico</span>
+                <span class="dato-contacto-valor"><a href="mailto:contacto@skyroute.com">contacto@skyroute.com</a></span>
+            </div>
+        </div>
+
+        <div class="dato-contacto">
+            <img th:src="@{/imgs/iconos/ubicacion.svg}" alt="" class="icono">
+            <div class="dato-contacto-texto">
+                <span class="dato-contacto-etiqueta">Dirección</span>
+                <iframe class="mapa-contacto" src="https://maps.google.com/maps?q=Instituto%20Tecnol%C3%B3gico%20de%20Sonora%2C%20Av.%20Antonio%20Caso%202266%2C%20Ciudad%20Obreg%C3%B3n&z=15&output=embed" title="Mapa de ubicación del Instituto Tecnológico de Sonora" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+        </div>
+    </section>
+</main>
+
+<th:block th:replace="~{fragments/base :: sidebar('contacto')}"></th:block>
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

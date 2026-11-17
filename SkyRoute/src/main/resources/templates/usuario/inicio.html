@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Inicio')}"></head>
+
+<body>
+
+<section class="hero">
+    <header th:replace="~{fragments/base :: header('inicio')}"></header>
+
+    <div class="hero-contenido">
+        <h1 class="hero-titulo">Tu próximo destino te espera</h1>
+        <p class="hero-subtitulo">Encuentra y reserva vuelos de manera fácil, segura y en tiempo real</p>
+    </div>
+</section>
+
+<main>
+    <div class="contenedor seccion-superpuesta">
+        <form class="tarjeta tarjeta-busqueda" th:action="@{/vuelos}" method="GET">
+            <div class="campo-vuelo campo-origen">
+                <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">
+                <div class="campo-vuelo-texto">
+                    <label for="busqueda-origen">Origen</label>
+                    <select id="busqueda-origen" name="origen">
+                        <option value="OBR" selected>Ciudad Obregón (OBR)</option>
+                        <option value="GVE">Guasave (GVE)</option>
+                        <option value="HMO">Hermosillo (HMO)</option>
+                        <option value="TIJ">Tijuana (TIJ)</option>
+                        <option value="MTY">Monterrey (MTY)</option>
+                        <option value="GDL">Guadalajara (GDL)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="campo-vuelo campo-destino">
+                <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">
+                <div class="campo-vuelo-texto">
+                    <label for="busqueda-destino">Destino</label>
+                    <select id="busqueda-destino" name="destino">
+                        <option value="OBR">Ciudad Obregón (OBR)</option>
+                        <option value="GVE" selected>Guasave (GVE)</option>
+                        <option value="HMO">Hermosillo (HMO)</option>
+                        <option value="TIJ">Tijuana (TIJ)</option>
+                        <option value="MTY">Monterrey (MTY)</option>
+                        <option value="GDL">Guadalajara (GDL)</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="campo-vuelo campo-fecha">
+                <img th:src="@{/imgs/iconos/calendario.svg}" alt="" class="icono">
+                <div class="campo-vuelo-texto">
+                    <label for="busqueda-ida">Fecha de ida</label>
+                    <input type="date" id="busqueda-ida" name="fechaIda" value="2026-10-07">
+                </div>
+            </div>
+
+            <div class="campo-vuelo campo-fecha">
+                <img th:src="@{/imgs/iconos/calendario.svg}" alt="" class="icono">
+                <div class="campo-vuelo-texto">
+                    <label for="busqueda-regreso">Fecha de regreso</label>
+                    <input type="date" id="busqueda-regreso" name="fechaRegreso" value="2026-11-07">
+                </div>
+            </div>
+
+            <div class="campo-vuelo campo-pasajeros">
+                <img th:src="@{/imgs/iconos/pasajeros.svg}" alt="" class="icono">
+                <div class="campo-vuelo-texto">
+                    <label for="busqueda-pasajeros">Pasajeros</label>
+                    <select id="busqueda-pasajeros" name="pasajeros">
+                        <option value="1">1 Adulto</option>
+                        <option value="2">2 Adultos</option>
+                        <option value="3">3 Adultos</option>
+                        <option value="4">4 Adultos</option>
+                    </select>
+                </div>
+            </div>
+
+            <button type="submit" class="boton boton-secundario boton-grande">
+                <img th:src="@{/imgs/iconos/buscar.svg}" alt="" class="icono icono-pequeno icono-blanco">
+                Buscar vuelos
+            </button>
+        </form>
+    </div>
+
+    <section class="contenedor lista-destinos">
+        <article class="tarjeta-destino destino-guadalajara">
+            <h2 class="tarjeta-destino-nombre">Guadalajara</h2>
+            <a th:href="@{/vuelos(destino='GDL')}" class="boton boton-secundario">Buscar vuelos</a>
+        </article>
+
+        <article class="tarjeta-destino destino-madrid">
+            <h2 class="tarjeta-destino-nombre">Madrid</h2>
+            <a th:href="@{/vuelos(destino='MAD')}" class="boton boton-secundario">Buscar vuelos</a>
+        </article>
+
+        <article class="tarjeta-destino destino-buenos-aires">
+            <h2 class="tarjeta-destino-nombre">Buenos Aires</h2>
+            <a th:href="@{/vuelos(destino='EZE')}" class="boton boton-secundario">Buscar vuelos</a>
+        </article>
+    </section>
+</main>
+
+<th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

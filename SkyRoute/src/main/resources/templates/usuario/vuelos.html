@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Vuelos')}"></head>
+
+<body>
+
+<section class="hero hero-corto">
+    <th:block th:with="urlRegresar=@{/inicio}">
+        <header th:replace="~{fragments/base :: header('inicio')}"></header>
+    </th:block>
+
+    <div class="hero-contenido">
+        <h1 class="hero-titulo" th:text="${origen != null and destino != null ? origen + ' - ' + destino : 'OBR - GVE'}">OBR - GVE</h1>
+        <p class="hero-detalle">Ciudad Obregón a Guasave<br>7 oct 2026 - 7 nov 2026</p>
+    </div>
+</section>
+
+<main>
+    <section class="contenedor seccion-vuelos">
+        <div class="encabezado-seccion">
+            <h2>Vuelos disponibles</h2>
+            <p>Selecciona el vuelo que mejor se adapte a tu viaje</p>
+        </div>
+        <div class="lista-vuelos">
+            <article class="tarjeta-vuelo">
+                <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">8:15</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">9:15</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,560 MXN</span>
+                    <a th:href="@{/reservar}" class="boton boton-secundario boton-mini">Reservar</a>
+                </div>
+            </article>
+
+            <article class="tarjeta-vuelo">
+                <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">10:00</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">11:00</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,560 MXN</span>
+                    <a th:href="@{/reservar}" class="boton boton-secundario boton-mini">Reservar</a>
+                </div>
+            </article>
+
+            <article class="tarjeta-vuelo">
+                <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">15:30</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">16:30</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,100 MXN</span>
+                    <a th:href="@{/reservar}" class="boton boton-secundario boton-mini">Reservar</a>
+                </div>
+            </article>
+
+            <article class="tarjeta-vuelo">
+                <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
+                <div class="vuelo-itinerario">
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">19:40</span>
+                        <span class="vuelo-codigo">OBR</span>
+                        <span class="vuelo-ciudad">Ciudad Obregón</span>
+                    </div>
+                    <div class="vuelo-duracion">
+                        <span>1 h</span>
+                        <span class="vuelo-linea"></span>
+                    </div>
+                    <div class="vuelo-punto">
+                        <span class="vuelo-hora">20:40</span>
+                        <span class="vuelo-codigo">GVE</span>
+                        <span class="vuelo-ciudad">Guasave</span>
+                    </div>
+                </div>
+                <div class="vuelo-precio">
+                    <span class="vuelo-monto">$1,300 MXN</span>
+                    <a th:href="@{/reservar}" class="boton boton-secundario boton-mini">Reservar</a>
+                </div>
+            </article>
+        </div>
+    </section>
+</main>
+
+<th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

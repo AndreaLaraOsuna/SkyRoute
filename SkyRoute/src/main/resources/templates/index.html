@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Iniciar sesión')}"></head>
+
+<body>
+
+<main class="pagina-autenticacion">
+    <section class="tarjeta-autenticacion">
+        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="logo-autenticacion">
+        <p class="nombre-marca">SKYROUTE</p>
+
+        <h1 class="titulo-autenticacion">Bienvenido</h1>
+        <p class="subtitulo-autenticacion">Inicia sesión para continuar</p>
+
+        <p th:if="${param.error}" class="subtitulo-autenticacion">Correo o contraseña incorrectos</p>
+        <p th:if="${param.logout}" class="subtitulo-autenticacion">Has cerrado sesión correctamente</p>
+        <p th:if="${param.registrado}" class="subtitulo-autenticacion">Cuenta creada con éxito. Ya puedes iniciar sesión</p>
+
+        <form method="post" class="formulario-autenticacion" th:action="@{/iniciar-sesion}">
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono">
+                <input name="correo" type="email" placeholder="Correo electrónico" autocomplete="email" required>
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/candado.svg}" alt="" class="icono">
+                <input name="password" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+                <img th:src="@{/imgs/iconos/ojo.svg}" alt="" class="icono">
+            </label>
+
+            <button type="submit" class="boton boton-primario boton-grande boton-bloque">Iniciar Sesión</button>
+        </form>
+
+        <p class="enlace-autenticacion">
+            ¿No tienes una cuenta? <a th:href="@{/registro}" class="boton-enlace">Regístrate</a>
+        </p>
+    </section>
+
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-izquierda">
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-derecha">
+</main>
+
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

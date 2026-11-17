@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Crear cuenta')}"></head>
+
+<body>
+
+<main class="pagina-autenticacion">
+    <section class="tarjeta-autenticacion">
+        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="logo-autenticacion">
+        <p class="nombre-marca">SKYROUTE</p>
+
+        <h1 class="titulo-autenticacion">Crear cuenta</h1>
+        <p class="subtitulo-autenticacion">Regístrate para comenzar a viajar con nosotros</p>
+
+        <p th:if="${error != null}" th:text="${error}" class="subtitulo-autenticacion"></p>
+
+        <form class="formulario-autenticacion" th:action="@{/registro}" method="POST">
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono">
+                <input type="text" name="nombreCompleto" placeholder="Nombre Completo" autocomplete="name" required>
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/correo.svg}" alt="" class="icono">
+                <input type="email" name="correo" placeholder="Correo electrónico" autocomplete="email" required>
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/telefono.svg}" alt="" class="icono">
+                <input type="tel" name="telefono" placeholder="Teléfono" autocomplete="tel" maxlength="10" required>
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/candado.svg}" alt="" class="icono">
+                <input type="password" name="contrasenia" placeholder="Contraseña" autocomplete="new-password" required>
+                <img th:src="@{/imgs/iconos/ojo.svg}" alt="" class="icono">
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/candado.svg}" alt="" class="icono">
+                <input type="password" name="confirmarContrasenia" placeholder="Confirmar contraseña" autocomplete="new-password" required>
+                <img th:src="@{/imgs/iconos/ojo.svg}" alt="" class="icono">
+            </label>
+
+            <button type="submit" class="boton boton-primario boton-grande boton-bloque">Registrarse</button>
+        </form>
+
+        <p class="enlace-autenticacion">
+            ¿Ya tienes una cuenta? <a th:href="@{/login}" class="boton-enlace">Inicia sesión</a>
+        </p>
+    </section>
+
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-izquierda">
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-derecha">
+</main>
+
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>

@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/base :: head('Selección de asientos')}"></head>
+
+<body>
+
+<section class="hero hero-con-resumen">
+    <th:block th:with="urlRegresar=@{/reservar}">
+        <header th:replace="~{fragments/base :: header('inicio')}"></header>
+    </th:block>
+
+    <div class="hero-contenido">
+        <h1 class="hero-titulo">Selección de asientos</h1>
+    </div>
+</section>
+
+<main>
+    <form class="contenedor contenedor-estrecho formulario-reserva" th:action="@{/pago}" method="POST">
+        <div class="mapa-asientos">
+            <div class="mapa-asientos-cuadricula">
+                <span class="etiqueta-salida">Salida</span>
+                <span></span>
+                <span class="etiqueta-salida">Salida</span>
+                <span class="letra-asiento">A</span>
+                <span class="letra-asiento">B</span>
+                <span class="letra-asiento">C</span>
+                <span></span>
+                <span class="letra-asiento">D</span>
+                <span class="letra-asiento">E</span>
+                <span class="letra-asiento">F</span>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A1" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B1" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C1" class="selector-oculto"></label>
+                <span class="numero-fila">1</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D1" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E1" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F1" class="selector-oculto"></label>
+
+                <span class="etiqueta-salida-rapida">Salida rápida</span>
+                <span></span>
+                <span class="etiqueta-salida-rapida">Salida rápida</span>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A2" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B2" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C2" class="selector-oculto"></label>
+                <span class="numero-fila">2</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D2" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E2" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F2" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A3" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B3" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C3" class="selector-oculto"></label>
+                <span class="numero-fila">3</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D3" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E3" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F3" class="selector-oculto" checked></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A4" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B4" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C4" class="selector-oculto"></label>
+                <span class="numero-fila">4</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D4" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E4" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F4" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A5" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B5" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C5" class="selector-oculto"></label>
+                <span class="numero-fila">5</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D5" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E5" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F5" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A6" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B6" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C6" class="selector-oculto"></label>
+                <span class="numero-fila">6</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D6" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E6" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F6" class="selector-oculto"></label>
+
+                <label class="asiento asiento-ocupado"><input type="checkbox" name="asiento" value="A7" class="selector-oculto" disabled>x</label>
+                <label class="asiento asiento-ocupado"><input type="checkbox" name="asiento" value="B7" class="selector-oculto" disabled>x</label>
+                <label class="asiento asiento-ocupado"><input type="checkbox" name="asiento" value="C7" class="selector-oculto" disabled>x</label>
+                <span class="numero-fila">7</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D7" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E7" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F7" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A8" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B8" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C8" class="selector-oculto"></label>
+                <span class="numero-fila">8</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D8" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E8" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F8" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A9" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B9" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C9" class="selector-oculto"></label>
+                <span class="numero-fila">9</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D9" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E9" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F9" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A10" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B10" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C10" class="selector-oculto"></label>
+                <span class="numero-fila">10</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D10" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E10" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F10" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A11" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B11" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C11" class="selector-oculto"></label>
+                <span class="numero-fila">11</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D11" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E11" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F11" class="selector-oculto"></label>
+
+                <label class="asiento"><input type="checkbox" name="asiento" value="A12" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="B12" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="C12" class="selector-oculto"></label>
+                <span class="numero-fila">12</span>
+                <label class="asiento"><input type="checkbox" name="asiento" value="D12" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="E12" class="selector-oculto"></label>
+                <label class="asiento"><input type="checkbox" name="asiento" value="F12" class="selector-oculto"></label>
+            </div>
+        </div>
+
+        <button type="submit" class="boton boton-secundario boton-grande boton-bloque">Siguiente</button>
+    </form>
+</main>
+
+<th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
+<footer th:replace="~{fragments/base :: footer}"></footer>
+
+</body>
+</html>
