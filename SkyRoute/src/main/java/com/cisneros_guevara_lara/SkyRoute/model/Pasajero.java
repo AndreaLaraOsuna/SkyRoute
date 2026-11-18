@@ -1,5 +1,6 @@
 package com.cisneros_guevara_lara.SkyRoute.model;
 
+import com.cisneros_guevara_lara.SkyRoute.model.enums.TipoPasajero;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -23,7 +24,10 @@ public class Pasajero {
     private LocalDate fechaNacimiento;
     private String nacionalidad;
     private String asiento;
-    private String tipo;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private TipoPasajero tipo;
 
     @ManyToOne
     @JoinColumn(name = "reservacion_id", nullable = false)

@@ -73,105 +73,107 @@ public class Controller {
         return "usuario/contacto";
     }
 
-    // Buscar vuelos reales en BD
     @GetMapping("/vuelos")
     public String mostrarVuelos(@RequestParam(required = false) String origen,
                                 @RequestParam(required = false) String destino,
                                 @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaIda,
+                                @RequestParam(defaultValue = "1") int pasajeros,
                                 Model model) {
         List<Vuelo> vuelos = skyRouteService.buscarVuelos(origen, destino, fechaIda);
         model.addAttribute("vuelos", vuelos);
         model.addAttribute("origen", origen);
         model.addAttribute("destino", destino);
         model.addAttribute("fechaIda", fechaIda);
+        model.addAttribute("pasajeros", pasajeros);
         return "usuario/vuelos";
     }
 
-    // Datos del pasajero para el vuelo elegido
     @GetMapping("/reservar")
     public String mostrarReservar(@RequestParam Long vueloId,
+                                  @RequestParam(defaultValue = "1") int pasajeros,
                                   Authentication auth,
                                   HttpSession session,
                                   Model model) {
         Vuelo vuelo = skyRouteService.obtenerVueloPorId(vueloId);
         session.setAttribute("reservaVueloId", vueloId);
+        session.setAttribute("reservaCantidadPasajeros", pasajeros);
 
         Usuario usuario = skyRouteService.buscarUsuarioPorCorreo(auth.getName());
         model.addAttribute("vuelo", vuelo);
         model.addAttribute("cliente", usuario);
+        model.addAttribute("pasajeros", pasajeros);
         return "usuario/reservar";
     }
 
-    // Guardar datos del pasajero en sesión y cargar asientos ocupados desde BD
     @PostMapping("/asientos")
-    public String procesarDatosPasajero(@RequestParam String nombreCompleto,
-                                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaNacimiento,
-                                        @RequestParam String nacionalidad,
+    public String procesarDatosPasajero(@RequestParam List<String> nombresCompletos,
+                                        @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) List<LocalDate> fechasNacimiento,
+                                        @RequestParam List<String> nacionalidades,
                                         HttpSession session,
                                         Model model) {
         Long vueloId = (Long) session.getAttribute("reservaVueloId");
         if (vueloId == null) return "redirect:/inicio";
 
-        session.setAttribute("pasajeroNombre", nombreCompleto);
-        session.setAttribute("pasajeroNacimiento", fechaNacimiento);
-        session.setAttribute("pasajeroNacionalidad", nacionalidad);
+        session.setAttribute("pasajerosNombres", nombresCompletos);
+        session.setAttribute("pasajerosNacimientos", fechasNacimiento);
+        session.setAttribute("pasajerosNacionalidades", nacionalidades);
 
         Vuelo vuelo = skyRouteService.obtenerVueloPorId(vueloId);
         List<String> asientosOcupados = skyRouteService.obtenerAsientosOcupados(vueloId);
 
         model.addAttribute("vuelo", vuelo);
         model.addAttribute("asientosOcupados", asientosOcupados);
+        model.addAttribute("cantidadPasajeros", nombresCompletos.size());
         return "usuario/asientos";
     }
 
-    // Guardar asiento elegido en sesión y mostrar resumen de pago real
     @PostMapping("/pago")
-    public String procesarAsiento(@RequestParam String asiento,
+    public String procesarAsiento(@RequestParam("asiento") List<String> asientos,
                                   HttpSession session,
                                   Model model) {
         Long vueloId = (Long) session.getAttribute("reservaVueloId");
         if (vueloId == null) return "redirect:/inicio";
 
-        session.setAttribute("pasajeroAsiento", asiento);
+        session.setAttribute("pasajerosAsientos", asientos);
 
         Vuelo vuelo = skyRouteService.obtenerVueloPorId(vueloId);
-        double subtotal = vuelo.getRuta().getTarifa();
+        double subtotal = vuelo.getRuta().getTarifa() * asientos.size();
         double impuestos = Math.round(subtotal * 0.16 * 100.0) / 100.0;
         double total = subtotal + impuestos;
 
         model.addAttribute("vuelo", vuelo);
-        model.addAttribute("asiento", asiento);
+        model.addAttribute("asiento", String.join(", ", asientos));
         model.addAttribute("subtotal", subtotal);
         model.addAttribute("impuestos", impuestos);
         model.addAttribute("total", total);
         return "usuario/pago";
     }
 
-    // Persistir la reservación con SQL
     @PostMapping("/confirmar-reserva")
+    @SuppressWarnings("unchecked")
     public String confirmarReserva(@RequestParam MetodoPago metodoPago,
                                    Authentication auth,
                                    HttpSession session) {
         Long vueloId = (Long) session.getAttribute("reservaVueloId");
-        String nombre = (String) session.getAttribute("pasajeroNombre");
-        LocalDate nacimiento = (LocalDate) session.getAttribute("pasajeroNacimiento");
-        String nacionalidad = (String) session.getAttribute("pasajeroNacionalidad");
-        String asiento = (String) session.getAttribute("pasajeroAsiento");
+        List<String> nombres = (List<String>) session.getAttribute("pasajerosNombres");
+        List<LocalDate> nacimientos = (List<LocalDate>) session.getAttribute("pasajerosNacimientos");
+        List<String> nacionalidades = (List<String>) session.getAttribute("pasajerosNacionalidades");
+        List<String> asientos = (List<String>) session.getAttribute("pasajerosAsientos");
 
-        if (vueloId == null || asiento == null) {
+        if (vueloId == null || asientos == null || asientos.isEmpty()) {
             return "redirect:/inicio";
         }
 
-        skyRouteService.crearReservacion(
-                auth.getName(), vueloId, nombre, nacimiento, nacionalidad, asiento, metodoPago
+        skyRouteService.crearReservacionMultiple(
+                auth.getName(), vueloId, nombres, nacimientos, nacionalidades, asientos, metodoPago
         );
 
-        // Limpiar datos temporales de sesión
         session.removeAttribute("reservaVueloId");
-        session.removeAttribute("pasajeroNombre");
-        session.removeAttribute("pasajeroNacimiento");
-        session.removeAttribute("pasajeroNacionalidad");
-        session.removeAttribute("pasajeroAsiento");
+        session.removeAttribute("reservaCantidadPasajeros");
+        session.removeAttribute("pasajerosNombres");
+        session.removeAttribute("pasajerosNacimientos");
+        session.removeAttribute("pasajerosNacionalidades");
+        session.removeAttribute("pasajerosAsientos");
 
         return "redirect:/mis-reservas?confirmada=true";
     }

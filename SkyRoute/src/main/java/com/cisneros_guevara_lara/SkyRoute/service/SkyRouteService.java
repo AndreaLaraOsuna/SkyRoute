@@ -4,6 +4,7 @@ import com.cisneros_guevara_lara.SkyRoute.model.*;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.EstadoReservacion;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.MetodoPago;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.TipoBloqueo;
+import com.cisneros_guevara_lara.SkyRoute.model.enums.TipoPasajero;
 import com.cisneros_guevara_lara.SkyRoute.repository.*;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -140,7 +141,7 @@ public class SkyRouteService {
         pasajero.setFechaNacimiento(fechaNacimiento);
         pasajero.setNacionalidad(nacionalidad);
         pasajero.setAsiento(asiento);
-        pasajero.setTipo("ADULTO");
+        pasajero.setTipo(TipoPasajero.ADULTO);
         pasajero.setReservacion(reservacion);
 
         reservacion.getPasajeros().add(pasajero);
@@ -226,5 +227,53 @@ public class SkyRouteService {
     @Transactional
     public void desbloquearVuelo(Long bloqueoId) {
         bloqueoRepository.deleteById(bloqueoId);
+    }
+
+    @Transactional
+    public Reservacion crearReservacionMultiple(String correoCliente,
+                                                Long vueloId,
+                                                List<String> nombres,
+                                                List<LocalDate> nacimientos,
+                                                List<String> nacionalidades,
+                                                List<String> asientos,
+                                                MetodoPago metodoPago) {
+        Cliente cliente = (Cliente) buscarUsuarioPorCorreo(correoCliente);
+        Vuelo vuelo = obtenerVueloPorId(vueloId);
+
+        List<String> ocupados = obtenerAsientosOcupados(vueloId);
+        for (String asiento : asientos) {
+            if (ocupados.contains(asiento)) {
+                throw new IllegalArgumentException("El asiento " + asiento + " ya fue ocupado.");
+            }
+        }
+
+        double subtotal = vuelo.getRuta().getTarifa() * asientos.size();
+        double impuestos = Math.round(subtotal * 0.16 * 100.0) / 100.0;
+        double total = subtotal + impuestos;
+
+        Reservacion reservacion = new Reservacion();
+        reservacion.setFolio("SR-" + java.util.UUID.randomUUID().toString().substring(0, 6).toUpperCase());
+        reservacion.setFechaCreacion(java.time.LocalDateTime.now());
+        reservacion.setSubtotal(subtotal);
+        reservacion.setCargoEquipaje(0.0);
+        reservacion.setImpuestos(impuestos);
+        reservacion.setTotal(total);
+        reservacion.setMetodoPago(metodoPago);
+        reservacion.setEstado(EstadoReservacion.CONFIRMADA); // Usa el mismo valor que ya tienes en crearReservacion
+        reservacion.setCliente(cliente);
+        reservacion.setVuelo(vuelo);
+
+        for (int i = 0; i < asientos.size(); i++) {
+            Pasajero pasajero = new Pasajero();
+            pasajero.setNombreCompleto(nombres.get(i));
+            pasajero.setFechaNacimiento(nacimientos.get(i));
+            pasajero.setNacionalidad(nacionalidades.get(i));
+            pasajero.setAsiento(asientos.get(i));
+            pasajero.setTipo(TipoPasajero.ADULTO);
+            pasajero.setReservacion(reservacion);
+            reservacion.getPasajeros().add(pasajero);
+        }
+
+        return reservacionRepository.save(reservacion);
     }
 }

@@ -35,8 +35,8 @@
             <span class="reserva-id" th:text="'Folio: ' + ${res.folio}">Folio: SR-001</span>
 
             <span class="estado estado-cuadrado"
-                  th:classappend="${res.estado == 'CONFIRMADO' ? 'estado-confirmada' : (res.estado == 'CANCELADO' ? 'estado-cancelada' : 'estado-pendiente')}"
-                  th:text="${res.estado}">Pendiente</span>
+                  th:classappend="${res.estado != null and (res.estado.name() == 'CONFIRMADA' or res.estado.name() == 'CHECKIN') ? 'estado-confirmada' : (res.estado != null and res.estado.name() == 'CANCELADA' ? 'estado-cancelada' : 'estado-pendiente')}"
+                  th:text="${res.estado}">Confirmada</span>
 
             <div class="reserva-vuelo">
                 <div class="vuelo-itinerario">
@@ -62,7 +62,7 @@
                 <details class="reserva-desplegable">
                     <summary>Ver detalles</summary>
                     <p class="reserva-detalle" th:each="p : ${res.pasajeros}"
-                       th:text="${p.nombreCompleto} + ' - Asiento ' + ${p.asiento}"></p>
+                       th:text="${p.nombreCompleto + ' - Asiento ' + p.asiento}"></p>
                 </details>
             </div>
 
@@ -70,7 +70,7 @@
                 <span class="vuelo-monto" th:text="'$' + ${#numbers.formatDecimal(res.total, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$1,560 MXN</span>
                 <span class="vuelo-numero" th:text="'Vuelo ' + ${res.vuelo.ruta.codigo}">Vuelo AM167</span>
 
-                <th:block th:if="${res.estado == 'PENDIENTE'}">
+                <th:block th:if="${res.estado != null and (res.estado.name() == 'CONFIRMADA' or res.estado.name() == 'PENDIENTE')}">
                     <button type="button" class="boton boton-secundario boton-mini"
                             data-abrir-modal="modal-checkin"
                             th:attr="data-id=${res.id}, data-folio=${res.folio}"
@@ -92,7 +92,7 @@
         <h2 class="modal-titulo" id="titulo-modal-cancelar">¿Deseas cancelar tu reservación?</h2>
         <p class="modal-texto">Si cancelas perderás tu reserva y tendrás que hacer una nueva sujeta a disponibilidad</p>
         <form id="form-cancelar-reserva" method="POST" class="modal-acciones">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
             <button type="submit" class="boton boton-secundario boton-grande">Cancelar reserva</button>
         </form>
@@ -104,7 +104,7 @@
     <div class="modal modal-centrado">
         <h2 class="modal-titulo" id="titulo-modal-checkin">¿Deseas hacer check-in?</h2>
         <form id="form-checkin-reserva" method="POST" class="modal-acciones">
-            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <input type="hidden" th:if="${_csrf != null}" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
             <button type="submit" class="boton boton-secundario boton-grande">Confirmar</button>
         </form>

@@ -51,7 +51,8 @@
                 </div>
                 <div class="vuelo-precio">
                     <span class="vuelo-monto" th:text="'$' + ${#numbers.formatDecimal(vuelo.ruta.tarifa, 1, 'COMMA', 0, 'POINT')} + ' MXN'">$1,560 MXN</span>
-                    <a th:href="@{/reservar(vueloId=${vuelo.id})}" class="boton boton-secundario boton-mini">Reservar</a>
+                    <a th:href="@{/reservar(vueloId=${vuelo.id}, pasajeros=${pasajeros != null ? pasajeros : 1})}"
+                       class="boton boton-secundario boton-mini">Reservar</a>
                 </div>
             </article>
         </div>

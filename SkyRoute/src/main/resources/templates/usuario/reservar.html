@@ -23,27 +23,34 @@
 <main>
     <form class="contenedor contenedor-estrecho formulario-reserva" th:action="@{/asientos}" method="POST">
 
-        <section class="tarjeta bloque-formulario">
+        <section class="tarjeta bloque-formulario"
+                 th:each="i : ${#numbers.sequence(1, pasajeros != null ? pasajeros : 1)}">
+            <h3 th:if="${pasajeros != null and pasajeros > 1}"
+                th:text="'Pasajero ' + ${i}"
+                style="margin-bottom: 1rem;">Pasajero 1</h3>
+
             <div class="grupo-campo">
-                <label class="etiqueta" for="pasajero-nombre">Nombre completo</label>
-                <input type="text" class="campo campo-azul" id="pasajero-nombre" name="nombreCompleto"
-                       th:value="${cliente != null ? cliente.nombreCompleto : ''}" required>
+                <label class="etiqueta" th:for="'pasajero-nombre-' + ${i}">Nombre completo</label>
+                <input type="text" class="campo campo-azul" th:id="'pasajero-nombre-' + ${i}"
+                       name="nombresCompletos"
+                       th:value="${i == 1 and cliente != null ? cliente.nombreCompleto : ''}" required>
             </div>
 
             <div class="fila-campos">
                 <div class="grupo-campo">
-                    <label class="etiqueta" for="pasajero-nacimiento">Fecha de nacimiento</label>
-                    <input type="date" class="campo campo-azul" id="pasajero-nacimiento" name="fechaNacimiento" required>
+                    <label class="etiqueta" th:for="'pasajero-nacimiento-' + ${i}">Fecha de nacimiento</label>
+                    <input type="date" class="campo campo-azul" th:id="'pasajero-nacimiento-' + ${i}"
+                           name="fechasNacimiento" required>
                 </div>
 
                 <div class="grupo-campo">
-                    <label class="etiqueta" for="pasajero-nacionalidad">Nacionalidad</label>
-                    <input type="text" class="campo campo-azul" id="pasajero-nacionalidad" name="nacionalidad"
-                           value="Mexicana" required>
+                    <label class="etiqueta" th:for="'pasajero-nacionalidad-' + ${i}">Nacionalidad</label>
+                    <input type="text" class="campo campo-azul" th:id="'pasajero-nacionalidad-' + ${i}"
+                           name="nacionalidades" value="Mexicana" required>
                 </div>
             </div>
 
-            <div class="fila-campos" th:if="${cliente != null}">
+            <div class="fila-campos" th:if="${i == 1 and cliente != null}">
                 <div class="grupo-campo">
                     <label class="etiqueta" for="pasajero-correo">Correo electrónico</label>
                     <input type="email" class="campo campo-azul" id="pasajero-correo"

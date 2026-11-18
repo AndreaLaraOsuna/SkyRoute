@@ -12,6 +12,10 @@
 
     <div class="hero-contenido">
         <h1 class="hero-titulo">Selección de asientos</h1>
+        <p class="hero-subtitulo"
+           th:text="'Selecciona ' + ${cantidadPasajeros != null ? cantidadPasajeros : 1} + (${cantidadPasajeros != null and cantidadPasajeros > 1 ? ' asientos' : ' asiento'})">
+            Selecciona 1 asiento
+        </p>
     </div>
 </section>
 
@@ -86,26 +90,30 @@
 <th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
 <footer th:replace="~{fragments/base :: footer}"></footer>
 
-<script>
+<script th:inline="javascript">
+    const maxAsientos = /*[[${cantidadPasajeros != null ? cantidadPasajeros : 1}]]*/ 1;
     const checkboxesAsientos = document.querySelectorAll('input[name="asiento"]');
 
-    // Permite seleccionar un solo asiento manteniendo el estilo checkbox del CSS
     checkboxesAsientos.forEach(cb => {
         cb.addEventListener('change', function () {
-            if (this.checked) {
+            const seleccionados = Array.from(checkboxesAsientos).filter(item => item.checked);
+
+            if (maxAsientos === 1 && this.checked) {
                 checkboxesAsientos.forEach(otro => {
                     if (otro !== this) otro.checked = false;
                 });
+            } else if (seleccionados.length > maxAsientos) {
+                this.checked = false;
+                alert('Solo puedes seleccionar ' + maxAsientos + ' asiento(s) para esta reservación.');
             }
         });
     });
 
-    // Evita avanzar a /pago sin haber elegido un asiento
     document.getElementById('form-asientos').addEventListener('submit', function (e) {
-        const seleccionado = Array.from(checkboxesAsientos).some(cb => cb.checked);
-        if (!seleccionado) {
+        const seleccionados = Array.from(checkboxesAsientos).filter(cb => cb.checked);
+        if (seleccionados.length !== maxAsientos) {
             e.preventDefault();
-            alert('Por favor selecciona un asiento antes de continuar.');
+            alert('Por favor selecciona ' + maxAsientos + ' asiento(s) antes de continuar.');
         }
     });
 </script>
