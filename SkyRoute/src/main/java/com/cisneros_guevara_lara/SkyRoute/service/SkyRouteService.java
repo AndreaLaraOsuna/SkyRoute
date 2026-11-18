@@ -1,6 +1,8 @@
 package com.cisneros_guevara_lara.SkyRoute.service;
 
 import com.cisneros_guevara_lara.SkyRoute.model.*;
+import com.cisneros_guevara_lara.SkyRoute.model.enums.EstadoReservacion;
+import com.cisneros_guevara_lara.SkyRoute.model.enums.MetodoPago;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.TipoBloqueo;
 import com.cisneros_guevara_lara.SkyRoute.repository.*;
 import org.springframework.transaction.annotation.Transactional;
@@ -39,9 +41,6 @@ public class SkyRouteService {
     @Autowired
     PasswordEncoder passwordEncoder;
 
-    // ==================== USUARIOS ====================
-
-    // @Transactional indica una transacion en la BD
     @Transactional
     public Cliente registrarCliente(String nombreCompleto, String correo, String telefono, String contrasenia) {
         if (usuarioRepository.existsByCorreo(correo)) {
@@ -55,18 +54,13 @@ public class SkyRouteService {
         return usuarioRepository.save(cliente);
     }
 
-    @Transactional(readOnly = true) // le decimos a spring boot que es solo lectura para que optimice el rendimiento
+    @Transactional(readOnly = true)
     public Usuario buscarUsuarioPorCorreo(String correo) {
         return usuarioRepository.findByCorreo(correo)
                 .orElseThrow(() -> new IllegalArgumentException("Usuario no encontrado."));
     }
 
-    // ==================== VUELOS, RUTAS Y AVIONES ====================
-
-    @Transactional(readOnly = true)
-    public List<Vuelo> buscarVuelosDisponibles(String origen, String destino, LocalDate fecha) {
-        return vueloRepository.buscarVuelosDisponibles(origen, destino, fecha);
-    }
+    // ==================== VUELOS Y RUTAS ====================
 
     @Transactional(readOnly = true)
     public List<String> listarOrigenes() {
@@ -78,7 +72,116 @@ public class SkyRouteService {
         return rutaRepository.listarDestinos();
     }
 
-    // ==================== BLOQUEOS ====================
+    @Transactional(readOnly = true)
+    public List<Vuelo> buscarVuelos(String origen, String destino, LocalDate fecha) {
+        if (origen != null && !origen.isBlank() && destino != null && !destino.isBlank()) {
+            if (fecha != null) {
+                return vueloRepository.buscarVuelosDisponibles(origen, destino, fecha);
+            }
+            return vueloRepository.buscarVuelosPorRuta(origen, destino);
+        }
+        // Si entra sin filtros, muestra todos los vuelos no bloqueados
+        return vueloRepository.findAllByOrderByFechaAscHoraSalidaAsc().stream()
+                .filter(v -> !bloqueoRepository.existsByVueloId(v.getId()))
+                .toList();
+    }
+
+    @Transactional(readOnly = true)
+    public Vuelo obtenerVueloPorId(Long vueloId) {
+        return vueloRepository.findById(vueloId)
+                .orElseThrow(() -> new IllegalArgumentException("Vuelo no encontrado."));
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> obtenerAsientosOcupados(Long vueloId) {
+        return reservacionRepository.obtenerAsientosOcupados(vueloId);
+    }
+
+    // ==================== RESERVACIONES ====================
+
+    @Transactional
+    public Reservacion crearReservacion(String correoCliente,
+                                        Long vueloId,
+                                        String nombrePasajero,
+                                        LocalDate fechaNacimiento,
+                                        String nacionalidad,
+                                        String asiento,
+                                        MetodoPago metodoPago) {
+        Usuario usuario = buscarUsuarioPorCorreo(correoCliente);
+        if (!(usuario instanceof Cliente cliente)) {
+            throw new IllegalStateException("Solo un cliente puede realizar reservaciones.");
+        }
+
+        Vuelo vuelo = obtenerVueloPorId(vueloId);
+
+        if (bloqueoRepository.existsByVueloId(vueloId)) {
+            throw new IllegalStateException("Este vuelo fue bloqueado y ya no admite reservas.");
+        }
+
+        List<String> ocupados = reservacionRepository.obtenerAsientosOcupados(vueloId);
+        if (ocupados.contains(asiento)) {
+            throw new IllegalStateException("El asiento " + asiento + " ya fue ocupado.");
+        }
+
+        double subtotal = vuelo.getRuta().getTarifa();
+        double cargoEquipaje = 0.0;
+        double impuestos = Math.round(subtotal * 0.16 * 100.0) / 100.0;
+        double total = subtotal + cargoEquipaje + impuestos;
+
+        Reservacion reservacion = new Reservacion();
+        reservacion.setFolio("SR-" + UUID.randomUUID().toString().substring(0, 6).toUpperCase());
+        reservacion.setFechaCreacion(LocalDateTime.now());
+        reservacion.setSubtotal(subtotal);
+        reservacion.setCargoEquipaje(cargoEquipaje);
+        reservacion.setImpuestos(impuestos);
+        reservacion.setTotal(total);
+        reservacion.setMetodoPago(metodoPago);
+        reservacion.setEstado(EstadoReservacion.PENDIENTE);
+        reservacion.setCliente(cliente);
+        reservacion.setVuelo(vuelo);
+
+        Pasajero pasajero = new Pasajero();
+        pasajero.setNombreCompleto(nombrePasajero);
+        pasajero.setFechaNacimiento(fechaNacimiento);
+        pasajero.setNacionalidad(nacionalidad);
+        pasajero.setAsiento(asiento);
+        pasajero.setTipo("ADULTO");
+        pasajero.setReservacion(reservacion);
+
+        reservacion.getPasajeros().add(pasajero);
+
+        return reservacionRepository.save(reservacion);
+    }
+
+    @Transactional(readOnly = true)
+    public List<Reservacion> listarReservacionesDeCliente(String correoCliente) {
+        Usuario usuario = buscarUsuarioPorCorreo(correoCliente);
+        return reservacionRepository.findByClienteIdOrderByFechaCreacionDesc(usuario.getId());
+    }
+
+    @Transactional
+    public void hacerCheckIn(Long reservacionId, String correoCliente) {
+        Reservacion reservacion = reservacionRepository.findById(reservacionId)
+                .orElseThrow(() -> new IllegalArgumentException("Reservación no encontrada."));
+        if (!reservacion.getCliente().getCorreo().equals(correoCliente)) {
+            throw new SecurityException("No tienes permiso sobre esta reservación.");
+        }
+        reservacion.setEstado(EstadoReservacion.CONFIRMADA);
+        reservacionRepository.save(reservacion);
+    }
+
+    @Transactional
+    public void cancelarReservacion(Long reservacionId, String correoCliente) {
+        Reservacion reservacion = reservacionRepository.findById(reservacionId)
+                .orElseThrow(() -> new IllegalArgumentException("Reservación no encontrada."));
+        if (!reservacion.getCliente().getCorreo().equals(correoCliente)) {
+            throw new SecurityException("No tienes permiso sobre esta reservación.");
+        }
+        reservacion.setEstado(EstadoReservacion.CANCELADA);
+        reservacionRepository.save(reservacion);
+    }
+
+    // ==================== BLOQUEOS (ADMIN) ====================
 
     @Transactional(readOnly = true)
     public List<Bloqueo> listarBloqueos() {
@@ -90,10 +193,7 @@ public class SkyRouteService {
         if (bloqueoRepository.existsByVueloId(vueloId)) {
             throw new IllegalStateException("Este vuelo ya está bloqueado.");
         }
-
-        Vuelo vuelo = vueloRepository.findById(vueloId)
-                .orElseThrow(() -> new IllegalArgumentException("Vuelo no encontrado."));
-
+        Vuelo vuelo = obtenerVueloPorId(vueloId);
         Usuario usuario = buscarUsuarioPorCorreo(correoAdmin);
         if (!(usuario instanceof Administrador admin)) {
             throw new SecurityException("Solo un administrador puede bloquear vuelos.");
@@ -105,30 +205,11 @@ public class SkyRouteService {
         bloqueo.setTipo(tipo);
         bloqueo.setMotivo(motivo);
         bloqueo.setFechaBloqueo(LocalDateTime.now());
-
         return bloqueoRepository.save(bloqueo);
     }
 
     @Transactional
     public void desbloquearVuelo(Long bloqueoId) {
         bloqueoRepository.deleteById(bloqueoId);
-    }
-
-    // ==================== RESERVACIONES ====================
-
-    @Transactional(readOnly = true)
-    public List<Reservacion> listarReservacionesCliente(Long clienteId) {
-        return reservacionRepository.findByClienteIdOrderByFechaCreacionDesc(clienteId);
-    }
-
-    @Transactional
-    public Reservacion guardarReservacion(Reservacion reservacion) {
-        if (reservacion.getFolio() == null) {
-            reservacion.setFolio("SR-" + UUID.randomUUID().toString().substring(0, 6).toUpperCase());
-        }
-        if (reservacion.getFechaCreacion() == null) {
-            reservacion.setFechaCreacion(LocalDateTime.now());
-        }
-        return reservacionRepository.save(reservacion);
     }
 }

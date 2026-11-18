@@ -22,12 +22,8 @@
                 <div class="campo-vuelo-texto">
                     <label for="busqueda-origen">Origen</label>
                     <select id="busqueda-origen" name="origen">
-                        <option value="OBR" selected>Ciudad Obregón (OBR)</option>
-                        <option value="GVE">Guasave (GVE)</option>
-                        <option value="HMO">Hermosillo (HMO)</option>
-                        <option value="TIJ">Tijuana (TIJ)</option>
-                        <option value="MTY">Monterrey (MTY)</option>
-                        <option value="GDL">Guadalajara (GDL)</option>
+                        <option value="">Selecciona origen</option>
+                        <option th:each="ciudad : ${origenes}" th:value="${ciudad}" th:text="${ciudad}"></option>
                     </select>
                 </div>
             </div>
@@ -37,12 +33,8 @@
                 <div class="campo-vuelo-texto">
                     <label for="busqueda-destino">Destino</label>
                     <select id="busqueda-destino" name="destino">
-                        <option value="OBR">Ciudad Obregón (OBR)</option>
-                        <option value="GVE" selected>Guasave (GVE)</option>
-                        <option value="HMO">Hermosillo (HMO)</option>
-                        <option value="TIJ">Tijuana (TIJ)</option>
-                        <option value="MTY">Monterrey (MTY)</option>
-                        <option value="GDL">Guadalajara (GDL)</option>
+                        <option value="">Selecciona destino</option>
+                        <option th:each="ciudad : ${destinos}" th:value="${ciudad}" th:text="${ciudad}"></option>
                     </select>
                 </div>
             </div>

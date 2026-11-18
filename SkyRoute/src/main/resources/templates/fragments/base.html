@@ -39,9 +39,7 @@
                    th:classappend="${paginaActiva == 'contacto'} ? 'activo'">Contacto</a>
             </li>
             <li class="navegacion-usuario">
-                    <span th:text="${#authentication != null and #authentication.name != 'anonymousUser' ? #authentication.name : 'Invitado'}">
-                        Usuario
-                    </span>
+                <span th:text="${usuarioActual != null ? usuarioActual.nombreCompleto : 'Invitado'}">Usuario</span>
                 <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono icono-blanco">
             </li>
             <li>

@@ -2,6 +2,8 @@ package com.cisneros_guevara_lara.SkyRoute.repository;
 
 import com.cisneros_guevara_lara.SkyRoute.model.Reservacion;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -15,4 +17,8 @@ public interface ReservacionRepository extends JpaRepository<Reservacion, Long> 
     Optional<Reservacion> findByFolio(String folio);
 
     List<Reservacion> findAllByOrderByFechaCreacionDesc();
+
+    @Query("SELECT p.asiento FROM Pasajero p WHERE p.reservacion.vuelo.id = :vueloId " +
+            "AND p.reservacion.estado <> 'CANCELADO'")
+    List<String> obtenerAsientosOcupados(@Param("vueloId") Long vueloId);
 }

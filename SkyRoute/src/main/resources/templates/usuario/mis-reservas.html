@@ -26,182 +26,109 @@
         </div>
     </div>
 
+    <p th:if="${#lists.isEmpty(reservaciones)}" class="hero-subtitulo" style="color: #333; margin-top: 2rem;">
+        Aún no tienes reservaciones registradas.
+    </p>
+
     <div class="lista-reservas-usuario">
-        <article class="tarjeta-reserva">
-            <span class="reserva-id">ID: 001</span>
-            <span class="estado estado-cuadrado estado-confirmada">Confirmado</span>
-            <div class="reserva-vuelo">
-                <div class="vuelo-itinerario">
-                    <div class="vuelo-punto">
-                        <span class="vuelo-hora">8:15</span>
-                        <span class="vuelo-codigo">OBR</span>
-                        <span class="vuelo-ciudad">Ciudad Obregón</span>
-                    </div>
-                    <div class="vuelo-duracion">
-                        <span>1 h</span>
-                        <span class="vuelo-linea"></span>
-                    </div>
-                    <div class="vuelo-punto">
-                        <span class="vuelo-hora">9:15</span>
-                        <span class="vuelo-codigo">GVE</span>
-                        <span class="vuelo-ciudad">Guasave</span>
-                    </div>
-                </div>
-                <p class="reserva-detalle">7 oct 2026 - 7 nov 2026</p>
-                <p class="reserva-detalle">Asiento F3</p>
-                <details class="reserva-desplegable">
-                    <summary>Ver detalles</summary>
-                    <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
-                    <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento F3</p>
-                </details>
-            </div>
-            <div class="vuelo-precio">
-                <span class="vuelo-monto">$1,560 MXN</span>
-                <span class="vuelo-numero">Vuelo AM167</span>
-            </div>
-        </article>
+        <article class="tarjeta-reserva" th:each="res : ${reservaciones}">
+            <span class="reserva-id" th:text="'Folio: ' + ${res.folio}">Folio: SR-001</span>
 
-        <article class="tarjeta-reserva">
-            <span class="reserva-id">ID: 002</span>
-            <span class="estado estado-cuadrado estado-pendiente">Pendiente</span>
-            <div class="reserva-vuelo">
-                <div class="vuelo-itinerario">
-                    <div class="vuelo-punto">
-                        <span class="vuelo-hora">13:00</span>
-                        <span class="vuelo-codigo">HMO</span>
-                        <span class="vuelo-ciudad">Hermosillo</span>
-                    </div>
-                    <div class="vuelo-duracion">
-                        <span>1 h 25 min</span>
-                        <span class="vuelo-linea"></span>
-                    </div>
-                    <div class="vuelo-punto">
-                        <span class="vuelo-hora">14:25</span>
-                        <span class="vuelo-codigo">TIJ</span>
-                        <span class="vuelo-ciudad">Tijuana</span>
-                    </div>
-                </div>
-                <p class="reserva-detalle">1 dic 2026 - 30 dic 2026</p>
-                <p class="reserva-detalle">Asiento A7</p>
-                <details class="reserva-desplegable">
-                    <summary>Ver detalles</summary>
-                    <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
-                    <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento A7</p>
-                </details>
-            </div>
-            <div class="vuelo-precio">
-                <span class="vuelo-monto">$3,260 MXN</span>
-                <span class="vuelo-numero">Vuelo VOI3353</span>
-                <button type="button" class="boton boton-secundario boton-mini" data-abrir-modal="modal-checkin">Hacer Check-In</button>
-                <button type="button" class="enlace-cancelar" data-abrir-modal="modal-cancelar-reserva">Cancelar</button>
-            </div>
-        </article>
+            <span class="estado estado-cuadrado"
+                  th:classappend="${res.estado == 'CONFIRMADO' ? 'estado-confirmada' : (res.estado == 'CANCELADO' ? 'estado-cancelada' : 'estado-pendiente')}"
+                  th:text="${res.estado}">Pendiente</span>
 
-        <article class="tarjeta-reserva">
-            <span class="reserva-id">ID: 003</span>
-            <span class="estado estado-cuadrado estado-cancelada">Cancelado</span>
             <div class="reserva-vuelo">
                 <div class="vuelo-itinerario">
                     <div class="vuelo-punto">
-                        <span class="vuelo-hora">7:00</span>
-                        <span class="vuelo-codigo">HMO</span>
-                        <span class="vuelo-ciudad">Hermosillo</span>
+                        <span class="vuelo-hora" th:text="${#temporals.format(res.vuelo.horaSalida, 'HH:mm')}">8:15</span>
+                        <span class="vuelo-codigo" th:text="${#strings.substring(res.vuelo.ruta.origen, 0, 3).toUpperCase()}">OBR</span>
+                        <span class="vuelo-ciudad" th:text="${res.vuelo.ruta.origen}">Ciudad Obregón</span>
                     </div>
                     <div class="vuelo-duracion">
-                        <span>1 h 25 min</span>
+                        <span th:text="${(res.vuelo.ruta.duracionMinutos / 60) + ' h'}">1 h</span>
                         <span class="vuelo-linea"></span>
                     </div>
                     <div class="vuelo-punto">
-                        <span class="vuelo-hora">8:25</span>
-                        <span class="vuelo-codigo">TIJ</span>
-                        <span class="vuelo-ciudad">Tijuana</span>
+                        <span class="vuelo-hora" th:text="${#temporals.format(res.vuelo.horaSalida.plusMinutes(res.vuelo.ruta.duracionMinutos), 'HH:mm')}">9:15</span>
+                        <span class="vuelo-codigo" th:text="${#strings.substring(res.vuelo.ruta.destino, 0, 3).toUpperCase()}">GVE</span>
+                        <span class="vuelo-ciudad" th:text="${res.vuelo.ruta.destino}">Guasave</span>
                     </div>
                 </div>
-                <p class="reserva-detalle">1 dic 2026 - 30 dic 2026</p>
-                <p class="reserva-detalle">Asiento E1</p>
+
+                <p class="reserva-detalle" th:text="${#temporals.format(res.vuelo.fecha, 'dd MMM yyyy')}">7 oct 2026</p>
+                <p class="reserva-detalle" th:each="p : ${res.pasajeros}" th:text="'Asiento ' + ${p.asiento}">Asiento F3</p>
+
                 <details class="reserva-desplegable">
                     <summary>Ver detalles</summary>
-                    <p class="reserva-detalle">Pasajeros: 1 Adulto</p>
-                    <p class="reserva-detalle">Alma Leticia Chávez Quintero - Asiento E1</p>
+                    <p class="reserva-detalle" th:each="p : ${res.pasajeros}"
+                       th:text="${p.nombreCompleto} + ' - Asiento ' + ${p.asiento}"></p>
                 </details>
             </div>
+
             <div class="vuelo-precio">
-                <span class="vuelo-monto">$3,260 MXN</span>
-                <span class="vuelo-numero">Vuelo VOI4221</span>
+                <span class="vuelo-monto" th:text="'$' + ${#numbers.formatDecimal(res.total, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$1,560 MXN</span>
+                <span class="vuelo-numero" th:text="'Vuelo ' + ${res.vuelo.ruta.codigo}">Vuelo AM167</span>
+
+                <th:block th:if="${res.estado == 'PENDIENTE'}">
+                    <button type="button" class="boton boton-secundario boton-mini"
+                            data-abrir-modal="modal-checkin"
+                            th:attr="data-id=${res.id}, data-folio=${res.folio}"
+                            onclick="prepararCheckIn(this)">Hacer Check-In</button>
+
+                    <button type="button" class="enlace-cancelar"
+                            data-abrir-modal="modal-cancelar-reserva"
+                            th:attr="data-id=${res.id}, data-folio=${res.folio}"
+                            onclick="prepararCancelar(this)">Cancelar</button>
+                </th:block>
             </div>
         </article>
     </div>
 </main>
 
+<!-- Modal Cancelar -->
 <div class="modal-fondo modal-fondo-difuminado" id="modal-cancelar-reserva" role="dialog" aria-modal="true">
-    <div class="modal">
-        <h2 class="modal-titulo">¿Deseas cancelar tu reservación con ID: 001?</h2>
-        <p class="modal-texto">Si cancelas perderás tu reserva y tendrás que hacer una nueva sujeta a disponibilidad</p>
-        <article class="tarjeta-vuelo tarjeta-vuelo-plana">
-            <span class="logo-skyroute"><img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono">SKYROUTE</span>
-            <div class="vuelo-itinerario">
-                <div class="vuelo-punto">
-                    <span class="vuelo-hora">8:15</span>
-                    <span class="vuelo-codigo">OBR</span>
-                    <span class="vuelo-ciudad">Ciudad Obregón</span>
-                </div>
-                <div class="vuelo-duracion">
-                    <span>1 h</span>
-                    <span class="vuelo-linea"></span>
-                </div>
-                <div class="vuelo-punto">
-                    <span class="vuelo-hora">9:15</span>
-                    <span class="vuelo-codigo">GVE</span>
-                    <span class="vuelo-ciudad">Guasave</span>
-                </div>
-            </div>
-            <div class="vuelo-precio">
-                <span class="vuelo-monto">$1,560 MXN</span>
-                <span class="vuelo-numero">Vuelo AM167</span>
-            </div>
-        </article>
-        <div class="modal-datos">
-            <span>Pasajeros</span>
-            <span>1 Adulto</span>
-            <span>Asientos</span>
-            <span>F3</span>
-        </div>
-        <div class="modal-acciones">
-            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
-            <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-reserva-cancelada">Cancelar</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal-fondo modal-fondo-difuminado" id="modal-reserva-cancelada" role="dialog" aria-modal="true">
     <div class="modal modal-centrado">
-        <img th:src="@{/imgs/iconos/avion-cancelado.svg}" alt="" class="modal-icono">
-        <h2 class="modal-titulo">Reserva cancelada</h2>
-        <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+        <h2 class="modal-titulo" id="titulo-modal-cancelar">¿Deseas cancelar tu reservación?</h2>
+        <p class="modal-texto">Si cancelas perderás tu reserva y tendrás que hacer una nueva sujeta a disponibilidad</p>
+        <form id="form-cancelar-reserva" method="POST" class="modal-acciones">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" class="boton boton-secundario boton-grande">Cancelar reserva</button>
+        </form>
     </div>
 </div>
 
+<!-- Modal Check-In -->
 <div class="modal-fondo modal-fondo-difuminado" id="modal-checkin" role="dialog" aria-modal="true">
     <div class="modal modal-centrado">
-        <h2 class="modal-titulo">¿Deseas hacer check-in de tu reservación con ID: 001?</h2>
-        <div class="modal-acciones">
+        <h2 class="modal-titulo" id="titulo-modal-checkin">¿Deseas hacer check-in?</h2>
+        <form id="form-checkin-reserva" method="POST" class="modal-acciones">
+            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
             <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
-            <button type="button" class="boton boton-secundario boton-grande" data-cerrar-modal data-abrir-modal="modal-checkin-hecho">Confirmar</button>
-        </div>
-    </div>
-</div>
-
-<div class="modal-fondo modal-fondo-difuminado" id="modal-checkin-hecho" role="dialog" aria-modal="true">
-    <div class="modal modal-centrado">
-        <img th:src="@{/imgs/iconos/exito.svg}" alt="" class="modal-icono">
-        <h2 class="modal-titulo">Check-In realizado</h2>
-        <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+            <button type="submit" class="boton boton-secundario boton-grande">Confirmar</button>
+        </form>
     </div>
 </div>
 
 <th:block th:replace="~{fragments/base :: sidebar('reservas')}"></th:block>
 
 <script th:src="@{/js/script.js}"></script>
+<script>
+    function prepararCheckIn(btn) {
+        const id = btn.getAttribute('data-id');
+        const folio = btn.getAttribute('data-folio');
+        document.getElementById('titulo-modal-checkin').textContent = '¿Deseas hacer check-in de tu reservación ' + folio + '?';
+        document.getElementById('form-checkin-reserva').action = '/mis-reservas/' + id + '/checkin';
+    }
+    function prepararCancelar(btn) {
+        const id = btn.getAttribute('data-id');
+        const folio = btn.getAttribute('data-folio');
+        document.getElementById('titulo-modal-cancelar').textContent = '¿Deseas cancelar tu reservación ' + folio + '?';
+        document.getElementById('form-cancelar-reserva').action = '/mis-reservas/' + id + '/cancelar';
+    }
+</script>
+
 <footer th:replace="~{fragments/base :: footer}"></footer>
 
 </body>

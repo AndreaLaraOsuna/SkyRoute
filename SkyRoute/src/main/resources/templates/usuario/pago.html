@@ -12,12 +12,30 @@
 
     <div class="hero-contenido">
         <h1 class="hero-titulo">Pago</h1>
-        <p class="hero-subtitulo">Selecciona tu método de pago y completa los datos</p>
+        <p class="hero-subtitulo"
+           th:text="${vuelo != null} ? 'Vuelo ' + ${vuelo.ruta.codigo} + ' (' + ${vuelo.ruta.origen} + ' - ' + ${vuelo.ruta.destino} + ') · Asiento ' + ${asiento} : 'Selecciona tu método de pago y completa los datos'">
+            Selecciona tu método de pago y completa los datos
+        </p>
     </div>
 </section>
 
 <main>
     <form class="contenedor contenedor-estrecho formulario-reserva" th:action="@{/confirmar-reserva}" method="POST">
+
+        <!-- Resumen de cobro real desde la base de datos -->
+        <section class="tarjeta bloque-formulario" th:if="${vuelo != null}">
+            <div class="modal-datos">
+                <span>Subtotal</span>
+                <span th:text="'$' + ${#numbers.formatDecimal(subtotal, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$0.00 MXN</span>
+
+                <span>Impuestos (16%)</span>
+                <span th:text="'$' + ${#numbers.formatDecimal(impuestos, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$0.00 MXN</span>
+
+                <span><strong>Total a pagar</strong></span>
+                <span><strong th:text="'$' + ${#numbers.formatDecimal(total, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$0.00 MXN</strong></span>
+            </div>
+        </section>
+
         <div class="metodos-pago">
             <label class="metodo-pago">
                 <input type="radio" name="metodoPago" value="TARJETA" class="selector-oculto" checked>
@@ -57,8 +75,7 @@
             <div class="grupo-campo">
                 <label class="etiqueta" for="pago-titular">Nombre del titular</label>
                 <input type="text" class="campo campo-azul" id="pago-titular" name="titular"
-                       th:value="${#authentication != null and #authentication.name != 'anonymousUser' ? #authentication.name : ''}"
-                       placeholder="Nombre del titular">
+                       th:value="${usuarioActual != null ? usuarioActual.nombreCompleto : ''}" required>
             </div>
         </section>
 
@@ -67,19 +84,10 @@
                 <input type="checkbox" name="aceptaTerminos" checked required>
                 <span>He leído y acepto los <em><strong>términos y condiciones</strong></em></span>
             </label>
-            <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-abrir-modal="modal-reserva-confirmada">Confirmar reservación</button>
+            <button type="submit" class="boton boton-secundario boton-grande boton-bloque">Confirmar reservación</button>
         </div>
     </form>
 </main>
-
-<div class="modal-fondo modal-fondo-difuminado" id="modal-reserva-confirmada" role="dialog" aria-modal="true">
-    <div class="modal modal-centrado">
-        <img th:src="@{/imgs/iconos/exito.svg}" alt="" class="modal-icono">
-        <h2 class="modal-titulo">Reserva confirmada</h2>
-        <p class="modal-texto">Puedes consultar tus reservas en "Mis Reservas" desde el menú</p>
-        <a th:href="@{/mis-reservas}" class="boton boton-secundario boton-grande boton-bloque">Volver</a>
-    </div>
-</div>
 
 <th:block th:replace="~{fragments/base :: sidebar('inicio')}"></th:block>
 <footer th:replace="~{fragments/base :: footer}"></footer>

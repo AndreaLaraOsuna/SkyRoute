@@ -20,4 +20,10 @@ public interface VueloRepository extends JpaRepository<Vuelo, Long> {
     List<Vuelo> buscarVuelosDisponibles(@Param("origen") String origen,
                                         @Param("destino") String destino,
                                         @Param("fecha") LocalDate fecha);
+
+    @Query("SELECT v FROM Vuelo v WHERE v.ruta.origen = :origen AND v.ruta.destino = :destino " +
+            "AND v.fecha >= CURRENT_DATE AND v.id NOT IN (SELECT b.vuelo.id FROM Bloqueo b) " +
+            "ORDER BY v.fecha ASC, v.horaSalida ASC")
+    List<Vuelo> buscarVuelosPorRuta(@Param("origen") String origen,
+                                    @Param("destino") String destino);
 }

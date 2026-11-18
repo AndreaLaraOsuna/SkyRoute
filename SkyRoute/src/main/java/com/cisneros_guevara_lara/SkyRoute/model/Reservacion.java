@@ -8,6 +8,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -46,5 +47,5 @@ public class Reservacion {
     private Vuelo vuelo;
 
     @OneToMany(mappedBy = "reservacion", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Pasajero> pasajeros;
+    private List<Pasajero> pasajeros = new ArrayList<>();
 }
