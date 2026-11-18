@@ -1,7 +1,7 @@
 package com.cisneros_guevara_lara.SkyRoute.model;
 
+import com.cisneros_guevara_lara.SkyRoute.model.enums.AlcanceBloqueo;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.TipoBloqueo;
-import jakarta.annotation.Nullable;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 @Entity
 @Table(name = "bloqueos")
@@ -24,27 +24,22 @@ public class Bloqueo {
     private Long id;
 
     @Enumerated(EnumType.STRING)
-    @Column(nullable = false)
     private TipoBloqueo tipo;
 
-    @Column(nullable = false, length = 255)
+    @Enumerated(EnumType.STRING)
+    private AlcanceBloqueo alcance;
+
+    private LocalDate fechaInicio;
+    private LocalDate fechaFin;
+    private LocalTime horaInicio;
+    private LocalTime horaFin;
     private String motivo;
 
-    @Column(name = "fecha_bloqueo", nullable = false)
-    private LocalDateTime fechaBloqueo;
+    @ManyToOne
+    @JoinColumn(name = "ruta_id")
+    private Ruta ruta;
 
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "administrador_id", nullable = false)
-    private Administrador administrador;
-
-    @ManyToOne(optional = false)
-    @JoinColumn(name = "vuelo_id", nullable = false)
-    private Vuelo vuelo;
-
-    @PrePersist
-    public void prePersist() {
-        if (this.fechaBloqueo == null) {
-            this.fechaBloqueo = LocalDateTime.now();
-        }
-    }
+    @ManyToOne
+    @JoinColumn(name = "avion_id")
+    private Avion avion;
 }
