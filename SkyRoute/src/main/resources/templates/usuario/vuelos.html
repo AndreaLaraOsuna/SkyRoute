@@ -12,7 +12,7 @@
 
     <div class="hero-contenido">
         <h1 class="hero-titulo"
-            th:text="${origen != null and destino != null ? origen + ' - ' + destino : 'Vuelos disponibles'}">
+            th:text="${!#strings.isEmpty(origen) and !#strings.isEmpty(destino) ? origen + ' - ' + destino : 'Vuelos disponibles'}">
             Vuelos disponibles
         </h1>
         <p class="hero-detalle" th:if="${fechaIda != null}"

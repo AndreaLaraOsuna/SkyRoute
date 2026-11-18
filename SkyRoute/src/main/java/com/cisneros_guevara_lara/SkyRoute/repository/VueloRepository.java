@@ -14,12 +14,16 @@ public interface VueloRepository extends JpaRepository<Vuelo, Long> {
 
     List<Vuelo> findAllByOrderByFechaAscHoraSalidaAsc();
 
-    @Query("SELECT v FROM Vuelo v WHERE v.ruta.origen = :origen AND v.ruta.destino = :destino " +
-            "AND v.fecha = :fecha AND v.id NOT IN (SELECT b.vuelo.id FROM Bloqueo b) " +
-            "ORDER BY v.horaSalida ASC")
+    @Query("""
+       SELECT v FROM Vuelo v
+       WHERE (:origen IS NULL OR LOWER(v.ruta.origen) LIKE LOWER(CONCAT('%', :origen, '%')))
+         AND (:destino IS NULL OR LOWER(v.ruta.destino) LIKE LOWER(CONCAT('%', :destino, '%')))
+         AND (:fechaIda IS NULL OR v.fecha = :fechaIda)
+       ORDER BY v.fecha ASC, v.horaSalida ASC
+       """)
     List<Vuelo> buscarVuelosDisponibles(@Param("origen") String origen,
                                         @Param("destino") String destino,
-                                        @Param("fecha") LocalDate fecha);
+                                        @Param("fechaIda") LocalDate fechaIda);
 
     @Query("SELECT v FROM Vuelo v WHERE v.ruta.origen = :origen AND v.ruta.destino = :destino " +
             "AND v.fecha >= CURRENT_DATE AND v.id NOT IN (SELECT b.vuelo.id FROM Bloqueo b) " +

@@ -64,6 +64,7 @@ public class Controller {
     public String mostrarInicio(Model model) {
         model.addAttribute("origenes", skyRouteService.listarOrigenes());
         model.addAttribute("destinos", skyRouteService.listarDestinos());
+        model.addAttribute("topDestinos", skyRouteService.obtenerTopDestinos());
         return "usuario/inicio";
     }
 

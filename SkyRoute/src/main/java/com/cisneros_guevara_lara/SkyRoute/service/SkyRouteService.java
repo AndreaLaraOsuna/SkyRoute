@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -73,17 +74,11 @@ public class SkyRouteService {
     }
 
     @Transactional(readOnly = true)
-    public List<Vuelo> buscarVuelos(String origen, String destino, LocalDate fecha) {
-        if (origen != null && !origen.isBlank() && destino != null && !destino.isBlank()) {
-            if (fecha != null) {
-                return vueloRepository.buscarVuelosDisponibles(origen, destino, fecha);
-            }
-            return vueloRepository.buscarVuelosPorRuta(origen, destino);
-        }
-        // Si entra sin filtros, muestra todos los vuelos no bloqueados
-        return vueloRepository.findAllByOrderByFechaAscHoraSalidaAsc().stream()
-                .filter(v -> !bloqueoRepository.existsByVueloId(v.getId()))
-                .toList();
+    public List<Vuelo> buscarVuelos(String origen, String destino, LocalDate fechaIda) {
+        String origenFiltro = (origen != null && !origen.isBlank()) ? origen.trim() : null;
+        String destinoFiltro = (destino != null && !destino.isBlank()) ? destino.trim() : null;
+
+        return vueloRepository.buscarVuelosDisponibles(origenFiltro, destinoFiltro, fechaIda);
     }
 
     @Transactional(readOnly = true)
@@ -179,6 +174,26 @@ public class SkyRouteService {
         }
         reservacion.setEstado(EstadoReservacion.CANCELADA);
         reservacionRepository.save(reservacion);
+    }
+
+    @Transactional(readOnly = true)
+    public List<String> obtenerTopDestinos() {
+        List<String> topDestinos = new ArrayList<>(
+                reservacionRepository.findTopDestinosMasReservados(EstadoReservacion.CANCELADA)
+        );
+
+        if (topDestinos.size() < 3) {
+            for (String destino : listarDestinos()) {
+                if (!topDestinos.contains(destino)) {
+                    topDestinos.add(destino);
+                    if (topDestinos.size() == 3) {
+                        break;
+                    }
+                }
+            }
+        }
+
+        return topDestinos.stream().limit(3).toList();
     }
 
     // ==================== BLOQUEOS (ADMIN) ====================
