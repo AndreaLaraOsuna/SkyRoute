@@ -129,7 +129,7 @@
     color: var(--color-blanco);
 }
 
-.hero-corto{
+.hero-corto {
     height: 220px;
     padding-bottom: 0;
     background-position: center top;
@@ -170,7 +170,7 @@
     color: var(--color-blanco);
 }
 
-.hero-mis-reservas{
+.hero-mis-reservas {
     padding-bottom: 15rem;
 }
 
@@ -537,7 +537,7 @@
 }
 
 .panel-historial {
-    display: none;
+    display: block;
 }
 
 .pie-pagina {
@@ -597,23 +597,25 @@
     font-weight: var(--peso-seminegrita);
 }
 
-.agenda-movil:has(#dia-27:checked) .tarjeta-agenda:not(.vuelo-dia-27),
-.agenda-movil:has(#dia-28:checked) .tarjeta-agenda:not(.vuelo-dia-28),
-.agenda-movil:has(#dia-29:checked) .tarjeta-agenda:not(.vuelo-dia-29),
-.agenda-movil:has(#dia-30:checked) .tarjeta-agenda:not(.vuelo-dia-30),
-.agenda-movil:has(#dia-01:checked) .tarjeta-agenda:not(.vuelo-dia-01),
-.agenda-movil:has(#dia-02:checked) .tarjeta-agenda:not(.vuelo-dia-02),
-.agenda-movil:has(#dia-03:checked) .tarjeta-agenda:not(.vuelo-dia-03) {
+/* Al elegir un día en celular: oculta los vuelos de los otros días */
+.agenda-movil:has(#dia-0:checked) .tarjeta-agenda:not(.vuelo-dia-0),
+.agenda-movil:has(#dia-1:checked) .tarjeta-agenda:not(.vuelo-dia-1),
+.agenda-movil:has(#dia-2:checked) .tarjeta-agenda:not(.vuelo-dia-2),
+.agenda-movil:has(#dia-3:checked) .tarjeta-agenda:not(.vuelo-dia-3),
+.agenda-movil:has(#dia-4:checked) .tarjeta-agenda:not(.vuelo-dia-4),
+.agenda-movil:has(#dia-5:checked) .tarjeta-agenda:not(.vuelo-dia-5),
+.agenda-movil:has(#dia-6:checked) .tarjeta-agenda:not(.vuelo-dia-6) {
     display: none;
 }
 
-.agenda-movil:has(#dia-27:checked) #titulo-dia-27,
-.agenda-movil:has(#dia-28:checked) #titulo-dia-28,
-.agenda-movil:has(#dia-29:checked) #titulo-dia-29,
-.agenda-movil:has(#dia-30:checked) #titulo-dia-30,
-.agenda-movil:has(#dia-01:checked) #titulo-dia-01,
-.agenda-movil:has(#dia-02:checked) #titulo-dia-02,
-.agenda-movil:has(#dia-03:checked) #titulo-dia-03 {
+/* y muestra el título de ese día */
+.agenda-movil:has(#dia-0:checked) #titulo-dia-0,
+.agenda-movil:has(#dia-1:checked) #titulo-dia-1,
+.agenda-movil:has(#dia-2:checked) #titulo-dia-2,
+.agenda-movil:has(#dia-3:checked) #titulo-dia-3,
+.agenda-movil:has(#dia-4:checked) #titulo-dia-4,
+.agenda-movil:has(#dia-5:checked) #titulo-dia-5,
+.agenda-movil:has(#dia-6:checked) #titulo-dia-6 {
     display: block;
 }
 
@@ -759,9 +761,10 @@
     }
 
     .panel-bloqueo {
-        max-width: 520px;
+        max-width: 700px;
         margin: 0 auto;
-        padding: 24px 28px 28px;
+        padding: 24px 36px 28px;
+        gap: 14px;
         background-color: #E9E9E9;
         border-radius: var(--radio-mediano);
     }
@@ -1077,14 +1080,6 @@
         gap: 48px;
     }
 
-    .layout-admin:has(#cliente-ninguno:checked) #historial-c1 {
-        display: block;
-    }
-
-    .layout-admin:has(#cliente-ninguno:checked) .tarjeta-cliente-inicial {
-        background-color: var(--color-gris);
-    }
-
     .panel-historial {
         max-height: calc(100vh - 140px);
         overflow-y: auto;
@@ -1321,4 +1316,40 @@
 
 .layout-admin .boton-oscuro {
     background-color: var(--color-secundario);
+}
+
+.boton-cerrar-sesion {
+    background: none;
+    border: 0;
+    cursor: pointer;
+    font: inherit;
+    color: inherit;
+    text-align: left;
+    width: 100%;
+}
+
+@media (min-width: 768px) {
+    .panel-bloqueo-titulo {
+        font-size: 1.5rem;
+    }
+
+    .panel-bloqueo .etiqueta,
+    .panel-bloqueo .pestana,
+    .panel-bloqueo .campo {
+        font-size: 1rem;
+    }
+
+    .panel-bloqueo .tabla {
+        font-size: 0.9375rem;
+    }
+
+    .panel-bloqueo .tabla-rutas {
+        max-height: calc(100vh - 650px);
+        min-height: 150px;
+        margin-bottom: 0;
+    }
+
+    .panel-bloqueo:has(#tipo-horas:checked) .tabla-rutas {
+        max-height: calc(100vh - 740px);
+    }
 }

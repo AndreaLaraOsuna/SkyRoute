@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:fragment="head(titulo)">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="SkyRoute Administrador">
+    <title th:text="${titulo} + ' | SkyRoute Administrador'">SkyRoute Administrador</title>
+    <link rel="stylesheet" th:href="@{/css/estilos.css}">
+</head>
+
+<body>
+
+<aside class="barra-lateral" th:fragment="barraLateral(activo)">
+    <a th:href="@{/admin/reservaciones}" class="marca">
+        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="marca-icono icono-blanco">
+        SKYROUTE
+    </a>
+    <p class="barra-lateral-seccion">Operación</p>
+    <nav>
+        <a th:href="@{/admin/reservaciones}" class="barra-lateral-enlace" th:classappend="${activo == 'reservaciones'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/lista.svg}" alt="" class="icono icono-blanco">Reservaciones</a>
+        <a th:href="@{/admin/agenda}" class="barra-lateral-enlace" th:classappend="${activo == 'agenda'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/calendario.svg}" alt="" class="icono icono-blanco">Agenda</a>
+        <a th:href="@{/admin/clientes}" class="barra-lateral-enlace" th:classappend="${activo == 'clientes'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/pasajeros.svg}" alt="" class="icono icono-blanco">Clientes</a>
+        <a th:href="@{/admin/resumen}" class="barra-lateral-enlace" th:classappend="${activo == 'resumen'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/info.svg}" alt="" class="icono icono-blanco">Resumen</a>
+    </nav>
+    <p class="barra-lateral-seccion">Configuración</p>
+    <nav>
+        <a th:href="@{/admin/rutas}" class="barra-lateral-enlace" th:classappend="${activo == 'rutas'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono icono-blanco">Rutas</a>
+         <a th:href="@{/admin/horarios}" class="barra-lateral-enlace" th:classappend="${activo == 'horarios'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-blanco">Horarios</a>
+        <a th:href="@{/admin/bloqueos}" class="barra-lateral-enlace" th:classappend="${activo == 'bloqueos'} ? 'activo'">
+            <img th:src="@{/imgs/iconos/bloqueo.svg}" alt="" class="icono icono-blanco">Bloqueos</a>
+    </nav>
+    <p class="barra-lateral-seccion" th:if="${adminActual != null}" th:text="${adminActual.nombreCompleto}">Administrador</p>
+    <form th:action="@{/admin/logout}" method="post">
+        <button type="submit" class="barra-lateral-enlace boton-cerrar-sesion">
+            <img th:src="@{/imgs/iconos/regresar.svg}" alt="" class="icono icono-blanco">Cerrar sesión
+        </button>
+    </form>
+</aside>
+
+<header class="encabezado-admin encabezado-principal" th:fragment="encabezadoPrincipal">
+    <a th:href="@{/admin/reservaciones}" class="marca">
+        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="marca-icono icono-blanco">
+        SKYROUTE
+    </a>
+    <label for="menu-abierto" class="boton-menu">
+        <img th:src="@{/imgs/iconos/menu.svg}" alt="" class="icono icono-grande icono-blanco">
+    </label>
+</header>
+
+<header class="encabezado-admin" th:fragment="encabezadoRegresar(url)">
+    <a th:href="@{${url}}" class="boton-regresar">
+        <img th:src="@{/imgs/iconos/flecha-izquierda.svg}" alt="" class="icono icono-blanco">
+    </a>
+</header>
+
+<nav class="navegacion-inferior" th:fragment="navegacionInferior(activo)">
+    <a th:href="@{/admin/reservaciones}" class="navegacion-inferior-enlace" th:classappend="${activo == 'reservaciones'} ? 'activo'">
+        <img th:src="@{/imgs/iconos/lista.svg}" alt="" class="icono">Reservas</a>
+    <a th:href="@{/admin/agenda}" class="navegacion-inferior-enlace" th:classappend="${activo == 'agenda'} ? 'activo'">
+        <img th:src="@{/imgs/iconos/calendario.svg}" alt="" class="icono">Agenda</a>
+    <a th:href="@{/admin/clientes}" class="navegacion-inferior-enlace" th:classappend="${activo == 'clientes'} ? 'activo'">
+        <img th:src="@{/imgs/iconos/pasajeros.svg}" alt="" class="icono">Clientes</a>
+    <a th:href="@{/admin/resumen}" class="navegacion-inferior-enlace" th:classappend="${activo == 'resumen'} ? 'activo'">
+        <img th:src="@{/imgs/iconos/info.svg}" alt="" class="icono">Resumen</a>
+</nav>
+
+<th:block th:fragment="menuLateral">
+    <input type="checkbox" id="menu-abierto" class="selector-oculto interruptor-menu">
+    <div class="menu-lateral-contenedor">
+        <label for="menu-abierto" class="capa-oscura"></label>
+        <aside class="menu-lateral">
+            <div class="menu-lateral-cabecera">
+                <h2 class="menu-lateral-titulo">Configuración</h2>
+                <label for="menu-abierto" class="boton-cerrar">
+                    <img th:src="@{/imgs/iconos/cerrar.svg}" alt="" class="icono icono-blanco">
+                </label>
+            </div>
+            <ul class="menu-lateral-lista">
+                <li class="menu-lateral-enlace">
+                    <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono icono-blanco">
+                    <span th:text="${adminActual != null} ? ${adminActual.nombreCompleto} : 'Administrador'">Administrador</span>
+                </li>
+                <li><a th:href="@{/admin/rutas}" class="menu-lateral-enlace menu-lateral-sangria">Rutas</a></li>
+                <li><a th:href="@{/admin/horarios}" class="menu-lateral-enlace menu-lateral-sangria">Horarios de salida</a></li>
+                <li><a th:href="@{/admin/bloqueos}" class="menu-lateral-enlace menu-lateral-sangria">Bloqueos</a></li>
+                <li>
+                    <form th:action="@{/admin/logout}" method="post">
+                        <button type="submit" class="menu-lateral-enlace menu-lateral-sangria boton-cerrar-sesion">Cerrar sesión</button>
+                    </form>
+                </li>
+            </ul>
+        </aside>
+    </div>
+</th:block>
+
+<p class="alerta" th:fragment="error" th:if="${error != null}">
+    <img th:src="@{/imgs/iconos/alerta.svg}" alt="" class="icono">
+    <span th:text="${error}">Mensaje de error</span>
+</p>
+
+<div th:fragment="modalExito" th:if="${exito != null}"
+     class="modal-fondo modal-fondo-difuminado visible" id="modal-exito" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <img th:src="@{/imgs/iconos/exito.svg}" alt="" class="modal-icono">
+        <h2 class="modal-titulo" th:text="${exito}">Guardado correctamente</h2>
+        <p class="texto-secundario" th:if="${detalleExito != null}" th:text="${detalleExito}"></p>
+        <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{admin/fragments/base :: head('Iniciar sesión')}"></head>
+
+<body>
+
+<main class="pagina-autenticacion">
+    <section class="tarjeta-autenticacion">
+        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="logo-autenticacion">
+        <p class="nombre-marca">SKYROUTE</p>
+
+        <h1 class="titulo-autenticacion">Panel de administración</h1>
+        <p class="subtitulo-autenticacion">Inicia sesión con tu cuenta de administrador</p>
+
+        <p th:if="${param.error}" class="subtitulo-autenticacion">Correo o contraseña incorrectos</p>
+        <p th:if="${param.logout}" class="subtitulo-autenticacion">Has cerrado sesión correctamente</p>
+        <p th:if="${param.denegado}" class="subtitulo-autenticacion">Necesitas una cuenta de administrador para entrar al panel</p>
+
+        <!-- th:action agrega automáticamente el token CSRF -->
+        <form method="post" class="formulario-autenticacion" th:action="@{/admin/login}">
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono">
+                <input name="correo" type="email" placeholder="Correo electrónico" autocomplete="email" required>
+            </label>
+
+            <label class="campo-con-icono">
+                <img th:src="@{/imgs/iconos/candado.svg}" alt="" class="icono">
+                <input name="contrasenia" type="password" placeholder="Contraseña" autocomplete="current-password" required>
+            </label>
+
+            <button type="submit" class="boton boton-primario boton-grande boton-bloque">Iniciar Sesión</button>
+        </form>
+    </section>
+
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-izquierda">
+    <img th:src="@{/imgs/nubes.svg}" alt="" class="nube nube-derecha">
+</main>
+
+</body>
+</html>

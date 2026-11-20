@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Bloqueos')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('bloqueos')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
+
+        <main class="contenido-admin">
+            <div class="solo-escritorio">
+                <div class="cabecera-pagina">
+                    <h1 class="titulo-pagina">Bloqueos</h1>
+                </div>
+            </div>
+
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+
+            <form id="form-bloqueo" class="panel-bloqueo" method="post" th:action="@{/admin/bloqueos}">
+                <div class="cabecera-pagina">
+                    <h2 class="panel-bloqueo-titulo">Nuevo Bloqueo</h2>
+                </div>
+
+                <div class="pestanas">
+                    <label class="pestana"><input type="radio" name="tipo" value="DIAS_COMPLETOS" id="tipo-dias"
+                                                  class="selector-oculto" checked>Días completos</label>
+                    <label class="pestana"><input type="radio" name="tipo" value="RANGO_HORAS" id="tipo-horas"
+                                                  class="selector-oculto">Rango de horas</label>
+                </div>
+
+                <!-- Días completos -->
+                <div class="fila-campos campos-dias">
+                    <div class="grupo-campo">
+                        <label class="etiqueta etiqueta-ligera" for="bloqueo-desde">Desde</label>
+                        <input type="date" class="campo" id="bloqueo-desde" name="desde"
+                               th:min="${#temporals.createToday()}">
+                    </div>
+                    <div class="grupo-campo">
+                        <label class="etiqueta etiqueta-ligera" for="bloqueo-hasta">Hasta</label>
+                        <input type="date" class="campo" id="bloqueo-hasta" name="hasta"
+                               th:min="${#temporals.createToday()}">
+                    </div>
+                </div>
+
+                <!-- Rango de horas -->
+                <div class="campos-horas">
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="bloqueo-fecha">Seleccione la fecha</label>
+                        <input type="date" class="campo" id="bloqueo-fecha" name="fecha"
+                               th:min="${#temporals.createToday()}">
+                    </div>
+                    <div class="fila-campos">
+                        <div class="grupo-campo">
+                            <label class="etiqueta" for="bloqueo-hora-inicio">Hora inicio</label>
+                            <input type="time" class="campo" id="bloqueo-hora-inicio" name="horaInicio">
+                        </div>
+                        <div class="grupo-campo">
+                            <label class="etiqueta" for="bloqueo-hora-fin">Hora fin</label>
+                            <input type="time" class="campo" id="bloqueo-hora-fin" name="horaFin">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="bloqueo-motivo">Motivo</label>
+                    <input type="text" class="campo" id="bloqueo-motivo" name="motivo" maxlength="255"
+                           placeholder="Por alerta de huracán" required>
+                </div>
+
+                <fieldset class="grupo-campo">
+                    <legend class="etiqueta">Aplica a</legend>
+                    <p class="mensaje-vacio" th:if="${#lists.isEmpty(vuelos)}">No hay vuelos próximos para bloquear.</p>
+                    <div class="contenedor-tabla tabla-rutas" th:unless="${#lists.isEmpty(vuelos)}">
+                        <table class="tabla">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="seleccionar-todas"
+                                           aria-label="Seleccionar todos los vuelos"></th>
+                                <th>Vuelo</th>
+                                <th>Ruta</th>
+                                <th>Salida</th>
+                                <th>Avión</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="v : ${vuelos}" class="fila-vuelo"
+                                th:attr="data-fecha=${v.fecha}, data-hora=${#temporals.format(v.horaSalida, 'HH:mm')}">
+                                <td><input type="checkbox" class="check-ruta" name="vueloIds" th:value="${v.id}"
+                                           th:aria-label="'Seleccionar ' + ${v.ruta.codigo}"></td>
+                                <td th:text="${v.ruta.codigo}">AB 118</td>
+                                <td th:text="${v.ruta.origen} + ' → ' + ${v.ruta.destino}">HMO → TIJ</td>
+                                <td th:text="${#temporals.format(v.fecha, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(v.horaSalida, 'H:mm')}">
+                                    7:30
+                                </td>
+                                <td th:text="${v.avion.matricula}">2AV 015</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                        <p class="mensaje-vacio" id="sin-vuelos-periodo" hidden>No hay vuelos en ese periodo.</p>
+                    </div>
+                </fieldset>
+
+                <div class="barra-acciones">
+                    <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-bloqueo">Guardar
+                    </button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-guardar-bloqueo" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea guardar el bloqueo?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-bloqueo" class="boton boton-secundario boton-grande">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{admin/fragments/base :: modalExito}"></div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

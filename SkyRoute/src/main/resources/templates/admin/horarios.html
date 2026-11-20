@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Horarios de salida')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('horarios')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
+
+        <main class="contenido-admin">
+            <div class="cabecera-pagina">
+                <h1 class="titulo-pagina">Horarios de salida</h1>
+            </div>
+
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+
+            <form id="form-horario" class="formulario-admin" method="post" th:action="@{/admin/horarios}">
+                <fieldset class="grupo-campo">
+                    <legend class="etiqueta">Vuelo</legend>
+                    <p class="mensaje-vacio" th:if="${#lists.isEmpty(vuelos)}">No hay vuelos próximos.</p>
+                    <div class="contenedor-tabla tabla-rutas" th:unless="${#lists.isEmpty(vuelos)}">
+                        <table class="tabla">
+                            <thead>
+                            <tr>
+                                <th><input type="checkbox" id="seleccionar-todas" aria-label="Seleccionar todos los vuelos"></th>
+                                <th>Vuelo</th>
+                                <th>Ruta</th>
+                                <th>Salida actual</th>
+                                <th>Avión</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr th:each="v : ${vuelos}">
+                                <td><input type="checkbox" class="check-ruta" name="vueloIds" th:value="${v.id}"
+                                           th:aria-label="'Seleccionar ' + ${v.ruta.codigo}"></td>
+                                <td th:text="${v.ruta.codigo}">AB 118</td>
+                                <td th:text="${v.ruta.origen} + ' → ' + ${v.ruta.destino}">HMO → TIJ</td>
+                                <td th:text="${#temporals.format(v.fecha, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(v.horaSalida, 'H:mm')}">7:30</td>
+                                <td th:text="${v.avion.matricula}">2AV 015</td>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </fieldset>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="horario-fecha">Selecciona la fecha</label>
+                    <input type="date" class="campo" id="horario-fecha" name="fecha" th:min="${#temporals.createToday()}" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="horario-hora">Hora</label>
+                    <input type="time" class="campo" id="horario-hora" name="hora" required>
+                </div>
+
+                <div class="barra-acciones">
+                    <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-horario">Guardar</button>
+                </div>
+            </form>
+        </main>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-guardar-horario" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea guardar el horario?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-horario" class="boton boton-secundario boton-grande">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{admin/fragments/base :: modalExito}"></div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

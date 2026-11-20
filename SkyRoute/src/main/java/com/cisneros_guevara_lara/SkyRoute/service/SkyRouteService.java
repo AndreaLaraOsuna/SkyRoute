@@ -259,7 +259,7 @@ public class SkyRouteService {
         reservacion.setImpuestos(impuestos);
         reservacion.setTotal(total);
         reservacion.setMetodoPago(metodoPago);
-        reservacion.setEstado(EstadoReservacion.CONFIRMADA); // Usa el mismo valor que ya tienes en crearReservacion
+        reservacion.setEstado(EstadoReservacion.PENDIENTE); // Usa el mismo valor que ya tienes en crearReservacion
         reservacion.setCliente(cliente);
         reservacion.setVuelo(vuelo);
 
@@ -275,5 +275,26 @@ public class SkyRouteService {
         }
 
         return reservacionRepository.save(reservacion);
+    }
+
+    /**
+     * ¿Para qué cliente es esta reserva?
+     * - Si en sesión hay un cliente: para él mismo.
+     * - Si en sesión hay un admin: para el cliente que eligió en Nueva Reservación.
+     * - Si es admin y no eligió cliente: null.
+     */
+    @Transactional(readOnly = true)
+    public Cliente obtenerClienteParaReserva(String correoSesion, Long clienteIdElegidoPorAdmin) {
+        Usuario usuario = buscarUsuarioPorCorreo(correoSesion);
+        if (usuario instanceof Cliente cliente) {
+            return cliente;
+        }
+        if (usuario instanceof Administrador && clienteIdElegidoPorAdmin != null) {
+            return usuarioRepository.findById(clienteIdElegidoPorAdmin)
+                    .filter(u -> u instanceof Cliente)
+                    .map(u -> (Cliente) u)
+                    .orElseThrow(() -> new IllegalArgumentException("Cliente no encontrado."));
+        }
+        return null;
     }
 }

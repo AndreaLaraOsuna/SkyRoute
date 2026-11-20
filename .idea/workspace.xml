@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="b93c2f44-2831-4c8d-988e-fbf3e5955d7d" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminAgendaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminBloqueoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminClienteController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminHorarioController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminLoginController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminReservacionController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminResumenController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminRutaController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/dto/AgendaSemana.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/dto/HistorialCliente.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/dto/ResumenAdmin.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/ClienteRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminAgendaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminBloqueoService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminClienteService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminHorarioService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminReservacionService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminResumenService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminRutaService.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/agenda.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/bloqueos.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/clientes.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/detalle-reservacion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/fragments/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/horarios.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/login.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/nueva-reservacion.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/reservaciones.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/resumen.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/rutas.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/usuario/fragments/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/usuario/reserva-confirmada.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/ReservacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/ReservacionRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/VueloRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/VueloRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/security/SecurityConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/security/SecurityConfig.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/SkyRouteService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/SkyRouteService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/fragments/base.html" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/index.html" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="HTML File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1,
+  &quot;fromUser&quot;: false
+}</component>
+  <component name="ProjectId" id="3KOtQ0xiWAIjs15grkQf4Ar5nRP" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "JavaScript Debug.index.html.executor": "Run",
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "RunOnceActivity.typescript.service.memoryLimit.init": "true",
+    "codeWithMe.voiceChat.enabledByDefault": "false",
+    "git-widget-placeholder": "feat-administracion",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/RAYMUNDO/Documents/GitHub/SkyRoute",
+    "node.js.detected.package.jshint": "true",
+    "node.js.selected.package.jshint": "",
+    "nodejs_package_manager_path": "npm"
+  }
+}]]></component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\RAYMUNDO\Documents\GitHub\SkyRoute\SkyRoute\src\main\resources\templates\usuario" />
+      <recent name="C:\Users\RAYMUNDO\Documents\GitHub\SkyRoute\SkyRoute\src\main\java\com\cisneros_guevara_lara\SkyRoute\controller" />
+      <recent name="C:\Users\RAYMUNDO\Documents\GitHub\SkyRoute\SkyRoute\src\main\resources\templates\admin\fragments" />
+      <recent name="C:\Users\RAYMUNDO\Documents\GitHub\SkyRoute\SkyRoute\src\main\resources\templates\admin" />
+    </key>
+  </component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-30f59d01ecdd-34e2839f716b-intellij.indexing.shared.core-IU-262.9437.185" />
+        <option value="bundled-js-predefined-d6986cc7102b-4abd2a77f808-JavaScript-IU-262.9437.185" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="b93c2f44-2831-4c8d-988e-fbf3e5955d7d" name="Changes" comment="" />
+      <created>1791440423510</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1791440423510</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>
