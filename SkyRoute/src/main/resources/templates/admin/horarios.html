@@ -10,56 +10,130 @@
         <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
 
         <main class="contenido-admin">
-            <div class="cabecera-pagina">
-                <h1 class="titulo-pagina">Horarios de salida</h1>
-            </div>
-
-            <p th:replace="~{admin/fragments/base :: error}"></p>
-
-            <form id="form-horario" class="formulario-admin" method="post" th:action="@{/admin/horarios}">
-                <fieldset class="grupo-campo">
-                    <legend class="etiqueta">Vuelo</legend>
-                    <p class="mensaje-vacio" th:if="${#lists.isEmpty(vuelos)}">No hay vuelos próximos.</p>
-                    <div class="contenedor-tabla tabla-rutas" th:unless="${#lists.isEmpty(vuelos)}">
-                        <table class="tabla">
-                            <thead>
-                            <tr>
-                                <th><input type="checkbox" id="seleccionar-todas" aria-label="Seleccionar todos los vuelos"></th>
-                                <th>Vuelo</th>
-                                <th>Ruta</th>
-                                <th>Salida actual</th>
-                                <th>Avión</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr th:each="v : ${vuelos}">
-                                <td><input type="checkbox" class="check-ruta" name="vueloIds" th:value="${v.id}"
-                                           th:aria-label="'Seleccionar ' + ${v.ruta.codigo}"></td>
-                                <td th:text="${v.ruta.codigo}">AB 118</td>
-                                <td th:text="${v.ruta.origen} + ' → ' + ${v.ruta.destino}">HMO → TIJ</td>
-                                <td th:text="${#temporals.format(v.fecha, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(v.horaSalida, 'H:mm')}">7:30</td>
-                                <td th:text="${v.avion.matricula}">2AV 015</td>
-                            </tr>
-                            </tbody>
-                        </table>
+            <!-- Todo va dentro de "horarios-pestanas" para que el CSS sepa qué pestaña está marcada -->
+            <div class="horarios-pestanas">
+                <div class="cabecera-pagina">
+                    <h1 class="titulo-pagina">Horarios de salida</h1>
+                    <div class="pestanas selector-vista-agenda">
+                        <label class="pestana"><input type="radio" name="pestana-horarios" id="tab-programar"
+                                                      class="selector-oculto" th:checked="${pestana != 'actualizar'}">Programar vuelo</label>
+                        <label class="pestana"><input type="radio" name="pestana-horarios" id="tab-actualizar"
+                                                      class="selector-oculto" th:checked="${pestana == 'actualizar'}">Actualizar vuelo</label>
                     </div>
-                </fieldset>
-
-                <div class="grupo-campo">
-                    <label class="etiqueta" for="horario-fecha">Selecciona la fecha</label>
-                    <input type="date" class="campo" id="horario-fecha" name="fecha" th:min="${#temporals.createToday()}" required>
                 </div>
 
-                <div class="grupo-campo">
-                    <label class="etiqueta" for="horario-hora">Hora</label>
-                    <input type="time" class="campo" id="horario-hora" name="hora" required>
-                </div>
+                <p th:replace="~{admin/fragments/base :: error}"></p>
 
-                <div class="barra-acciones">
-                    <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-horario">Guardar</button>
-                </div>
-            </form>
+                <form id="form-programar" class="formulario-admin vista-programar" method="post"
+                      th:action="@{/admin/horarios/programar}">
+                    <fieldset class="grupo-campo">
+                        <legend class="etiqueta">Ruta</legend>
+                        <p class="mensaje-vacio" th:if="${#lists.isEmpty(rutas)}">No hay rutas registradas.</p>
+                        <div class="contenedor-tabla tabla-rutas" th:unless="${#lists.isEmpty(rutas)}">
+                            <table class="tabla">
+                                <thead>
+                                <tr>
+                                    <th></th>
+                                    <th>Código</th>
+                                    <th>Ruta</th>
+                                    <th>Duración</th>
+                                    <th>Tarifa</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="ruta : ${rutas}">
+                                    <td><input type="radio" class="radio-ruta" name="rutaId" th:value="${ruta.id}" required
+                                               th:aria-label="'Seleccionar ' + ${ruta.codigo}"></td>
+                                    <td th:text="${ruta.codigo}">AB 126</td>
+                                    <td th:text="${ruta.origen} + ' → ' + ${ruta.destino}">HMO → GDL</td>
+                                    <td th:text="${ruta.duracionMinutos / 60} + ' h ' + ${ruta.duracionMinutos % 60} + ' min'">2 h 20 min</td>
+                                    <td th:text="'$' + ${#numbers.formatDecimal(ruta.tarifa, 1, 'COMMA', 2, 'POINT')}">$2,990</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="prog-avion">Avión</label>
+                        <select class="campo" id="prog-avion" name="avionId" required>
+                            <option value="" disabled selected>Selecciona un avión</option>
+                            <option th:each="avion : ${aviones}" th:value="${avion.id}"
+                                    th:text="${avion.matricula} + ' (' + ${avion.asientos} + ' asientos)'">XA-SKY</option>
+                        </select>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="prog-fecha">Fecha</label>
+                        <input type="date" class="campo" id="prog-fecha" name="fecha" th:min="${#temporals.createToday()}" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="prog-hora">Hora</label>
+                        <input type="time" class="campo" id="prog-hora" name="hora" required>
+                    </div>
+
+                    <div class="barra-acciones">
+                        <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-programar">Guardar</button>
+                    </div>
+                </form>
+
+                <form id="form-horario" class="formulario-admin vista-actualizar" method="post"
+                      th:action="@{/admin/horarios}">
+                    <fieldset class="grupo-campo">
+                        <legend class="etiqueta">Vuelo</legend>
+                        <p class="mensaje-vacio" th:if="${#lists.isEmpty(vuelos)}">No hay vuelos próximos.</p>
+                        <div class="contenedor-tabla tabla-rutas" th:unless="${#lists.isEmpty(vuelos)}">
+                            <table class="tabla">
+                                <thead>
+                                <tr>
+                                    <th><input type="checkbox" id="seleccionar-todas" aria-label="Seleccionar todos los vuelos"></th>
+                                    <th>Vuelo</th>
+                                    <th>Ruta</th>
+                                    <th>Salida actual</th>
+                                    <th>Avión</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                <tr th:each="v : ${vuelos}">
+                                    <td><input type="checkbox" class="check-ruta" name="vueloIds" th:value="${v.id}"
+                                               th:aria-label="'Seleccionar ' + ${v.ruta.codigo}"></td>
+                                    <td th:text="${v.ruta.codigo}">AB 118</td>
+                                    <td th:text="${v.ruta.origen} + ' → ' + ${v.ruta.destino}">HMO → TIJ</td>
+                                    <td th:text="${#temporals.format(v.fecha, 'dd/MM/yyyy')} + ' ' + ${#temporals.format(v.horaSalida, 'H:mm')}">7:30</td>
+                                    <td th:text="${v.avion.matricula}">2AV 015</td>
+                                </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </fieldset>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="horario-fecha">Selecciona la nueva fecha</label>
+                        <input type="date" class="campo" id="horario-fecha" name="fecha" th:min="${#temporals.createToday()}" required>
+                    </div>
+
+                    <div class="grupo-campo">
+                        <label class="etiqueta" for="horario-hora">Hora</label>
+                        <input type="time" class="campo" id="horario-hora" name="hora" required>
+                    </div>
+
+                    <div class="barra-acciones">
+                        <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-horario">Guardar</button>
+                    </div>
+                </form>
+            </div>
         </main>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-programar" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea programar el vuelo?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-programar" class="boton boton-secundario boton-grande">Programar</button>
+        </div>
     </div>
 </div>
 

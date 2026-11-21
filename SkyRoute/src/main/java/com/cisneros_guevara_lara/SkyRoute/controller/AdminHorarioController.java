@@ -24,10 +24,29 @@ public class AdminHorarioController {
 
     @GetMapping
     public String mostrar(Model model) {
+        model.addAttribute("rutas", horarioService.listarRutas());
+        model.addAttribute("aviones", horarioService.listarAviones());
         model.addAttribute("vuelos", horarioService.listarVuelosProximos());
         return "admin/horarios";
     }
 
+    // Pestaña "Programar vuelo": crea un vuelo nuevo
+    @PostMapping("/programar")
+    public String programar(@RequestParam(required = false) Long rutaId,
+                            @RequestParam(required = false) Long avionId,
+                            @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
+                            @RequestParam(required = false) @DateTimeFormat(pattern = "HH:mm") LocalTime hora,
+                            RedirectAttributes redirect) {
+        try {
+            horarioService.programar(rutaId, avionId, fecha, hora);
+            redirect.addFlashAttribute("exito", "Vuelo programado");
+        } catch (IllegalArgumentException | IllegalStateException e) {
+            redirect.addFlashAttribute("error", e.getMessage());
+        }
+        return "redirect:/admin/horarios";
+    }
+
+    // Pestaña "Actualizar vuelo": cambia fecha y hora de los vuelos seleccionados
     @PostMapping
     public String reprogramar(@RequestParam(required = false) List<Long> vueloIds,
                               @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fecha,
@@ -40,6 +59,7 @@ public class AdminHorarioController {
         } catch (IllegalArgumentException e) {
             redirect.addFlashAttribute("error", e.getMessage());
         }
+        redirect.addFlashAttribute("pestana", "actualizar");
         return "redirect:/admin/horarios";
     }
 }

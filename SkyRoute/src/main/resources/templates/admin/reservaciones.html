@@ -17,8 +17,7 @@
                     Nueva Reservación
                 </a>
             </div>
-
-            <!-- Filtros: formulario GET, se pueden combinar -->
+            <p th:replace="~{admin/fragments/base :: error}"></p>
             <form class="filtros-reservaciones" method="get" th:action="@{/admin/reservaciones}">
                 <label class="campo-buscar">
                     <input type="search" name="q" th:value="${q}" placeholder="Folio, pasajero o correo">

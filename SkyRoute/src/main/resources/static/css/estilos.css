@@ -753,7 +753,7 @@
     }
 
     .resumen-cuadricula {
-        max-width: 720px;
+        max-width: none;
     }
 
     .lista-destinos {
@@ -1009,13 +1009,18 @@
         font-size: 0.6875rem;
     }
 
+    .filtros-reservaciones .barra-acciones {
+        grid-column: 2;
+        margin-top: 0;
+    }
+
     .detalle-cabecera {
         grid-template-areas:
             "titulo estado"
             "fecha checkin";
         gap: 4px 12px;
         margin-bottom: 20px;
-        max-width: 880px;
+        max-width: none;
     }
 
     .detalle-titulo {
@@ -1037,7 +1042,7 @@
             "pasajeros cliente"
             "pago pago";
         gap: 20px 24px;
-        max-width: 880px;
+        max-width: none;
     }
 
     .detalle-vuelo {
@@ -1091,12 +1096,12 @@
     }
 
     .resumen-cuadricula {
-        max-width: 820px;
+        max-width: none;
         gap: 36px 48px;
     }
 
     .formulario-admin {
-        max-width: 900px;
+        max-width: none;
     }
 
     .panel-bloqueo {
@@ -1295,7 +1300,7 @@
             "nombre ."
             "fecha botones";
         align-items: end;
-        max-width: 880px;
+        max-width: none;
     }
 
     .detalle-botones {
@@ -1351,5 +1356,26 @@
 
     .panel-bloqueo:has(#tipo-horas:checked) .tabla-rutas {
         max-height: calc(100vh - 740px);
+    }
+
+    .tabla-rutas input[type="radio"] {
+        width: 16px;
+        height: 16px;
+        accent-color: var(--color-primario);
+        cursor: pointer;
+    }
+
+    .tabla-rutas tbody tr:has(.radio-ruta:checked) {
+        background-color: var(--color-campo);
+    }
+
+    .vista-programar,
+    .vista-actualizar {
+        display: none;
+    }
+
+    .horarios-pestanas:has(#tab-programar:checked) .vista-programar,
+    .horarios-pestanas:has(#tab-actualizar:checked) .vista-actualizar {
+        display: flex;
     }
 }

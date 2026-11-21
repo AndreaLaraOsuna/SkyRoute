@@ -31,7 +31,7 @@
     <nav>
         <a th:href="@{/admin/rutas}" class="barra-lateral-enlace" th:classappend="${activo == 'rutas'} ? 'activo'">
             <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono icono-blanco">Rutas</a>
-         <a th:href="@{/admin/horarios}" class="barra-lateral-enlace" th:classappend="${activo == 'horarios'} ? 'activo'">
+        <a th:href="@{/admin/horarios}" class="barra-lateral-enlace" th:classappend="${activo == 'horarios'} ? 'activo'">
             <img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-blanco">Horarios</a>
         <a th:href="@{/admin/bloqueos}" class="barra-lateral-enlace" th:classappend="${activo == 'bloqueos'} ? 'activo'">
             <img th:src="@{/imgs/iconos/bloqueo.svg}" alt="" class="icono icono-blanco">Bloqueos</a>
@@ -87,12 +87,23 @@
                     <img th:src="@{/imgs/iconos/usuario.svg}" alt="" class="icono icono-blanco">
                     <span th:text="${adminActual != null} ? ${adminActual.nombreCompleto} : 'Administrador'">Administrador</span>
                 </li>
-                <li><a th:href="@{/admin/rutas}" class="menu-lateral-enlace menu-lateral-sangria">Rutas</a></li>
-                <li><a th:href="@{/admin/horarios}" class="menu-lateral-enlace menu-lateral-sangria">Horarios de salida</a></li>
-                <li><a th:href="@{/admin/bloqueos}" class="menu-lateral-enlace menu-lateral-sangria">Bloqueos</a></li>
+                <li>
+                    <a th:href="@{/admin/rutas}" class="menu-lateral-enlace">
+                        <img th:src="@{/imgs/iconos/avion.svg}" alt="" class="icono icono-blanco">Rutas</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/horarios}" class="menu-lateral-enlace">
+                        <img th:src="@{/imgs/iconos/reloj.svg}" alt="" class="icono icono-blanco">Horarios de salida</a>
+                </li>
+                <li>
+                    <a th:href="@{/admin/bloqueos}" class="menu-lateral-enlace">
+                        <img th:src="@{/imgs/iconos/bloqueo.svg}" alt="" class="icono icono-blanco">Bloqueos</a>
+                </li>
                 <li>
                     <form th:action="@{/admin/logout}" method="post">
-                        <button type="submit" class="menu-lateral-enlace menu-lateral-sangria boton-cerrar-sesion">Cerrar sesión</button>
+                        <button type="submit" class="menu-lateral-enlace boton-cerrar-sesion">
+                            <img th:src="@{/imgs/iconos/regresar.svg}" alt="" class="icono icono-blanco">Cerrar sesión
+                        </button>
                     </form>
                 </li>
             </ul>

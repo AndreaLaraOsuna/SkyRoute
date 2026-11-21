@@ -9,7 +9,9 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 import java.util.Optional;
+
 import org.springframework.data.domain.Pageable;
+
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
@@ -17,10 +19,6 @@ import java.time.LocalDateTime;
 public interface ReservacionRepository extends JpaRepository<Reservacion, Long> {
 
     List<Reservacion> findByClienteIdOrderByFechaCreacionDesc(Long clienteId);
-
-    Optional<Reservacion> findByFolio(String folio);
-
-    List<Reservacion> findAllByOrderByFechaCreacionDesc();
 
     @Query("SELECT p.asiento FROM Pasajero p WHERE p.reservacion.vuelo.id = :vueloId " +
             "AND p.reservacion.estado <> 'CANCELADA'")
@@ -62,5 +60,26 @@ public interface ReservacionRepository extends JpaRepository<Reservacion, Long> 
     List<String> findRutasMasSolicitadas(Pageable pageable);
 
     List<Reservacion> findByVueloIdAndEstadoIn(Long vueloId, List<EstadoReservacion> estados);
+
+    // Filtros del panel: texto, estados y rango de fechas del vuelo. Cada filtro vacío (null) se ignora.
+    @Query("""
+            SELECT DISTINCT r FROM Reservacion r
+            JOIN r.cliente c
+            JOIN r.vuelo v
+            LEFT JOIN r.pasajeros p
+            WHERE (:q IS NULL
+                   OR LOWER(r.folio) LIKE LOWER(CONCAT('%', :q, '%'))
+                   OR LOWER(c.nombreCompleto) LIKE LOWER(CONCAT('%', :q, '%'))
+                   OR LOWER(c.correo) LIKE LOWER(CONCAT('%', :q, '%'))
+                   OR LOWER(p.nombreCompleto) LIKE LOWER(CONCAT('%', :q, '%')))
+              AND r.estado IN :estados
+              AND (:fechaInicio IS NULL OR v.fecha >= :fechaInicio)
+              AND (:fechaFin IS NULL OR v.fecha <= :fechaFin)
+            ORDER BY r.fechaCreacion DESC
+            """)
+    List<Reservacion> filtrarParaAdmin(@Param("q") String q,
+                                       @Param("estados") List<EstadoReservacion> estados,
+                                       @Param("fechaInicio") LocalDate fechaInicio,
+                                       @Param("fechaFin") LocalDate fechaFin);
 
 }

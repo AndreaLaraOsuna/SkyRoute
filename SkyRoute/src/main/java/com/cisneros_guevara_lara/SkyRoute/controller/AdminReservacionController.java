@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.cisneros_guevara_lara.SkyRoute.model.Reservacion;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Locale;
@@ -28,13 +30,27 @@ public class AdminReservacionController {
     private final AdminReservacionService reservacionService;
 
     @GetMapping
-    public String listar(Model model) {
-        model.addAttribute("reservaciones", reservacionService.listarReservaciones());
+    public String listar(@RequestParam(required = false) String q,
+                         @RequestParam(name = "estado", required = false) List<EstadoReservacion> estados,
+                         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaInicio,
+                         @RequestParam(required = false) @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate fechaFin,
+                         Model model) {
+        List<EstadoReservacion> seleccionados = (estados != null) ? estados : List.of();
 
-        // La plantilla también usa estas variables para pintar los filtros
+        try {
+            model.addAttribute("reservaciones",
+                    reservacionService.listarReservaciones(q, seleccionados, fechaInicio, fechaFin));
+        } catch (IllegalArgumentException e) {
+            model.addAttribute("reservaciones", List.of());
+            model.addAttribute("error", e.getMessage());
+        }
+
+        // Se regresan para que el formulario conserve lo que el usuario eligió
         model.addAttribute("estados", EstadoReservacion.values());
-        model.addAttribute("estadosSeleccionados", List.of());
-
+        model.addAttribute("estadosSeleccionados", seleccionados);
+        model.addAttribute("q", q);
+        model.addAttribute("fechaInicio", fechaInicio);
+        model.addAttribute("fechaFin", fechaFin);
         return "admin/reservaciones";
     }
 

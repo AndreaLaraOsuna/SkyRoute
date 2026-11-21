@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 import com.cisneros_guevara_lara.SkyRoute.model.Cliente;
 import com.cisneros_guevara_lara.SkyRoute.repository.ClienteRepository;
 import com.cisneros_guevara_lara.SkyRoute.model.enums.EstadoReservacion;
+import java.time.LocalDate;
+import java.util.Arrays;
 
 import java.util.List;
 
@@ -19,8 +21,23 @@ public class AdminReservacionService {
     private final ClienteRepository clienteRepository;
 
     @Transactional(readOnly = true)
-    public List<Reservacion> listarReservaciones() {
-        return reservacionRepository.findAllByOrderByFechaCreacionDesc();
+    public List<Reservacion> listarReservaciones(String q,
+                                                 List<EstadoReservacion> estados,
+                                                 LocalDate fechaInicio,
+                                                 LocalDate fechaFin) {
+        if (fechaInicio != null && fechaFin != null && fechaFin.isBefore(fechaInicio)) {
+            throw new IllegalArgumentException("La fecha fin no puede ser anterior a la fecha inicio.");
+        }
+
+        // Texto vacío = sin filtro de texto
+        String texto = (q == null || q.isBlank()) ? null : q.trim();
+
+        // Sin estados marcados = todos los estados
+        List<EstadoReservacion> filtroEstados = (estados == null || estados.isEmpty())
+                ? Arrays.asList(EstadoReservacion.values())
+                : estados;
+
+        return reservacionRepository.filtrarParaAdmin(texto, filtroEstados, fechaInicio, fechaFin);
     }
 
     @Transactional(readOnly = true)

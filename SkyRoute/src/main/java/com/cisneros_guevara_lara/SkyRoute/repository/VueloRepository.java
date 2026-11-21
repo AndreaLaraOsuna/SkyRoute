@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.List;
+import java.time.LocalTime;
 
 @Repository
 public interface VueloRepository extends JpaRepository<Vuelo, Long> {
@@ -50,4 +51,6 @@ public interface VueloRepository extends JpaRepository<Vuelo, Long> {
             "AND v.id NOT IN (SELECT b.vuelo.id FROM Bloqueo b) " +
             "ORDER BY v.fecha ASC, v.horaSalida ASC")
     List<Vuelo> buscarSinBloqueoDesde(@Param("desde") LocalDate desde);
+
+    boolean existsByAvionIdAndFechaAndHoraSalida(Long avionId, LocalDate fecha, LocalTime horaSalida);
 }
