@@ -77,8 +77,8 @@ public class AdminReservacionService {
     public void cancelar(Long id) {
         Reservacion reservacion = obtenerReservacion(id);
         EstadoReservacion estado = reservacion.getEstado();
-        if (estado != EstadoReservacion.PENDIENTE && estado != EstadoReservacion.CONFIRMADA) {
-            throw new IllegalStateException("Esta reservación ya no se puede cancelar.");
+        if (reservacion.getEstado() != EstadoReservacion.PENDIENTE) {
+            throw new IllegalStateException("Solo se pueden cancelar reservaciones pendientes.");
         }
         reservacion.setEstado(EstadoReservacion.CANCELADA);
         reservacionRepository.save(reservacion);

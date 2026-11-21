@@ -3,17 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="b93c2f44-2831-4c8d-988e-fbf3e5955d7d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminHorarioController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminHorarioController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminReservacionController.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/controller/AdminReservacionController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/ReservacionRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/ReservacionRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/VueloRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/VueloRepository.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminHorarioService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminHorarioService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminReservacionService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminReservacionService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/fragments/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/fragments/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/horarios.html" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/horarios.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/reservaciones.html" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/reservaciones.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/rutas.html" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/templates/admin/rutas.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
