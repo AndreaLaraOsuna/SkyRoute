@@ -639,6 +639,7 @@
 
 .selector-vista-agenda {
     width: 340px;
+    max-width: 100%;
 }
 
 .dia-agenda-cabecera {
@@ -1368,14 +1369,14 @@
     .tabla-rutas tbody tr:has(.radio-ruta:checked) {
         background-color: var(--color-campo);
     }
+}
 
-    .vista-programar,
-    .vista-actualizar {
-        display: none;
-    }
+.vista-programar,
+.vista-actualizar {
+    display: none;
+}
 
-    .horarios-pestanas:has(#tab-programar:checked) .vista-programar,
-    .horarios-pestanas:has(#tab-actualizar:checked) .vista-actualizar {
-        display: flex;
-    }
+.horarios-pestanas:has(#tab-programar:checked) .vista-programar,
+.horarios-pestanas:has(#tab-actualizar:checked) .vista-actualizar {
+    display: flex;
 }

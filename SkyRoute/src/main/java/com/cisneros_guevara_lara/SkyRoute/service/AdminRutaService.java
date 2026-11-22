@@ -47,8 +47,17 @@ public class AdminRutaService {
         if (rutaRepository.findByCodigo(codigoLimpio).isPresent()) {
             throw new IllegalArgumentException("Ya existe una ruta con el código " + codigoLimpio + ".");
         }
-        if (origen == null || destino == null || origen.equals(destino)) {
+        if (origen == null || destino == null || origen.isBlank() || destino.isBlank()) {
+            throw new IllegalArgumentException("El origen y el destino son obligatorios.");
+        }
+        origen = origen.trim();
+        destino = destino.trim();
+
+        if (origen.equalsIgnoreCase(destino)) {
             throw new IllegalArgumentException("El origen y el destino deben ser diferentes.");
+        }
+        if (rutaRepository.existsByOrigenIgnoreCaseAndDestinoIgnoreCase(origen, destino)) {
+            throw new IllegalArgumentException("Ya existe una ruta de " + origen + " a " + destino + ".");
         }
         if (horas < 0 || minutos < 0 || minutos > 59) {
             throw new IllegalArgumentException("La duración no es válida.");

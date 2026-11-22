@@ -3,6 +3,9 @@
   <component name="ChangeListManager">
     <list default="true" id="b93c2f44-2831-4c8d-988e-fbf3e5955d7d" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/RutaRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/repository/RutaRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminRutaService.java" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/java/com/cisneros_guevara_lara/SkyRoute/service/AdminRutaService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" beforeDir="false" afterPath="$PROJECT_DIR$/SkyRoute/src/main/resources/static/css/estilos.css" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

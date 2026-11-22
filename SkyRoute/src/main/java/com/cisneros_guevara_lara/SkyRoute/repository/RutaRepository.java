@@ -18,4 +18,6 @@ public interface RutaRepository extends JpaRepository<Ruta, Long> {
 
     @Query("SELECT DISTINCT r.destino FROM Ruta r ORDER BY r.destino ASC")
     List<String> listarDestinos();
+
+    boolean existsByOrigenIgnoreCaseAndDestinoIgnoreCase(String origen, String destino);
 }
