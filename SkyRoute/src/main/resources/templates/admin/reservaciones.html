@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Reservaciones')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('reservaciones')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoPrincipal}"></header>
+
+        <main class="contenido-admin">
+            <div class="cabecera-pagina">
+                <h1 class="titulo-pagina">Reservaciones</h1>
+                <a th:href="@{/admin/reservaciones/nueva}" class="boton boton-oscuro">
+                    <img th:src="@{/imgs/iconos/mas.svg}" alt="" class="icono icono-blanco">
+                    Nueva Reservación
+                </a>
+            </div>
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+            <form class="filtros-reservaciones" method="get" th:action="@{/admin/reservaciones}">
+                <label class="campo-buscar">
+                    <input type="search" name="q" th:value="${q}" placeholder="Folio, pasajero o correo">
+                    <img th:src="@{/imgs/iconos/buscar.svg}" alt="" class="icono icono-pequeno">
+                </label>
+
+                <fieldset class="grupo-campo">
+                    <legend class="etiqueta etiqueta-ligera">Buscar por estado</legend>
+                    <div class="filtro-estados">
+                        <label th:each="e : ${estados}">
+                            <input type="checkbox" name="estado" th:value="${e.name()}"
+                                   th:checked="${#lists.contains(estadosSeleccionados, e)}">
+                            <th:block th:text="${#strings.capitalize(#strings.toLowerCase(e.name()))}">Pendiente</th:block>
+                        </label>
+                    </div>
+                </fieldset>
+
+                <div class="fila-campos">
+                    <div class="grupo-campo">
+                        <label class="etiqueta etiqueta-ligera" for="filtro-inicio">Fecha inicio</label>
+                        <input type="date" class="campo" id="filtro-inicio" name="fechaInicio" th:value="${fechaInicio}">
+                    </div>
+                    <div class="grupo-campo">
+                        <label class="etiqueta etiqueta-ligera" for="filtro-fin">Fecha fin</label>
+                        <input type="date" class="campo" id="filtro-fin" name="fechaFin" th:value="${fechaFin}">
+                    </div>
+                </div>
+
+                <div class="barra-acciones">
+                    <a th:href="@{/admin/reservaciones}" class="boton boton-suave">Limpiar</a>
+                    <button type="submit" class="boton boton-oscuro">Filtrar</button>
+                </div>
+            </form>
+
+            <p class="mensaje-vacio" th:if="${#lists.isEmpty(reservaciones)}">No hay reservaciones con esos filtros.</p>
+
+            <!-- Vista móvil: tarjetas -->
+            <div class="solo-movil" th:unless="${#lists.isEmpty(reservaciones)}">
+                <div class="lista-reservaciones">
+                    <a th:each="r : ${reservaciones}" th:href="@{/admin/reservaciones/{id}(id=${r.id})}" class="tarjeta-reservacion">
+                        <div>
+                            <p th:text="'FOLIO: ' + ${r.folio}">FOLIO: SR-12345</p>
+                            <p th:text="${r.cliente.nombreCompleto}">Nombre del cliente</p>
+                            <p th:text="${r.vuelo.ruta.origen} + ' → ' + ${r.vuelo.ruta.destino} + ', '
+                                        + ${#temporals.format(r.vuelo.fecha, 'dd/MM/yyyy')} + ', '
+                                        + ${#temporals.format(r.vuelo.horaSalida, 'H:mm')}">HMO → MTY, 28/09/2026, 8:30</p>
+                            <p class="tarjeta-reservacion-pasajeros" th:text="${#lists.size(r.pasajeros)} + ' pasajero(s)'">1 pasajero(s)</p>
+                        </div>
+                        <span class="estado" th:classappend="'estado-' + ${#strings.toLowerCase(r.estado.name())}"
+                              th:text="${#strings.capitalize(#strings.toLowerCase(r.estado.name()))}">Pendiente</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Vista escritorio: tabla -->
+            <div class="solo-escritorio" th:unless="${#lists.isEmpty(reservaciones)}">
+                <div class="contenedor-tabla">
+                    <table class="tabla">
+                        <thead>
+                        <tr>
+                            <th>Folio</th>
+                            <th>Cliente</th>
+                            <th>Vuelo</th>
+                            <th>Fecha y hora</th>
+                            <th>Pasajeros</th>
+                            <th>Total</th>
+                            <th>Estado</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr th:each="r : ${reservaciones}">
+                            <td th:text="${r.folio}">SR-12345</td>
+                            <td th:text="${r.cliente.nombreCompleto}">Nombre del cliente</td>
+                            <td><span th:text="${r.vuelo.ruta.codigo}">AB 123</span><br>
+                                <span th:text="${r.vuelo.ruta.origen} + ' → ' + ${r.vuelo.ruta.destino}">HMO → MTY</span></td>
+                            <td><span th:text="${#temporals.format(r.vuelo.fecha, 'dd/MM/yyyy')}">28/09/2026</span><br>
+                                <span th:text="${#temporals.format(r.vuelo.horaSalida, 'H:mm')}">8:30</span></td>
+                            <td th:text="${#lists.size(r.pasajeros)}">1</td>
+                            <td th:text="'$' + ${#numbers.formatDecimal(r.total, 1, 'COMMA', 2, 'POINT')}">$0.00</td>
+                            <td>
+                                <div class="tabla-acciones">
+                                    <span class="estado" th:classappend="'estado-' + ${#strings.toLowerCase(r.estado.name())}"
+                                          th:text="${#strings.capitalize(#strings.toLowerCase(r.estado.name()))}">Pendiente</span>
+                                    <a th:href="@{/admin/reservaciones/{id}(id=${r.id})}" class="enlace-detalle">Ver detalle</a>
+                                </div>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <nav th:replace="~{admin/fragments/base :: navegacionInferior('reservaciones')}"></nav>
+</div>
+
+<th:block th:replace="~{admin/fragments/base :: menuLateral}"></th:block>
+
+</body>
+</html>

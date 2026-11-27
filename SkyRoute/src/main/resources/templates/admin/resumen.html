@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Resumen')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('resumen')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoPrincipal}"></header>
+
+        <main class="contenido-admin">
+            <div class="cabecera-pagina">
+                <h1 class="titulo-pagina">Resumen</h1>
+            </div>
+
+            <div class="resumen-cuadricula">
+                <article class="tarjeta-metrica">
+                    <p class="metrica-etiqueta">Reservaciones</p>
+                    <p class="metrica-valor" th:text="${resumen.reservacionesSemana}">0</p>
+                    <p class="metrica-detalle">esta semana</p>
+                </article>
+
+                <article class="tarjeta-metrica">
+                    <p class="metrica-etiqueta">Ocupación</p>
+                    <p class="metrica-valor" th:text="${resumen.porcentajeOcupacion} + '%'">0%</p>
+                    <p class="metrica-detalle">vuelos próximos</p>
+                </article>
+
+                <article class="tarjeta-metrica">
+                    <p class="metrica-etiqueta">Pendientes</p>
+                    <p class="metrica-valor" th:text="${resumen.pendientes}">0</p>
+                </article>
+
+                <article class="tarjeta-metrica">
+                    <p class="metrica-etiqueta">Canceladas</p>
+                    <p class="metrica-valor" th:text="${resumen.canceladas}">0</p>
+                </article>
+
+                <article class="tarjeta-metrica tarjeta-metrica-ancha">
+                    <p class="metrica-etiqueta">Vuelos más solicitados</p>
+                    <ul class="lista-rutas" th:unless="${#lists.isEmpty(resumen.rutasMasSolicitadas)}">
+                        <li th:each="ruta : ${resumen.rutasMasSolicitadas}" th:text="${ruta}">HMO → MTY</li>
+                    </ul>
+                    <p class="mensaje-vacio" th:if="${#lists.isEmpty(resumen.rutasMasSolicitadas)}">Todavía no hay reservaciones.</p>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <nav th:replace="~{admin/fragments/base :: navegacionInferior('resumen')}"></nav>
+</div>
+
+<th:block th:replace="~{admin/fragments/base :: menuLateral}"></th:block>
+
+</body>
+</html>

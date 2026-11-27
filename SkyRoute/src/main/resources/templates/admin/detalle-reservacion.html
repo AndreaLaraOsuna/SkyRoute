@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Detalle de reservación')}"></head>
+<body>
+
+<div class="layout-admin" th:with="r=${reservacion}, estado=${reservacion.estado.name()}">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('reservaciones')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
+
+        <main class="contenido-admin">
+            <div class="solo-escritorio">
+                <a th:href="@{/admin/reservaciones}" class="boton-regresar">
+                    <img th:src="@{/imgs/iconos/flecha-izquierda.svg}" alt="" class="icono icono-pequeno">
+                </a>
+            </div>
+
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+
+            <div class="detalle-cabecera">
+                <div class="detalle-titulo-fila">
+                    <h1 class="detalle-titulo" th:text="'Reservación ' + ${r.folio}">Reservación</h1>
+                    <span class="estado" th:classappend="'estado-' + ${#strings.toLowerCase(estado)}"
+                          th:text="${#strings.capitalize(#strings.toLowerCase(estado))}">Pendiente</span>
+                </div>
+                <p class="detalle-nombre" th:text="${r.cliente.nombreCompleto}">Nombre del cliente</p>
+                <p class="detalle-fecha" th:if="${r.fechaCreacion != null}"
+                   th:text="'Hecha el ' + ${#temporals.format(r.fechaCreacion, 'dd/MM/yyyy - HH:mm')}">Hecha el ...</p>
+                <div class="detalle-botones">
+                    <button type="button" class="boton boton-oscuro boton-mini" data-abrir-modal="modal-checkin"
+                            th:if="${estado == 'PENDIENTE'}">Check in</button>
+                    <button type="button" class="boton boton-suave boton-mini" data-abrir-modal="modal-cancelar"
+                            th:if="${estado == 'PENDIENTE'}">Cancelar</button>
+                </div>
+            </div>
+
+            <div class="detalle-reservacion">
+                <article class="tarjeta detalle-vuelo">
+                    <div class="detalle-vuelo-cabecera">
+                        <span class="detalle-vuelo-numero" th:text="'VUELO ' + ${r.vuelo.ruta.codigo}">VUELO AB 123</span>
+                        <span th:text="${tituloDia}">Lunes 28 de septiembre</span>
+                    </div>
+                    <p class="detalle-vuelo-ruta">
+                        <span class="detalle-vuelo-hora" th:text="${#temporals.format(r.vuelo.horaSalida, 'H:mm')}">8:30</span>
+                        <span class="detalle-vuelo-trayecto" th:text="${r.vuelo.ruta.origen} + ' → ' + ${r.vuelo.ruta.destino}">HMO → MTY</span>
+                    </p>
+                    <p class="texto-secundario texto-pequeno texto-negrita" th:text="'Directo - Avión ' + ${r.vuelo.avion.matricula}">Directo - Sencillo</p>
+                </article>
+
+                <article class="tarjeta detalle-pasajeros">
+                    <h2 class="tarjeta-titulo" th:text="'Pasajeros (' + ${#lists.size(r.pasajeros)} + ')'">Pasajeros</h2>
+                    <ul class="lista-pasajeros">
+                        <li th:each="p : ${r.pasajeros}">
+                            <p class="dato-principal" th:text="${p.nombreCompleto}">Nombre</p>
+                            <p class="dato-secundario"
+                               th:text="${#strings.capitalize(#strings.toLowerCase(p.tipo.name()))} + ' - ' + ${p.asiento}">Adulto - 10C</p>
+                        </li>
+                    </ul>
+                </article>
+
+                <article class="tarjeta detalle-cliente">
+                    <h2 class="tarjeta-titulo">Cliente</h2>
+                    <p class="dato-principal" th:text="${r.cliente.nombreCompleto}">Nombre</p>
+                    <p class="dato-secundario" th:text="${#lists.size(r.cliente.reservaciones)} + ' reservaciones'">0 reservaciones</p>
+                    <p class="dato-secundario dato-separado" th:text="'Correo: ' + ${r.cliente.correo}">Correo</p>
+                    <p class="dato-secundario dato-separado" th:text="'Teléfono: ' + ${r.cliente.telefono}">Teléfono</p>
+                </article>
+
+                <article class="tarjeta detalle-pago">
+                    <h2 class="tarjeta-titulo">Pago</h2>
+                    <div class="pago-fila">
+                        <span th:text="'Tarifa ' + ${#lists.size(r.pasajeros)} + ' x $' + ${#numbers.formatDecimal(r.vuelo.ruta.tarifa, 1, 'COMMA', 2, 'POINT')}">Tarifa</span>
+                        <span th:text="'$' + ${#numbers.formatDecimal(r.subtotal, 1, 'COMMA', 2, 'POINT')}">$0</span>
+                    </div>
+                    <div class="pago-fila"><span>Impuestos y cargos</span>
+                        <span th:text="'$' + ${#numbers.formatDecimal(r.impuestos, 1, 'COMMA', 2, 'POINT')}">$0</span></div>
+                    <div class="pago-fila"><span>Equipaje documentado</span>
+                        <span th:text="'$' + ${#numbers.formatDecimal(r.cargoEquipaje, 1, 'COMMA', 2, 'POINT')}">$0</span></div>
+                    <div class="pago-fila"><span>Método de pago</span>
+                        <span th:text="${r.metodoPago != null} ? ${r.metodoPago.name()} : '-'">TARJETA</span></div>
+                    <div class="pago-fila pago-total"><span>Total</span>
+                        <span th:text="'$' + ${#numbers.formatDecimal(r.total, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$0 MXN</span></div>
+                </article>
+            </div>
+        </main>
+    </div>
+
+    <form id="form-checkin" th:action="@{/admin/reservaciones/{id}/checkin(id=${r.id})}" method="post"></form>
+    <form id="form-cancelar" th:action="@{/admin/reservaciones/{id}/cancelar(id=${r.id})}" method="post"></form>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-checkin" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea confirmar el check in de la reserva?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-checkin" class="boton boton-secundario boton-grande">Confirmar</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-cancelar" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea cancelar la reservación?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-cancelar" class="boton boton-secundario boton-grande">Cancelar</button>
+        </div>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" th:classappend="${exito == 'checkin' or exito == 'creada'} ? 'visible'"
+     id="modal-confirmada" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <img th:src="@{/imgs/iconos/exito.svg}" alt="" class="modal-icono">
+        <h2 class="modal-titulo" th:text="${exito == 'creada'} ? 'Reservación creada' : 'Reserva confirmada'">Reserva confirmada</h2>
+        <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" th:classappend="${exito == 'cancelada'} ? 'visible'"
+     id="modal-cancelada" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <img th:src="@{/imgs/iconos/avion-cancelado.svg}" alt="" class="modal-icono">
+        <h2 class="modal-titulo">Reserva cancelada</h2>
+        <button type="button" class="boton boton-secundario boton-grande boton-bloque" data-cerrar-modal>Volver</button>
+    </div>
+</div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

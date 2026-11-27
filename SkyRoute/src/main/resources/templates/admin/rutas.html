@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Rutas')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('rutas')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
+
+        <main class="contenido-admin">
+            <div class="cabecera-pagina">
+                <h1 class="titulo-pagina">Nueva Ruta</h1>
+            </div>
+
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+
+            <form id="form-ruta" class="formulario-admin" method="post" th:action="@{/admin/rutas}">
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-codigo">Código</label>
+                    <input type="text" class="campo" id="ruta-codigo" name="codigo" placeholder="AB 126" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-origen">Origen</label>
+                    <select class="campo" id="ruta-origen" name="origen" required>
+                        <option th:each="a : ${aeropuertos}" th:value="${a}" th:text="${a}">HMO</option>
+                    </select>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-destino">Destino</label>
+                    <select class="campo" id="ruta-destino" name="destino" required>
+                        <option th:each="a : ${aeropuertos}" th:value="${a}" th:text="${a}">GDL</option>
+                    </select>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-horas">Horas</label>
+                    <input type="number" class="campo" id="ruta-horas" name="horas" min="0" max="20" value="0" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-minutos">Minutos</label>
+                    <input type="number" class="campo" id="ruta-minutos" name="minutos" min="0" max="59" value="0" required>
+                </div>
+
+                <div class="grupo-campo">
+                    <label class="etiqueta" for="ruta-tarifa">Tarifa (MXN)</label>
+                    <input type="number" class="campo" id="ruta-tarifa" name="tarifa" min="1" step="0.01" required>
+                </div>
+
+                <div class="barra-acciones">
+                    <button type="button" class="boton boton-oscuro" data-abrir-modal="modal-guardar-ruta">Guardar</button>
+                </div>
+            </form>
+
+            <h2 class="subtitulo-lista">Rutas registradas</h2>
+            <p class="mensaje-vacio" th:if="${#lists.isEmpty(rutas)}">Todavía no hay rutas.</p>
+            <div class="contenedor-tabla" th:unless="${#lists.isEmpty(rutas)}">
+                <table class="tabla">
+                    <thead>
+                    <tr>
+                        <th>Código</th>
+                        <th>Ruta</th>
+                        <th>Duración</th>
+                        <th>Tarifa</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr th:each="ruta : ${rutas}">
+                        <td th:text="${ruta.codigo}">AB 126</td>
+                        <td th:text="${ruta.origen} + ' → ' + ${ruta.destino}">HMO → GDL</td>
+                        <td th:text="${ruta.duracionMinutos / 60} + ' h ' + ${ruta.duracionMinutos % 60} + ' min'">2 h 20 min</td>
+                        <td th:text="'$' + ${#numbers.formatDecimal(ruta.tarifa, 1, 'COMMA', 2, 'POINT')}">$2,990</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+</div>
+
+<div class="modal-fondo modal-fondo-difuminado" id="modal-guardar-ruta" role="dialog" aria-modal="true">
+    <div class="modal modal-centrado">
+        <h2 class="modal-titulo">¿Desea guardar la ruta?</h2>
+        <div class="modal-acciones">
+            <button type="button" class="boton boton-suave boton-grande" data-cerrar-modal>Volver</button>
+            <button type="submit" form="form-ruta" class="boton boton-secundario boton-grande">Guardar</button>
+        </div>
+    </div>
+</div>
+
+<div th:replace="~{admin/fragments/base :: modalExito}"></div>
+
+<script th:src="@{/js/script.js}"></script>
+</body>
+</html>

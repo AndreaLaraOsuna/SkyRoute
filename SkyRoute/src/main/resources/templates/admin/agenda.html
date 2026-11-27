@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Agenda')}"></head>
+<body>
+
+<div class="layout-admin" th:with="a=${agenda}">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('agenda')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoPrincipal}"></header>
+
+        <main class="contenido-admin">
+            <!-- ================= MÓVIL ================= -->
+            <div class="solo-movil">
+                <div class="cabecera-pagina">
+                    <h1 class="titulo-pagina">Agenda</h1>
+                </div>
+
+                <div class="agenda-movil">
+                    <input type="radio" name="dia-agenda" id="dia-todos" class="selector-oculto" checked>
+                    <div class="navegacion-semana">
+                        <a th:href="@{/admin/agenda(semana=${a.inicio.minusDays(7)})}">&#9664;</a>
+                        <label for="dia-todos" class="texto-semana" th:text="${a.textoSemana}">27 sep - 3 oct 2026</label>
+                        <a th:href="@{/admin/agenda(semana=${a.inicio.plusDays(7)})}">&#9654;</a>
+                    </div>
+                    <div class="selector-dias">
+                        <label class="dia-semana" th:each="d : ${a.dias}">
+                            <input type="radio" name="dia-agenda" th:id="'dia-' + ${d.indice}" class="selector-oculto">
+                            <th:block th:text="${d.nombreCorto}">Dom</th:block><br><th:block th:text="${d.fecha.dayOfMonth}">27</th:block>
+                        </label>
+                    </div>
+
+                    <p class="titulo-dia-agenda" th:each="d : ${a.dias}" th:id="'titulo-dia-' + ${d.indice}" th:text="${d.titulo}">Domingo 27 de septiembre</p>
+
+                    <div class="lista-agenda">
+                        <article class="tarjeta-agenda" th:each="va : ${a.vuelos}" th:classappend="'vuelo-dia-' + ${va.indiceDia}">
+                            <span th:text="${#temporals.format(va.vuelo.horaSalida, 'H:mm')}">7:30</span>
+                            <span class="tarjeta-agenda-ruta"><th:block th:text="${va.vuelo.ruta.origen} + ' → ' + ${va.vuelo.ruta.destino}">HMO → TIJ</th:block><span
+                                    th:text="'$' + ${#numbers.formatDecimal(va.vuelo.ruta.tarifa, 1, 'COMMA', 0, 'POINT')} + ' MXN'">$2,990 MXN</span></span>
+                            <span class="tarjeta-agenda-dia" th:text="${a.dias[va.indiceDia].nombreLargo}">Domingo</span>
+                            <span class="tarjeta-agenda-asientos" th:text="${va.ocupados} + ' / ' + ${va.capacidad} + ' asientos'">0 / 180 asientos</span>
+                        </article>
+                        <p class="mensaje-vacio" th:if="${#lists.isEmpty(a.vuelos)}">No hay vuelos esta semana.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ================= ESCRITORIO ================= -->
+            <div class="solo-escritorio">
+                <div class="agenda-escritorio">
+                    <div class="cabecera-pagina">
+                        <h1 class="titulo-pagina">Agenda</h1>
+                        <div class="pestanas selector-vista-agenda">
+                            <label class="pestana"><input type="radio" name="vista-agenda" id="vista-semana" class="selector-oculto"
+                                                          th:checked="${vista != 'dia'}">Semana</label>
+                            <label class="pestana"><input type="radio" name="vista-agenda" id="vista-dia" class="selector-oculto"
+                                                          th:checked="${vista == 'dia'}">Día</label>
+                        </div>
+                    </div>
+
+                    <!-- Vista semana -->
+                    <div class="vista-semana">
+                        <div class="navegacion-semana">
+                            <span>
+                                <a th:href="@{/admin/agenda(semana=${a.inicio.minusDays(7)})}">&#9664;</a>
+                                <th:block th:text="${a.textoSemana}">27 sep - 3 oct 2026</th:block>
+                                <a th:href="@{/admin/agenda(semana=${a.inicio.plusDays(7)})}">&#9654;</a>
+                            </span>
+                        </div>
+                        <div class="cuadricula-agenda">
+                            <span></span>
+                            <span class="celda-agenda celda-agenda-encabezado" th:each="d : ${a.dias}">
+                                <span class="dia-nombre" th:text="${d.nombreCorto}">Dom</span>
+                                <span class="dia-numero" th:text="${d.fecha.dayOfMonth}">27</span>
+                            </span>
+
+                            <th:block th:each="fila : ${a.filas}">
+                                <span class="celda-agenda celda-agenda-hora" th:text="${fila.hora}">7:00</span>
+                                <span class="celda-agenda" th:each="celda : ${fila.celdas}"
+                                      th:classappend="${!#lists.isEmpty(celda)} ? 'celda-agenda-ocupada'">
+                                    <span class="celda-agenda-vuelo" th:each="va : ${celda}">
+                                        <th:block th:text="${#temporals.format(va.vuelo.horaSalida, 'H:mm')}">7:30</th:block><br>
+                                        <th:block th:text="${va.vuelo.ruta.origen} + '→' + ${va.vuelo.ruta.destino}">HMO→TIJ</th:block><br>
+                                        <th:block th:text="'$' + ${#numbers.formatDecimal(va.vuelo.ruta.tarifa, 1, 'COMMA', 0, 'POINT')} + ' MXN'">$2,990 MXN</th:block><br>
+                                        <th:block th:text="${va.ocupados} + '/' + ${va.capacidad}">0/180</th:block>
+                                    </span>
+                                </span>
+                            </th:block>
+                        </div>
+                        <p class="mensaje-vacio" th:if="${#lists.isEmpty(a.filas)}">No hay vuelos esta semana.</p>
+                    </div>
+
+                    <!-- Vista día -->
+                    <div class="vista-dia">
+                        <form class="dia-agenda-cabecera" method="get" th:action="@{/admin/agenda}">
+                            <input type="hidden" name="vista" value="dia">
+                            <div class="grupo-campo">
+                                <label class="etiqueta" for="agenda-fecha">Seleccione la fecha</label>
+                                <input type="date" class="campo" id="agenda-fecha" name="dia" th:value="${dia}"
+                                       onchange="this.form.submit()">
+                            </div>
+                            <span class="navegacion-semana">
+                                <a th:href="@{/admin/agenda(vista='dia', dia=${dia.minusDays(1)})}">&#9664;</a>
+                                <th:block th:text="${tituloDia}">Lunes 28 de septiembre</th:block>
+                                <a th:href="@{/admin/agenda(vista='dia', dia=${dia.plusDays(1)})}">&#9654;</a>
+                            </span>
+                        </form>
+                        <div class="lista-agenda">
+                            <article class="tarjeta-agenda" th:each="va : ${vuelosDia}">
+                                <span th:text="${#temporals.format(va.vuelo.horaSalida, 'H:mm')}">7:30</span>
+                                <span class="tarjeta-agenda-ruta"><th:block th:text="${va.vuelo.ruta.origen} + ' → ' + ${va.vuelo.ruta.destino}">HMO → TIJ</th:block><span
+                                        th:text="'$' + ${#numbers.formatDecimal(va.vuelo.ruta.tarifa, 1, 'COMMA', 0, 'POINT')} + ' MXN'">$2,990 MXN</span></span>
+                                <span th:text="${va.vuelo.ruta.codigo}"></span>
+                                <span class="tarjeta-agenda-asientos" th:text="${va.ocupados} + ' / ' + ${va.capacidad} + ' asientos'">0 / 180 asientos</span>
+                            </article>
+                            <p class="mensaje-vacio" th:if="${#lists.isEmpty(vuelosDia)}">No hay vuelos este día.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <nav th:replace="~{admin/fragments/base :: navegacionInferior('agenda')}"></nav>
+</div>
+
+<th:block th:replace="~{admin/fragments/base :: menuLateral}"></th:block>
+
+</body>
+</html>

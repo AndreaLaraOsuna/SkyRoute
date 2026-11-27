@@ -13,18 +13,74 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.core.annotation.Order;
+import org.springframework.security.authentication.ProviderManager;
+import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
+import com.cisneros_guevara_lara.SkyRoute.model.Cliente;
 
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
     @Bean
+    @Order(1)
+    public SecurityFilterChain adminFilterChain(HttpSecurity http,
+                                                UsuarioRepository usuarioRepository,
+                                                PasswordEncoder passwordEncoder) throws Exception {
+        UserDetailsService soloAdministradores = correo -> {
+            Usuario usuario = usuarioRepository.findByCorreo(correo)
+                    .filter(u -> u instanceof Administrador)
+                    .orElseThrow(() -> new UsernameNotFoundException("Administrador no encontrado: " + correo));
+            return User.builder()
+                    .username(usuario.getCorreo())
+                    .password(usuario.getContrasenia())
+                    .roles("ADMIN")
+                    .build();
+        };
+        DaoAuthenticationProvider adminProvider = new DaoAuthenticationProvider(soloAdministradores);
+        adminProvider.setPasswordEncoder(passwordEncoder);
+
+        http
+                .securityMatcher("/admin/**", "/admin")
+                .authenticationManager(new ProviderManager(adminProvider))
+                .authorizeHttpRequests(auth -> auth
+                        .requestMatchers("/admin/login").permitAll()
+                        .anyRequest().hasRole("ADMIN")
+                )
+                .formLogin(form -> form
+                        .loginPage("/admin/login")
+                        .loginProcessingUrl("/admin/login")
+                        .usernameParameter("correo")
+                        .passwordParameter("contrasenia")
+                        .defaultSuccessUrl("/admin/reservaciones", true)
+                        .failureUrl("/admin/login?error=true")
+                        .permitAll()
+                )
+                .logout(logout -> logout
+                        .logoutRequestMatcher(request -> "/admin/logout".equals(request.getServletPath())
+                                && "POST".equalsIgnoreCase(request.getMethod()))
+                        .logoutSuccessUrl("/admin/login?logout=true")
+                        .invalidateHttpSession(true)
+                        .clearAuthentication(true)
+                        .deleteCookies("JSESSIONID")
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, e) ->
+                                response.sendRedirect(request.getContextPath() + "/admin/login?denegado=true"))
+                );
+
+        return http.build();
+    }
+
+    @Bean
+    @Order(2)
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/css/**", "/js/**", "/imgs/**").permitAll()
-                        .requestMatchers("/", "/login", "/registro", "/iniciar-sesion", "/inicio", "/vuelos", "/contacto").permitAll()
-                        .requestMatchers("/admin/**").hasRole("ADMIN")
-                        .anyRequest().authenticated()
+                        .requestMatchers("/", "/login", "/registro", "/iniciar-sesion", "/inicio", "/vuelos", "/contacto", "/error").permitAll()
+                        .requestMatchers("/reservar", "/asientos", "/pago", "/confirmar-reserva", "/reserva-confirmada")
+                        .hasAnyRole("CLIENTE", "ADMIN")
+                        .anyRequest().hasRole("CLIENTE")
                 )
                 .formLogin(form -> form
                         .loginPage("/login")                     // Coincide con @GetMapping({"/", "/login"})
@@ -34,6 +90,10 @@ public class SecurityConfig {
                         .defaultSuccessUrl("/inicio", true)      // Redirige a /inicio (si fuera "/" volvería al login)
                         .failureUrl("/login?error=true")
                         .permitAll()
+                )
+                .exceptionHandling(ex -> ex
+                        .accessDeniedHandler((request, response, e) ->
+                                response.sendRedirect(request.getContextPath() + "/login?denegado=true"))
                 )
                 .logout(logout -> logout
                         .logoutRequestMatcher(request -> "/logout".equals(request.getServletPath())
@@ -57,14 +117,13 @@ public class SecurityConfig {
     public UserDetailsService userDetailsService(UsuarioRepository usuarioRepository) {
         return correo -> {
             Usuario usuario = usuarioRepository.findByCorreo(correo)
-                    .orElseThrow(() -> new UsernameNotFoundException("Usuario no encontrado: " + correo));
-
-            String rol = (usuario instanceof Administrador) ? "ADMIN" : "CLIENTE";
+                    .filter(u -> u instanceof Cliente)
+                    .orElseThrow(() -> new UsernameNotFoundException("Cliente no encontrado: " + correo));
 
             return User.builder()
                     .username(usuario.getCorreo())
                     .password(usuario.getContrasenia())
-                    .roles(rol)
+                    .roles("CLIENTE")
                     .build();
         };
     }

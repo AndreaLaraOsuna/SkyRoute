@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Nueva Reservación')}"></head>
+<body>
+
+<div class="layout-admin">
+    <aside th:replace="~{admin/fragments/base :: barraLateral('reservaciones')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoRegresar('/admin/reservaciones')}"></header>
+
+        <main class="contenido-admin">
+            <div class="cabecera-pagina">
+                <h1 class="titulo-pagina">
+                    <span class="solo-movil">Buscar cliente</span>
+                    <span class="solo-escritorio">Nueva Reservación</span>
+                </h1>
+            </div>
+
+            <p th:replace="~{admin/fragments/base :: error}"></p>
+
+            <form method="get" th:action="@{/admin/reservaciones/nueva}">
+                <label class="campo-buscar">
+                    <input type="search" name="q" th:value="${q}" placeholder="Nombre o teléfono del cliente">
+                    <img th:src="@{/imgs/iconos/buscar.svg}" alt="" class="icono icono-pequeno">
+                </label>
+            </form>
+
+            <div class="lista-clientes">
+                <a th:each="c : ${clientes}" class="tarjeta-cliente"
+                   th:href="@{/admin/reservaciones/nueva(q=${q}, clienteId=${c.id})}">
+                    <input type="radio" name="cliente" class="selector-oculto" tabindex="-1"
+                           th:checked="${clienteSeleccionado != null and clienteSeleccionado.id == c.id}">
+                    <span class="tarjeta-cliente-nombre" th:text="${c.nombreCompleto}">Nombre</span>
+                    <span class="tarjeta-cliente-telefono" th:text="${c.telefono}">6440000000</span>
+                </a>
+                <p class="mensaje-vacio" th:if="${#lists.isEmpty(clientes)}">No se encontraron clientes.</p>
+            </div>
+
+            <form class="barra-acciones" method="post" th:action="@{/admin/reservaciones/nueva}">
+                <input type="hidden" name="clienteId"
+                       th:value="${clienteSeleccionado != null} ? ${clienteSeleccionado.id} : ''">
+                <button type="submit" class="boton boton-oscuro"
+                        th:disabled="${clienteSeleccionado == null}">Realizar reserva</button>
+            </form>
+        </main>
+    </div>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="es" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{admin/fragments/base :: head('Clientes')}"></head>
+<body>
+
+<div class="layout-admin">
+    <!-- Si no hay cliente elegido, en móvil se ve la lista; al elegir uno se ve su historial -->
+    <input type="radio" name="cliente" id="cliente-ninguno" class="selector-oculto" th:checked="${idSeleccionado == null}">
+
+    <aside th:replace="~{admin/fragments/base :: barraLateral('clientes')}"></aside>
+
+    <div class="area-admin">
+        <header th:replace="~{admin/fragments/base :: encabezadoPrincipal}"></header>
+
+        <header class="encabezado-admin encabezado-secundario">
+            <a th:href="@{/admin/clientes(q=${q})}" class="boton-regresar">
+                <img th:src="@{/imgs/iconos/flecha-izquierda.svg}" alt="" class="icono icono-blanco">
+            </a>
+        </header>
+
+        <main class="contenido-admin">
+            <div class="pagina-clientes">
+                <section class="solo-vista-principal">
+                    <div class="cabecera-pagina">
+                        <h1 class="titulo-pagina">Clientes</h1>
+                    </div>
+                    <form method="get" th:action="@{/admin/clientes}">
+                        <label class="campo-buscar">
+                            <input type="search" name="q" th:value="${q}" placeholder="Nombre o teléfono del cliente">
+                            <img th:src="@{/imgs/iconos/buscar.svg}" alt="" class="icono icono-pequeno">
+                        </label>
+                    </form>
+                    <div class="lista-clientes">
+                        <a th:each="c, it : ${clientes}" class="tarjeta-cliente"
+                           th:classappend="${it.first} ? 'tarjeta-cliente-inicial'"
+                           th:href="@{/admin/clientes(q=${q}, id=${c.id})}">
+                            <input type="radio" name="cliente" class="selector-oculto selector-vista" tabindex="-1"
+                                   th:checked="${idSeleccionado != null and idSeleccionado == c.id}">
+                            <span class="tarjeta-cliente-nombre" th:text="${c.nombreCompleto}">Nombre</span>
+                            <span class="tarjeta-cliente-telefono" th:text="${c.telefono}">6440000000</span>
+                        </a>
+                        <p class="mensaje-vacio" th:if="${#lists.isEmpty(clientes)}">No se encontraron clientes.</p>
+                    </div>
+                </section>
+
+                <section class="solo-vista-secundaria">
+                    <div class="panel-historial" th:if="${historial != null}" th:with="h=${historial}">
+                        <div class="cabecera-pagina solo-movil">
+                            <h1 class="titulo-pagina">Historial Cliente</h1>
+                        </div>
+
+                        <article class="tarjeta datos-cliente">
+                            <p class="dato-principal" th:text="${h.cliente.nombreCompleto}">Nombre</p>
+                            <p class="texto-secundario" th:text="'Correo: ' + ${h.cliente.correo}">Correo</p>
+                            <p class="texto-secundario" th:text="'Teléfono: ' + ${h.cliente.telefono}">Teléfono</p>
+                        </article>
+
+                        <div class="grupo-estadisticas">
+                            <div class="tarjeta-estadistica"><span class="estadistica-valor" th:text="${h.totalReservaciones}">0</span>reservaciones</div>
+                            <div class="tarjeta-estadistica estadistica-total">
+                                <span th:text="'$' + ${#numbers.formatDecimal(h.totalGastado, 1, 'COMMA', 2, 'POINT')} + ' MXN'">$0 MXN</span><br>Total Gastado
+                            </div>
+                            <div class="tarjeta-estadistica"><span class="estadistica-valor" th:text="${h.completadas}">0</span>completadas</div>
+                            <div class="tarjeta-estadistica"><span class="estadistica-valor" th:text="${h.canceladas}">0</span>canceladas</div>
+                        </div>
+
+                        <h2 class="subtitulo-lista">Reservaciones próximas</h2>
+                        <div class="lista-reservaciones">
+                            <a th:each="r : ${h.proximas}" th:href="@{/admin/reservaciones/{id}(id=${r.id})}"
+                               th:insert="~{:: tarjetaHistorial(${r})}" class="tarjeta tarjeta-historial"></a>
+                            <p class="mensaje-vacio" th:if="${#lists.isEmpty(h.proximas)}">Sin reservaciones.</p>
+                        </div>
+
+                        <h2 class="subtitulo-lista">Reservaciones anteriores</h2>
+                        <div class="lista-reservaciones">
+                            <a th:each="r : ${h.anteriores}" th:href="@{/admin/reservaciones/{id}(id=${r.id})}"
+                               th:insert="~{:: tarjetaHistorial(${r})}" class="tarjeta tarjeta-historial"></a>
+                            <p class="mensaje-vacio" th:if="${#lists.isEmpty(h.anteriores)}">Sin reservaciones.</p>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <nav th:replace="~{admin/fragments/base :: navegacionInferior('clientes')}"></nav>
+</div>
+
+<th:block th:replace="~{admin/fragments/base :: menuLateral}"></th:block>
+
+<!-- Contenido de cada tarjeta del historial (se reutiliza arriba) -->
+<th:block th:remove="all">
+    <th:block th:fragment="tarjetaHistorial(r)">
+        <div>
+            <p th:text="'FOLIO: ' + ${r.folio}">FOLIO</p>
+            <p th:text="${r.vuelo.ruta.origen} + ' → ' + ${r.vuelo.ruta.destino} + ', '
+                        + ${#temporals.format(r.vuelo.fecha, 'dd/MM/yyyy')} + ', '
+                        + ${#temporals.format(r.vuelo.horaSalida, 'H:mm')}">HMO → GDL</p>
+            <p th:text="${#lists.size(r.pasajeros)} + ' pasajero(s)'">1 pasajero(s)</p>
+        </div>
+        <span class="estado" th:classappend="'estado-' + ${#strings.toLowerCase(r.estado.name())}"
+              th:text="${#strings.capitalize(#strings.toLowerCase(r.estado.name()))}">Pendiente</span>
+    </th:block>
+</th:block>
+
+</body>
+</html>

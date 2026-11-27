@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.time.LocalDate;
 import java.util.List;
+import com.cisneros_guevara_lara.SkyRoute.controller.admin.AdminReservacionController;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @org.springframework.stereotype.Controller
 @RequiredArgsConstructor
@@ -28,6 +30,13 @@ public class Controller {
             return skyRouteService.buscarUsuarioPorCorreo(auth.getName());
         }
         return null;
+    }
+
+    // true si quien navega es un admin (está haciendo una reserva a nombre de un cliente)
+    @ModelAttribute("modoAdmin")
+    public boolean esModoAdmin(Authentication auth) {
+        return auth != null && auth.getAuthorities().stream()
+                .anyMatch(a -> "ROLE_ADMIN".equals(a.getAuthority()));
     }
 
     @GetMapping({"/", "/login"})
@@ -98,9 +107,14 @@ public class Controller {
         session.setAttribute("reservaVueloId", vueloId);
         session.setAttribute("reservaCantidadPasajeros", pasajeros);
 
-        Usuario usuario = skyRouteService.buscarUsuarioPorCorreo(auth.getName());
+        Cliente cliente = skyRouteService.obtenerClienteParaReserva(auth.getName(),
+                (Long) session.getAttribute(AdminReservacionController.SESION_CLIENTE_ID));
+        if (cliente == null) {
+            // Admin que no eligió cliente: lo mandamos a elegirlo
+            return "redirect:/admin/reservaciones/nueva";
+        }
         model.addAttribute("vuelo", vuelo);
-        model.addAttribute("cliente", usuario);
+        model.addAttribute("cliente", cliente);
         model.addAttribute("pasajeros", pasajeros);
         return "usuario/reservar";
     }
@@ -153,7 +167,8 @@ public class Controller {
     @SuppressWarnings("unchecked")
     public String confirmarReserva(@RequestParam MetodoPago metodoPago,
                                    Authentication auth,
-                                   HttpSession session) {
+                                   HttpSession session,
+                                   RedirectAttributes redirect) {
         Long vueloId = (Long) session.getAttribute("reservaVueloId");
         List<String> nombres = (List<String>) session.getAttribute("pasajerosNombres");
         List<LocalDate> nacimientos = (List<LocalDate>) session.getAttribute("pasajerosNacimientos");
@@ -164,8 +179,14 @@ public class Controller {
             return "redirect:/inicio";
         }
 
-        skyRouteService.crearReservacionMultiple(
-                auth.getName(), vueloId, nombres, nacimientos, nacionalidades, asientos, metodoPago
+        Cliente cliente = skyRouteService.obtenerClienteParaReserva(auth.getName(),
+                (Long) session.getAttribute(AdminReservacionController.SESION_CLIENTE_ID));
+        if (cliente == null) {
+            return "redirect:/admin/reservaciones/nueva";
+        }
+
+        Reservacion reservacion = skyRouteService.crearReservacionMultiple(
+                cliente.getCorreo(), vueloId, nombres, nacimientos, nacionalidades, asientos, metodoPago
         );
 
         session.removeAttribute("reservaVueloId");
@@ -174,8 +195,15 @@ public class Controller {
         session.removeAttribute("pasajerosNacimientos");
         session.removeAttribute("pasajerosNacionalidades");
         session.removeAttribute("pasajerosAsientos");
+        session.removeAttribute(AdminReservacionController.SESION_CLIENTE_ID);
 
-        return "redirect:/mis-reservas?confirmada=true";
+        redirect.addFlashAttribute("folio", reservacion.getFolio());
+        return "redirect:/reserva-confirmada";
+    }
+
+    @GetMapping("/reserva-confirmada")
+    public String mostrarReservaConfirmada() {
+        return "usuario/reserva-confirmada";
     }
 
     @GetMapping("/mis-reservas")
